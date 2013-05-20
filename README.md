@@ -1,4 +1,5 @@
-<b>An extension of our embedded systems project the Otolith.<b>
+<b>An extension of our embedded systems project, the Otolith.<b>
+================================================================
 
 otolith
 ========
