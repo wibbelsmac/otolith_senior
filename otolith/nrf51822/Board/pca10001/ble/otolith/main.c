@@ -550,12 +550,8 @@ int main(void)
     step_counter_init();
     motor_init();
 	  led1_init();
-
-	  // rtc test
 		lfclk_config();
 	  rtc_config();
-		mlog_num(rtc_read());
-		// end of rtc test
 	
     mlog_str("Starting MAIN...\r\n");
 

@@ -20,7 +20,7 @@ void rtc_config(void) {
 }
 
 int rtc_read(void) {  
-  return NRF_RTC0->CC[0];
+  return NRF_RTC0->COUNTER;
 }
 
 void rtc_stop(void) {
