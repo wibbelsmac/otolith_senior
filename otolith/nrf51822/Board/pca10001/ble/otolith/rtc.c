@@ -3,7 +3,7 @@
  */ 
 
 #include "nrf.h"
-#include <rtc.h>
+#include "rtc.h"
 
 void lfclk_config(void) {
   NRF_CLOCK->LFCLKSRC = (CLOCK_LFCLKSRC_SRC_Xtal << CLOCK_LFCLKSRC_SRC_Pos);
@@ -23,8 +23,12 @@ int rtc_read(void) {
   return NRF_RTC0->CC[0];
 }
 
-void rtc_reset(void) {
-  NRF_CLOCK->TASKS_LFCLKSTOP = 1;
-  NRF_CLOCK->TASKS_LFCLKCLEAR = 1;
-  lfclk_config();
+void rtc_stop(void) {
+  NRF_RTC0->TASKS_STOP = 1;
+  NRF_RTC0->TASKS_CLEAR = 1;
 }
+
+void rtc_start(void) {
+	NRF_RTC0->TASKS_START = 1;
+}
+

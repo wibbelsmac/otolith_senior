@@ -13,4 +13,6 @@ void rtc_config(void);
 
 int rtc_read(void);
 
-void rtc_reset(void);
+void rtc_stop(void);
+
+void rtc_start(void);
