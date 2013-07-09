@@ -34,6 +34,7 @@
 #include "util.h"
 #include "user_alarm.h"
 #include "motor.h"
+#include "rtc.h"
 
                      
 #define BONDMNGR_DELETE_BUTTON_PIN_NO        EVAL_BOARD_BUTTON_1                      /**< Button used for deleting all bonded masters during startup. */
