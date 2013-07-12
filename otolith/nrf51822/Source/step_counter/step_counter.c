@@ -13,12 +13,18 @@
 
 
 static measurements          data;
+static step_node *           head;
+static step_data             current_data;
+static int                   node_count;
+static int                   walking;
+
 static const int             size =  SAMPLE_SIZE;
 static acc_data_t            acc_arr[size];
 static int                   collected_data;
 
 static uint32_t              steps_since_last_send;
 static app_gpiote_user_id_t  step_counter_gpiote_user;
+
 
 
 
@@ -138,7 +144,6 @@ int count_steps(measurements *measure, acc_data_t *acc_data_array, int size) {
       below_taken = 0;
     }
   }
-
   return get_steps(steps);
 }
 
@@ -250,16 +255,14 @@ int fill_data(acc_data_t* acc_array)
 {
   int max, temp;
 	
-  if(collected_data >= SAMPLE_SIZE) 
-	{
+  if(collected_data >= SAMPLE_SIZE) {
     collected_data = 0;
   }
   
   temp = collected_data + FIFO_SAMPLES;
   max = (temp < SAMPLE_SIZE) ? temp : SAMPLE_SIZE;
 	
-  for(; collected_data < max; collected_data++) 
-	{
+  for(; collected_data < max; collected_data++) {
     update_acc_data(acc_array + collected_data);
   }
 	
@@ -276,21 +279,56 @@ int fill_data(acc_data_t* acc_array)
 static void on_fifo_full_event(uint32_t event_pins_low_to_high,
                                uint32_t event_pins_high_to_low)
 {
-  if ((event_pins_low_to_high >> FIFO_INTERRUPT_PIN_NUMBER) & 1)
-  {
+  if ((event_pins_low_to_high >> FIFO_INTERRUPT_PIN_NUMBER) & 1) {
     int steps;
-    if(fill_data(acc_arr)) 
-		{
+    if(fill_data(acc_arr)) {
       filter(acc_arr, SAMPLE_SIZE); 
       get_max_min(&data, acc_arr, SAMPLE_SIZE);
       steps = count_steps1(&data, acc_arr, SAMPLE_SIZE);
       data.total_steps += steps;
-		  steps_since_last_send += steps;
-      //print_measure_data(&data);
+      steps_since_last_send += steps;
+      store_stepCount(steps);
     }
     // Event causing the interrupt must be cleared
     NRF_GPIOTE->EVENTS_IN[0] = 0;
   }
+}
+
+int store_stepCount(int steps) {
+  if(steps != 0 && !walking) {  // started taking steps 
+      current_data.start_time = rtc_read();
+      walking = 1;
+      current_data.step = steps;
+  } else if(steps == 0 && walking) {  // stopped taking steps
+      current_data.end_time = rtc_read();
+      walking = 0;
+      push_measurement(current_data);
+  } else { // continued taking steps
+      current_data.steps += steps
+  }
+}
+
+int get_measurement_count() {
+  return node_count;
+}
+
+step_data pop_measurement () {
+  if(head != NULL) {
+    step_node temp = *head;
+    free head;
+    head = temp->next;
+    return temp.data;
+    node_count--;
+  }
+  return NULL;
+}
+
+void push_measurement (step_data data) {
+  step_node * temp = malloc(sizeof(step_node));
+  temp->data = data;
+  temp->next = head;
+  head = temp;
+  node_count++;
 }
 
 uint32_t get_step_count()
@@ -304,7 +342,12 @@ void step_counter_init()
 {
   data.interval = 10;
   data.temp_steps = 0;
-	
+	head = malloc(sizeof(step_node));
+  node_count = 0;
+  walking = 0;
+  current_data.start_time = 0;
+  current_data.end_time = 0;
+  current_data.steps = 0;
 	steps_since_last_send = 0;
 	
   // Configure fifo interrupt pin

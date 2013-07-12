@@ -2,6 +2,7 @@
 #define STEP_COUNTER_h
 
 #include "acc_driver.h"
+#include "rtc.h"
 #define SAMPLE_SIZE 100.0
 #define SAMPLE_RATE 50.0
 #define PI 3.14159265
@@ -28,6 +29,16 @@ typedef struct {
 	int temp_steps;
 } measurements;
 
+typedef struct {
+	uint32_t start_time;
+	uint32_t end_time;
+	uint32_t steps;
+} step_data;
+
+typedef struct {
+  step_data data;
+  struct step_node * next;
+} step_node;
 
 int max_of(int a, int b);
 int min_of(int a, int b);
