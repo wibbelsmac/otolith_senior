@@ -3,8 +3,9 @@
 #include <string.h>
 #include "nordic_common.h"
 #include "ble_srv_common.h"
-#include "app_util.h"  
+#include "app_util.h"
 #include "main.h" // for debug logging
+#include "step_counter.h"
 
 
 /**@brief Connect event handler.
@@ -161,7 +162,7 @@ uint32_t ble_oto_init(ble_oto_t * p_oto, const ble_oto_init_t * p_oto_init)
 }
 
 
-uint32_t ble_oto_send_step_count(ble_oto_t * p_oto, uint32_t step_count)
+uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
 {
     uint32_t err_code = NRF_SUCCESS;
     
@@ -170,20 +171,23 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto, uint32_t step_count)
     {
         ble_gatts_hvx_params_t hvx_params;
         uint16_t hvx_len;
-        hvx_len = sizeof(uint32_t);
-			  uint8_t buf[hvx_len];
-			
-			  uint32_encode(step_count, buf);
+        hvx_len = sizeof(step_data);
+        uint8_t buf[hvx_len];
+        step_data payload;
         
-        memset(&hvx_params, 0, sizeof(hvx_params));
+        while(!pop_measurement(*payload)) {
+		    // step_data_encode(payload, buf);
         
-        hvx_params.handle   = p_oto->step_count_handles.value_handle;
-        hvx_params.type     = BLE_GATT_HVX_NOTIFICATION;
-        hvx_params.offset   = 0;
-        hvx_params.p_len    = &hvx_len;
-        hvx_params.p_data   = buf;
-        
-        err_code = sd_ble_gatts_hvx(p_oto->conn_handle, &hvx_params);
+            memset(&hvx_params, 0, sizeof(hvx_params));
+            
+            hvx_params.handle   = p_oto->step_count_handles.value_handle;
+            hvx_params.type     = BLE_GATT_HVX_NOTIFICATION;
+            hvx_params.offset   = 0;
+            hvx_params.p_len    = &hvx_len;
+            hvx_params.p_data   = buf;
+            
+            err_code = sd_ble_gatts_hvx(p_oto->conn_handle, &hvx_params);
+        }
     }
     else
     {
