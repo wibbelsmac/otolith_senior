@@ -35,10 +35,12 @@ typedef struct {
 	uint32_t steps;
 } step_data;
 
-typedef struct {
+struct _step_node {
   step_data data;
-  struct step_node * next;
-} step_node;
+  struct _step_node * next;
+}; 
+
+typedef struct _step_node step_node;
 
 int max_of(int a, int b);
 int min_of(int a, int b);
@@ -51,6 +53,8 @@ int max_axis_offset(int dx, int dy, int dz);
 void get_max_min(measurements *measure, acc_data_t *data, int size);
 int count_steps(measurements *measure, acc_data_t *acc_data_array, int size);
 int count_steps1(measurements *measure, acc_data_t *acc_data_array, int size);
+void push_measurement (step_data data);
+void store_stepCount(int steps);
 
 int fill_data(acc_data_t* acc_array);
 

@@ -294,17 +294,17 @@ static void on_fifo_full_event(uint32_t event_pins_low_to_high,
   }
 }
 
-int store_stepCount(int steps) {
+void store_stepCount(int steps) {
   if(steps != 0 && !walking) {  // started taking steps 
       current_data.start_time = rtc_read();
       walking = 1;
-      current_data.step = steps;
+      current_data.steps = steps;
   } else if(steps == 0 && walking) {  // stopped taking steps
       current_data.end_time = rtc_read();
       walking = 0;
       push_measurement(current_data);
   } else { // continued taking steps
-      current_data.steps += steps
+      current_data.steps += steps;
   }
 }
 
@@ -312,15 +312,15 @@ int get_measurement_count() {
   return node_count;
 }
 
-step_data pop_measurement () {
+int pop_measurement (step_data * data) {
   if(head != NULL) {
-    step_node temp = *head;
-    free head;
-    head = temp->next;
+    *data = head->data;
+		free(head);
+    head = head->next;
     node_count--;
-    return temp.data;
+    return 0;
   }
-  return NULL;
+	return 1;
 }
 
 void push_measurement (step_data data) {
