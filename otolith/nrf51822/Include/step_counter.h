@@ -56,6 +56,7 @@ int count_steps(measurements *measure, acc_data_t *acc_data_array, int size);
 int count_steps1(measurements *measure, acc_data_t *acc_data_array, int size);
 void push_measurement (step_data data);
 void store_stepCount(int steps);
+int pop_measurement (step_data * data);
 
 int fill_data(acc_data_t* acc_array);
 

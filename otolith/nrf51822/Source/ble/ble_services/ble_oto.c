@@ -175,7 +175,7 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
         uint8_t buf[hvx_len];
         step_data payload;
         
-        while(!pop_measurement(*payload)) {
+        while(!pop_measurement(&payload)) {
 		    // step_data_encode(payload, buf);
         
             memset(&hvx_params, 0, sizeof(hvx_params));
