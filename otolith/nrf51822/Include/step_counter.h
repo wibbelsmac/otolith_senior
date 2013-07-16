@@ -3,6 +3,7 @@
 
 #include "acc_driver.h"
 #include "rtc.h"
+#include "app_util.h"
 #define SAMPLE_SIZE 100.0
 #define SAMPLE_RATE 50.0
 #define PI 3.14159265
@@ -61,5 +62,20 @@ int fill_data(acc_data_t* acc_array);
 uint32_t get_step_count(void);
 
 void step_counter_init(void);
+
+/**@brief Inline function for encoding step_data.
+ *
+ * @param[in]   value            Value to be encoded.
+ * @param[out]  p_encoded_data   Buffer where the encoded data is to be written.
+ *
+ * @return      Number of bytes written.
+ */
+static __INLINE uint8_t step_data_encode(step_data value, uint8_t * p_encoded_data)
+{
+  uint32_encode(value.start_time, p_encoded_data);
+  uint32_encode(value.end_time, p_encoded_data + sizeof(uint32_t));
+  uint32_encode(value.steps, p_encoded_data  + (2 * sizeof(uint32_t)));
+  return (3 * sizeof(uint32_t));
+}
 
 #endif
