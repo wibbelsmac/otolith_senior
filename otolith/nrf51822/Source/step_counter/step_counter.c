@@ -359,25 +359,6 @@ void step_counter_init()
   app_gpiote_user_enable(step_counter_gpiote_user);
 
   acc_init();
-
-  acc_init();
-  int i, j ;
-  step_data sd_test;
-  for(j = 0; j <= 10; j++) {
-    for(i = 1; i <= 10; i++) {
-      sd_test.steps = i;
-      push_measurement(sd_test);
-      mlog_println("pushed step count: ", i);
-    } 
-    for(i = 1; i <= 15; i++) {
-      sd_test.steps = i;
-      if(!pop_measurement(&sd_test)) {
-        mlog_println("popped step count: ", sd_test.steps);
-      } else {
-        mlog_println("could not pop for: ", i);
-      }
-    } 
-  }
 }
 
 
