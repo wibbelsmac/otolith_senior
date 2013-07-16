@@ -317,8 +317,8 @@ step_data pop_measurement () {
     step_node temp = *head;
     free head;
     head = temp->next;
-    return temp.data;
     node_count--;
+    return temp.data;
   }
   return NULL;
 }
