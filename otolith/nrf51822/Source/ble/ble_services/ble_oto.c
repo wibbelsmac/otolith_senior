@@ -6,7 +6,7 @@
 #include "app_util.h"
 #include "main.h" // for debug logging
 #include "step_counter.h"
-
+#include "util.h"
 
 /**@brief Connect event handler.
  */
@@ -177,7 +177,10 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
         
         while(!pop_measurement(&payload)) {
 		    // step_data_encode(payload, buf);
-        
+						mlog_println("steps: ", payload.steps); 
+					  mlog_println("starTime: ", payload.start_time);
+					  mlog_println("StopTime: ", payload.end_time);
+						mlog_str("\n");
             memset(&hvx_params, 0, sizeof(hvx_params));
             
             hvx_params.handle   = p_oto->step_count_handles.value_handle;
