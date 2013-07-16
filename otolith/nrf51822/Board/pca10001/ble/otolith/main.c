@@ -34,6 +34,7 @@
 #include "util.h"
 #include "user_alarm.h"
 #include "motor.h"
+#include "rtc.h"
 
                      
 #define BONDMNGR_DELETE_BUTTON_PIN_NO        EVAL_BOARD_BUTTON_1                      /**< Button used for deleting all bonded masters during startup. */
@@ -160,8 +161,9 @@ static void button_event_handler(uint8_t pin_no)
         case EVAL_BOARD_BUTTON_0:
             mlog_str("button 0 pressed\r\n");
 				    
-				    if (connected)
-              ble_oto_send_step_count(&m_oto, get_step_count());
+			if (connected) {
+                ble_oto_send_step_count(&m_oto);
+            }
             
             motor_off();
             led_stop();
@@ -549,7 +551,9 @@ int main(void)
     step_counter_init();
     motor_init();
 	  led1_init();
-
+		lfclk_config();
+	  rtc_config();
+	
     mlog_str("Starting MAIN...\r\n");
 
     bond_manager_init();
