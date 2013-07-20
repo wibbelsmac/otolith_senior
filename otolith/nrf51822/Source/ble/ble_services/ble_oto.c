@@ -129,7 +129,7 @@ static uint32_t oto_char_add(ble_oto_t * p_oto, const ble_oto_init_t * p_oto_ini
     attr_char_value.p_attr_md    = &attr_md;
     attr_char_value.init_len     = sizeof(uint32_t);
     attr_char_value.init_offs    = 0;
-    attr_char_value.max_len      = sizeof(uint32_t);
+    attr_char_value.max_len      = sizeof(uint32_t) * 3;
     attr_char_value.p_value      = &initial_step_count;
     
     return sd_ble_gatts_characteristic_add(p_oto->service_handle, 
@@ -176,8 +176,9 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
         step_data payload;
         
         while(!pop_measurement(&payload)) {
-		    // step_data_encode(payload, buf);
-						mlog_println("steps: ", payload.steps); 
+		        //step_data_encode(payload, buf);
+						memcpy(buf, &payload, sizeof(step_data)); 
+					  mlog_println("steps: ", payload.steps); 
 					  mlog_println("starTime: ", payload.start_time);
 					  mlog_println("StopTime: ", payload.end_time);
 						mlog_str("\n");
