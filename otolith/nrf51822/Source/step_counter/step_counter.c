@@ -314,9 +314,10 @@ int get_measurement_count() {
 
 int pop_measurement (step_data * data) {
   if(head != NULL) {
-    *data = head->data;
+    step_node * temp = head->next;
+		*data = head->data;
 		free(head);
-    head = head->next;
+    head = temp;
     node_count--;
     return 0;
   }
