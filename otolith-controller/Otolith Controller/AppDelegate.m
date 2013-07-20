@@ -6,6 +6,7 @@
 //      (developer.apple.com/library/mac/#samplecode/HeartRateMonitor/)
 //
 //
+// mac wibbels and trais elnicky
 
 #import "AppDelegate.h"
 #import "StepCounter.h"
@@ -237,12 +238,10 @@
 - (void) updateWithStepData:(NSData *)data
 {    
     const uint8_t *stepData = [data bytes];
-    
-    uint32_t stepCount = [self uint32_decode:stepData];
-    
-    NSLog(@"Received step count: %d\n", stepCount);
-    
-    [self.stepCounter updateWithCount:stepCount];
+    const uint32_t *stepDataNEw = (uint32 *) [data bytes];
+    NSLog(@"totalBytesReceived: @%l", (unsigned long)[data length]);
+    NSLog(@"steps: %d starttime: %d endtime: %d", stepDataNEw[2], stepDataNEw[0], stepDataNEw[1]);
+    [self.stepCounter updateWithCount:stepDataNEw[2]];
     [self updateUserInterface];
     
     //NSMutableString *msg = [NSMutableString stringWithFormat:@"Received: %d\n", stepCount];
