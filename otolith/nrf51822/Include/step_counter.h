@@ -63,6 +63,7 @@ int fill_data(acc_data_t* acc_array);
 uint32_t get_step_count(void);
 
 void step_counter_init(void);
+void step_count_rtc_overflow(void);
 
 /**@brief Inline function for encoding step_data.
  *

@@ -531,6 +531,10 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
     on_ble_evt(p_ble_evt);
 }
 
+void RTC0_IRQHandler (void) {
+    step_count_rtc_overflow();
+}
+
 
 /*****************************************************************************
 * Main Function

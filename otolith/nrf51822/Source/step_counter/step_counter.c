@@ -314,8 +314,8 @@ int get_measurement_count() {
 
 int pop_measurement (step_data * data) {
   if(head != NULL) {
-    step_node * temp = head->next;
-		*data = head->data;
+    step_node *temp = head->next;
+    *data = head->data;
 		free(head);
     head = temp;
     node_count--;
@@ -337,6 +337,14 @@ uint32_t get_step_count()
   uint32_t s = steps_since_last_send;
   steps_since_last_send = 0;
   return s;
+}
+
+void step_count_rtc_overflow(void) {
+  step_data overflow_marker;
+  overflow_marker.steps = 0;
+  overflow_marker.start_time = 0;
+  overflow_marker.end_time = 0;
+  push_measurement(overflow_marker);
 }
 
 void step_counter_init()
