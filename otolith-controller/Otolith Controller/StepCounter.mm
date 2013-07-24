@@ -34,6 +34,12 @@
     [self setLatestStepCount:newCount];
     [self setTotalStepCount:([self totalStepCount] + [self latestStepCount])];
 }
+
+-(void)updateWithStepStruct: (StepData*)newCount
+{
+    self.currentTime = StepData->;
+}
+
 static NSString *pathToDocuments(void) {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     return [paths objectAtIndex:0];
@@ -49,7 +55,7 @@ static NSString *pathToDocuments(void) {
     NSString *filePath = [pathToDocuments() stringByAppendingPathComponent:@"/StepData.txt"];
     [self.stepArray writeToFile:filePath atomically:YES];
 }
--(void) psuhStep:(StepData*) data {
+-(void) pushStep:(StepData*) data {
     
 }
 

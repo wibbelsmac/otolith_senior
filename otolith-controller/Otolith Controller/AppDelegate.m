@@ -237,11 +237,10 @@
  */
 - (void) updateWithStepData:(NSData *)data
 {    
-    const uint8_t *stepData = [data bytes];
-    const uint32_t *stepDataNEw = (uint32 *) [data bytes];
+    StepData *stepDataNew = (StepData *) [data bytes];
     NSLog(@"totalBytesReceived: @%l", (unsigned long)[data length]);
-    NSLog(@"steps: %d starttime: %d endtime: %d", stepDataNEw[2], stepDataNEw[0], stepDataNEw[1]);
-    [self.stepCounter updateWithCount:stepDataNEw[2]];
+    NSLog(@"steps: %d starttime: %d endtime: %d", stepDataNew->steps, stepDataNew->startTime, stepDataNew->endTime);
+    [self.stepCounter updateWithStepStruct:stepDataNew];
     [self updateUserInterface];
     
     //NSMutableString *msg = [NSMutableString stringWithFormat:@"Received: %d\n", stepCount];

@@ -28,5 +28,6 @@ static NSString *pathToDocuments(void);
 -(void) openStepDataFile;
 -(void) writeStepDataFile;
 -(void) pushStep:(StepData*) data;
+-(void)updateWithStepStruct: (StepData*)newCount;
 
 @end
