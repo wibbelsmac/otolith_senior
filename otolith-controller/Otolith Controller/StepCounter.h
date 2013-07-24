@@ -10,11 +10,23 @@
 
 @interface StepCounter : NSObject
 
+typedef struct {
+    uint32_t steps;
+    uint32_t startTime;
+    uint32_t endTime;
+} StepData;
+
+
 @property (assign) int latestStepCount;
 @property (assign) int totalStepCount;
-
+@property (nonatomic, retain) NSMutableArray* stepArray;
+@property (nonatomic) int currentTime;
 -(void)resetStepCount;
 -(void)updateWithCount: (int)newCount;
-
+-(void) openStepDataFile;
+static NSString *pathToDocuments(void);
+-(void) openStepDataFile;
+-(void) writeStepDataFile;
+-(void) pushStep:(StepData*) data;
 
 @end
