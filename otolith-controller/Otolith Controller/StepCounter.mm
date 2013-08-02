@@ -37,9 +37,17 @@
 
 -(void)updateWithStepStruct: (StepData*)newCount
 {
-    self.currentTime = StepData->;
+    if(newCount->status & (1 << 31)) {
+        self.currentCount = newCount->startTime;
+        self.currentTime = [[NSDate alloc] init];
+    } else {
+        StepObject* stepObjTemp = [[StepObject alloc] init];
+        stepObjTemp.startDate = [self getTimeofCountwithInt:newCount->startTime];
+        stepObjTemp.endDate = [self getTimeofCountwithInt:newCount->endTime];
+        [self.stepArray addObject:stepObjTemp];
+    }
+        
 }
-
 static NSString *pathToDocuments(void) {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     return [paths objectAtIndex:0];
@@ -58,5 +66,17 @@ static NSString *pathToDocuments(void) {
 -(void) pushStep:(StepData*) data {
     
 }
+
+// 32.768 kHz. 12 bit prescaler
+-(NSDate*) getTimeofCountwithInt:(int) count {
+    int seconds = (count - self.currentCount) * .125;
+    return [self.currentTime dateByAddingTimeInterval:seconds];
+    
+}
+
+@end
+
+@implementation StepObject
+
 
 @end

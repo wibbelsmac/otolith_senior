@@ -14,13 +14,16 @@ typedef struct {
     uint32_t steps;
     uint32_t startTime;
     uint32_t endTime;
+    uint32_t status;
 } StepData;
+
 
 
 @property (assign) int latestStepCount;
 @property (assign) int totalStepCount;
 @property (nonatomic, retain) NSMutableArray* stepArray;
-@property (nonatomic) int currentTime;
+@property (nonatomic) int currentCount;
+@property (nonatomic) NSDate* currentTime;
 -(void)resetStepCount;
 -(void)updateWithCount: (int)newCount;
 -(void) openStepDataFile;
@@ -31,3 +34,10 @@ static NSString *pathToDocuments(void);
 -(void)updateWithStepStruct: (StepData*)newCount;
 
 @end
+
+@interface StepObject : NSObject
+@property (nonatomic, retain) NSDate* startDate;
+@property (nonatomic, retain) NSDate* endDate;
+@property (nonatomic) int steps;
+@end
+
