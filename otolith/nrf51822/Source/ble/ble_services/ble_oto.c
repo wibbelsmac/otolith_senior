@@ -176,11 +176,11 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
         step_data payload;
         
         while(!pop_measurement(&payload)) {
-		        //step_data_encode(payload, buf);
 						memcpy(buf, &payload, sizeof(step_data)); 
 					  mlog_println("steps: ", payload.steps); 
 					  mlog_println("starTime: ", payload.start_time);
 					  mlog_println("StopTime: ", payload.end_time);
+            mlog_println("Status: ", payload.status >> 31)
 						mlog_str("\n");
             memset(&hvx_params, 0, sizeof(hvx_params));
             

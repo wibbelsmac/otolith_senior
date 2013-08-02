@@ -302,6 +302,7 @@ void store_stepCount(int steps) {
   } else if(steps == 0 && walking) {  // stopped taking steps
       current_data.end_time = rtc_read();
       walking = 0;
+      current_data.status = 0;
       push_measurement(current_data);
   } else { // continued taking steps
       current_data.steps += steps;
@@ -344,11 +345,11 @@ void step_count_rtc_overflow(void) {
   overflow_marker.steps = 0;
   overflow_marker.start_time = 0;
   overflow_marker.end_time = 0;
+  overflow_marker.status = 0x80000000;
   push_measurement(overflow_marker);
 }
 
-void step_counter_init()
-{
+static void initialize(void) {
   data.interval = 10;
   data.temp_steps = 0;
 	head = malloc(sizeof(step_node));
@@ -357,8 +358,15 @@ void step_counter_init()
   current_data.start_time = 0;
   current_data.end_time = 0;
   current_data.steps = 0;
+  current_data.status = 0;
 	steps_since_last_send = 0;
-	
+}
+
+void step_counter_init()
+{
+  // setup private data
+	initialize();
+
   // Configure fifo interrupt pin
   nrf_gpio_cfg_input(FIFO_INTERRUPT_PIN_NUMBER, NRF_GPIO_PIN_NOPULL);
 

@@ -30,10 +30,19 @@ typedef struct {
 	int temp_steps;
 } measurements;
 
+
+// Status field will be used to pass information to the controller about the
+// node.
+// Bit 32: if this is high it signals the controller that we intend to sync
+//         our clock with them. The steps field should be zero and the 
+//         startTime and endTime should have our current rtc counter value.
+//     ex: 0x 8000 0000
+
 typedef struct {
 	uint32_t start_time;
 	uint32_t end_time;
 	uint32_t steps;
+  uint32_t status;
 } step_data;
 
 struct _step_node {
