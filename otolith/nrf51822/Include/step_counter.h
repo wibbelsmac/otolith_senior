@@ -17,9 +17,6 @@
 #define MIN_CONSECUTIVE_STEPS 4
 #define MIN_PRECISION 30
 
-
-typedef void (*on_timeout_handler_t) (void);
-
 typedef struct {
   int threshold;
   int max;
@@ -67,6 +64,7 @@ int count_steps1(measurements *measure, acc_data_t *acc_data_array, int size);
 void push_measurement (step_data data);
 void store_stepCount(int steps);
 int pop_measurement (step_data * data);
+void push_sync_node(void);
 
 int fill_data(acc_data_t* acc_array);
 

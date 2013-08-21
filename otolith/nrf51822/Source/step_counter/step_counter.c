@@ -29,7 +29,6 @@ static app_gpiote_user_id_t  step_counter_gpiote_user;
 
 // Timer attributes
 static app_timer_id_t        step_timer_id;
-static on_timeout_handler_t  on_timeout_handler;
 static uint32_t              total_minutes_past;
 
 
