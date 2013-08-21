@@ -11,9 +11,9 @@
 @interface StepCounter : NSObject
 
 typedef struct {
-    uint32_t steps;
     uint32_t startTime;
     uint32_t endTime;
+    uint32_t steps;
     uint32_t status;
 } StepData;
 
