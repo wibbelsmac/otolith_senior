@@ -376,13 +376,18 @@ static void on_timeout_handler(void * p_context) {
 }
 
 static uint32_t init_step_timer() {
-
+  uint32_t err_code, one_minute, prescaler;
   total_minutes_past = 0;
+  one_minute = 60 * 1000;
+  prescaler = 0;
 
   // Create a repeating alarm that expires every minute
-  return app_timer_create(&step_timer_id,
-                          APP_TIMER_MODE_REPEATED,
-                          on_timeout_handler);
+  err_code = app_timer_create(&step_timer_id,
+                              APP_TIMER_MODE_REPEATED,
+                              on_timeout_handler);
+  APP_ERROR_CHECK(err_code);
+
+  app_timer_start(step_timer_id, APP_TIMER_TICKS(one_minute, prescaler), NULL);
 }
 
 void step_counter_init()
