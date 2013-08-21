@@ -18,6 +18,7 @@
     self = [super init];
     if (self)
     {
+        [self openStepDataFile];
         [self resetStepCount];
     }
     return self;
@@ -40,11 +41,16 @@
     if(newCount->status & (1 << 31)) {
         self.currentCount = newCount->startTime;
         self.currentTime = [[NSDate alloc] init];
+        NSLog(@"Associating count: %d with current time", self.currentCount);
     } else {
         StepObject* stepObjTemp = [[StepObject alloc] init];
         stepObjTemp.startDate = [self getTimeofCountwithInt:newCount->startTime];
         stepObjTemp.endDate = [self getTimeofCountwithInt:newCount->endTime];
+        stepObjTemp.steps = newCount->steps;
         [self.stepArray addObject:stepObjTemp];
+        NSDateFormatter *DateFormatter=[[NSDateFormatter alloc] init];
+        [DateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+        NSLog(@"Received %d: steps starting at: %@  ending at: %@", stepObjTemp.steps,[DateFormatter stringFromDate:stepObjTemp.startDate],[DateFormatter stringFromDate:stepObjTemp.endDate]);
     }
         
 }

@@ -67,6 +67,7 @@
     if(peripheral)
     {
         [manager cancelPeripheralConnection:peripheral];
+        [self.stepCounter writeStepDataFile];
     }
 }
 
@@ -238,8 +239,8 @@
 - (void) updateWithStepData:(NSData *)data
 {    
     StepData *stepDataNew = (StepData *) [data bytes];
-    NSLog(@"totalBytesReceived: @%l", (unsigned long)[data length]);
-    NSLog(@"steps: %d starttime: %d endtime: %d", stepDataNew->steps, stepDataNew->startTime, stepDataNew->endTime);
+    NSLog(@"totalBytesReceived: %l", (unsigned long)[data length]);
+    NSLog(@"steps: %d starttime: %d endtime: %d Status:%x", stepDataNew->steps, stepDataNew->startTime, stepDataNew->endTime, stepDataNew->status);
     [self.stepCounter updateWithStepStruct:stepDataNew];
     [self updateUserInterface];
     
