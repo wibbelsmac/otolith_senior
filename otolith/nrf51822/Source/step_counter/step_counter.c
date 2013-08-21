@@ -329,6 +329,7 @@ void push_measurement (step_data data) {
   step_node * temp = malloc(sizeof(step_node));
   temp->data = data;
   temp->next = head;
+	mlog_println("prescaler:", NRF_RTC0->PRESCALER);
   head = temp;
   node_count++;
 }

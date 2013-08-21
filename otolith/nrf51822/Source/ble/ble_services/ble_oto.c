@@ -129,7 +129,7 @@ static uint32_t oto_char_add(ble_oto_t * p_oto, const ble_oto_init_t * p_oto_ini
     attr_char_value.p_attr_md    = &attr_md;
     attr_char_value.init_len     = sizeof(uint32_t);
     attr_char_value.init_offs    = 0;
-    attr_char_value.max_len      = sizeof(uint32_t) * 3;
+    attr_char_value.max_len      = sizeof(uint32_t) * 4;
     attr_char_value.p_value      = &initial_step_count;
     
     return sd_ble_gatts_characteristic_add(p_oto->service_handle, 
@@ -160,8 +160,15 @@ uint32_t ble_oto_init(ble_oto_t * p_oto, const ble_oto_init_t * p_oto_init)
     // Add characteristic
     return oto_char_add(p_oto, p_oto_init);
 }
-
-
+void push_status_node () {
+	
+	step_data status;
+	status.status = 1 << 31;
+	status.start_time = rtc_read();
+	status.end_time = rtc_read();
+	status.steps = 0;
+	push_measurement(status);
+}
 uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
 {
     uint32_t err_code = NRF_SUCCESS;
@@ -174,13 +181,14 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
         hvx_len = sizeof(step_data);
         uint8_t buf[hvx_len];
         step_data payload;
-        
+        push_status_node();
+			 
         while(!pop_measurement(&payload)) {
 						memcpy(buf, &payload, sizeof(step_data)); 
 					  mlog_println("steps: ", payload.steps); 
 					  mlog_println("starTime: ", payload.start_time);
 					  mlog_println("StopTime: ", payload.end_time);
-            mlog_println("Status: ", payload.status >> 31)
+            mlog_println("Status: ", payload.status >> 31);
 						mlog_str("\n");
             memset(&hvx_params, 0, sizeof(hvx_params));
             

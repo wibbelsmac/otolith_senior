@@ -6,7 +6,7 @@
 #include "rtc.h"
 
 void lfclk_config(void) {
-  NRF_CLOCK->LFCLKSRC = (CLOCK_LFCLKSRC_SRC_Xtal << CLOCK_LFCLKSRC_SRC_Pos);
+  NRF_CLOCK->LFCLKSRC = (CLOCK_LFCLKSRC_SRC_RC << CLOCK_LFCLKSRC_SRC_Pos);
   NRF_CLOCK->EVENTS_LFCLKSTARTED = 0;
   NRF_CLOCK->TASKS_LFCLKSTART = 1;
   while (NRF_CLOCK->EVENTS_LFCLKSTARTED == 0)
@@ -16,7 +16,9 @@ void lfclk_config(void) {
 }
 
 void rtc_config(void) {
+	//rtc_stop();
   NRF_RTC0->PRESCALER = COUNTER_PRESCALER;   // Set prescaler to a TICK of RTC_FREQUENCY
+	rtc_start();
 }
 
 int rtc_read(void) {  

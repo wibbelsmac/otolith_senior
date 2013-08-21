@@ -557,24 +557,32 @@ int main(void)
 	  led1_init();
 		lfclk_config();
 	  rtc_config();
-	
-    mlog_str("Starting MAIN...\r\n");
+		mlog_println("prescaler:", NRF_RTC0->PRESCALER);
+		volatile int i =0; 
+		while( i < 20000000) {
+			i ++;
+		}
+    mlog_println("counter:", NRF_RTC0->COUNTER);
+		rtc_stop();
+		mlog_println("prescaler:", NRF_RTC0->PRESCALER);
+		mlog_println("counter:", NRF_RTC0->COUNTER);
+		mlog_str("Starting MAIN...\r\n");
 
     bond_manager_init();
-    ble_stack_init();
-    radio_notification_init();
-
+    mlog_println("prescaler:", NRF_RTC0->PRESCALER);
+		ble_stack_init();
+    mlog_println("prescaler:", NRF_RTC0->PRESCALER);
+		radio_notification_init();
+		mlog_println("prescaler:", NRF_RTC0->PRESCALER);
     // Initialize Bluetooth Stack parameters
     gap_params_init();
     advertising_init();
     services_init();
     conn_params_init();
     sec_params_init();
-
     // Actually start advertising
     //advertising_start();
 		app_button_enable();
-
     // Enter main loop
     for (;;)
     {
