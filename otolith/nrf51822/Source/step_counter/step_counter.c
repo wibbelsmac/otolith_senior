@@ -8,6 +8,8 @@
 #include "simple_uart.h"
 #include "acc_driver.h"
 #include "step_counter.h"
+#include "user_alarm.h"
+#include "nordic_common.h"
 #include "util.h"
 
 
@@ -24,6 +26,11 @@ static int                   collected_data;
 
 static uint32_t              steps_since_last_send;
 static app_gpiote_user_id_t  step_counter_gpiote_user;
+
+// Timer attributes
+static app_timer_id_t        step_timer_id;
+static on_timeout_handler_t  on_timeout_handler;
+static uint32_t              total_minutes_past;
 
 
 
@@ -296,11 +303,11 @@ static void on_fifo_full_event(uint32_t event_pins_low_to_high,
 
 void store_stepCount(int steps) {
   if(steps != 0 && !walking) {  // started taking steps 
-      current_data.start_time = rtc_read();
+      current_data.start_time = total_minutes_past;
       walking = 1;
       current_data.steps = steps;
   } else if(steps == 0 && walking) {  // stopped taking steps
-      current_data.end_time = rtc_read();
+      current_data.end_time = total_minutes_past;
       walking = 0;
       current_data.status = 0;
       push_measurement(current_data);
@@ -329,9 +336,17 @@ void push_measurement (step_data data) {
   step_node * temp = malloc(sizeof(step_node));
   temp->data = data;
   temp->next = head;
-	mlog_println("prescaler:", NRF_RTC0->PRESCALER);
   head = temp;
   node_count++;
+}
+
+void push_sync_node () {
+  step_data status;
+  status.status = 1 << 31;
+  status.start_time = total_minutes_past;
+  status.end_time = total_minutes_past;
+  status.steps = 0;
+  push_measurement(status);
 }
 
 uint32_t get_step_count()
@@ -339,15 +354,6 @@ uint32_t get_step_count()
   uint32_t s = steps_since_last_send;
   steps_since_last_send = 0;
   return s;
-}
-
-void step_count_rtc_overflow(void) {
-  step_data overflow_marker;
-  overflow_marker.steps = 0;
-  overflow_marker.start_time = 0;
-  overflow_marker.end_time = 0;
-  overflow_marker.status = 0x80000000;
-  push_measurement(overflow_marker);
 }
 
 static void initialize(void) {
@@ -363,6 +369,23 @@ static void initialize(void) {
 	steps_since_last_send = 0;
 }
 
+static void on_timeout_handler(void * p_context) {
+  UNUSED_PARAMETER(p_context);
+  total_minutes_past++;
+
+  mlog_println("on_timeout_handler", total_minutes_past);
+}
+
+static uint32_t init_step_timer() {
+
+  total_minutes_past = 0;
+
+  // Create a repeating alarm that expires every minute
+  return app_timer_create(&step_timer_id,
+                          APP_TIMER_MODE_REPEATED,
+                          on_timeout_handler);
+}
+
 void step_counter_init()
 {
   // setup private data
@@ -373,8 +396,10 @@ void step_counter_init()
 
   uint32_t mask = 1 << FIFO_INTERRUPT_PIN_NUMBER;
   app_gpiote_user_register(&step_counter_gpiote_user, mask, 0, on_fifo_full_event);
-
   app_gpiote_user_enable(step_counter_gpiote_user);
+
+  // setup timer
+  init_step_timer();  
 
   acc_init();
 }

@@ -34,7 +34,6 @@
 #include "util.h"
 #include "user_alarm.h"
 #include "motor.h"
-#include "rtc.h"
 
                      
 #define BONDMNGR_DELETE_BUTTON_PIN_NO        EVAL_BOARD_BUTTON_1                      /**< Button used for deleting all bonded masters during startup. */
@@ -531,11 +530,6 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
     on_ble_evt(p_ble_evt);
 }
 
-void RTC0_IRQHandler (void) {
-    step_count_rtc_overflow();
-}
-
-
 /*****************************************************************************
 * Main Function
 *****************************************************************************/
@@ -555,31 +549,17 @@ int main(void)
     step_counter_init();
     motor_init();
 	  led1_init();
-		lfclk_config();
-	  rtc_config();
-		mlog_println("prescaler:", NRF_RTC0->PRESCALER);
-		volatile int i =0; 
-		while( i < 20000000) {
-			i ++;
-		}
-    mlog_println("counter:", NRF_RTC0->COUNTER);
-		rtc_stop();
-		mlog_println("prescaler:", NRF_RTC0->PRESCALER);
-		mlog_println("counter:", NRF_RTC0->COUNTER);
-		mlog_str("Starting MAIN...\r\n");
-
     bond_manager_init();
-    mlog_println("prescaler:", NRF_RTC0->PRESCALER);
 		ble_stack_init();
-    mlog_println("prescaler:", NRF_RTC0->PRESCALER);
 		radio_notification_init();
-		mlog_println("prescaler:", NRF_RTC0->PRESCALER);
+
     // Initialize Bluetooth Stack parameters
     gap_params_init();
     advertising_init();
     services_init();
     conn_params_init();
     sec_params_init();
+
     // Actually start advertising
     //advertising_start();
 		app_button_enable();

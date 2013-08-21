@@ -2,8 +2,8 @@
 #define STEP_COUNTER_h
 
 #include "acc_driver.h"
-#include "rtc.h"
 #include "app_util.h"
+
 #define SAMPLE_SIZE 100.0
 #define SAMPLE_RATE 50.0
 #define PI 3.14159265
@@ -18,6 +18,7 @@
 #define MIN_PRECISION 30
 
 
+typedef void (*on_timeout_handler_t) (void);
 
 typedef struct {
   int threshold;
@@ -35,7 +36,7 @@ typedef struct {
 // node.
 // Bit 32: if this is high it signals the controller that we intend to sync
 //         our clock with them. The steps field should be zero and the 
-//         startTime and endTime should have our current rtc counter value.
+//         startTime and endTime should have our current timer value.
 //     ex: 0x 8000 0000
 
 typedef struct {
@@ -72,7 +73,6 @@ int fill_data(acc_data_t* acc_array);
 uint32_t get_step_count(void);
 
 void step_counter_init(void);
-void step_count_rtc_overflow(void);
 
 /**@brief Inline function for encoding step_data.
  *
