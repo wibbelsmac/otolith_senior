@@ -375,7 +375,7 @@ static void on_timeout_handler(void * p_context) {
   mlog_println("on_timeout_handler", total_minutes_past);
 }
 
-static uint32_t init_step_timer() {
+static void init_step_timer() {
   uint32_t err_code, one_minute, prescaler;
   total_minutes_past = 0;
   one_minute = 60 * 1000;
@@ -394,18 +394,19 @@ void step_counter_init()
 {
   // setup private data
 	initialize();
-
+	mlog_str("Initialize\r\n");
   // Configure fifo interrupt pin
   nrf_gpio_cfg_input(FIFO_INTERRUPT_PIN_NUMBER, NRF_GPIO_PIN_NOPULL);
-
+	    mlog_str("GPIO\r\n");
   uint32_t mask = 1 << FIFO_INTERRUPT_PIN_NUMBER;
   app_gpiote_user_register(&step_counter_gpiote_user, mask, 0, on_fifo_full_event);
   app_gpiote_user_enable(step_counter_gpiote_user);
-
+	mlog_str("User enable and Register\r\n");
   // setup timer
   init_step_timer();  
-
+    mlog_str("Step Timer Init\r\n");
   acc_init();
+	    mlog_str("Acc Init\r\n");
 }
 
 

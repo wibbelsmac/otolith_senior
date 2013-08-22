@@ -538,17 +538,22 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
  */
 int main(void)
 {
+		
     uint32_t err_code;
      
 	  connected = false;
 	
     mlog_init();
+		mlog_str("Started Main\r\n");
     timers_init();
     gpiote_init();
     buttons_init();
+		mlog_str("broken as hell\r\n");
     step_counter_init();
     motor_init();
 	  led1_init();
+		mlog_str("Starting MAIN...\r\n");
+	
     bond_manager_init();
 		ble_stack_init();
 		radio_notification_init();
