@@ -75,8 +75,8 @@ static NSString *pathToDocuments(void) {
 
 // 32.768 kHz. 12 bit prescaler
 -(NSDate*) getTimeofCountwithInt:(int) count {
-    int seconds = (count - self.currentCount) * .125;
-    return [self.currentTime dateByAddingTimeInterval:seconds];
+    int secondsAgo = (count - self.currentCount) * 60;
+    return [self.currentTime dateByAddingTimeInterval:secondsAgo];
     
 }
 
