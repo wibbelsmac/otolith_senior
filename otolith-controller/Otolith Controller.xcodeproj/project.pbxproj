@@ -16,6 +16,8 @@
 		0ABCE65A17284B2900014317 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABCE65917284B2900014317 /* AppDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0ABCE65D17284B2900014317 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ABCE65B17284B2900014317 /* MainMenu.xib */; };
 		0ABCE74117288DE900014317 /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ABCE74017288DE900014317 /* IOBluetooth.framework */; };
+		67AA0C0F17C6A0BF00636BF7 /* ActiveRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 67AA0C0E17C6A0BF00636BF7 /* ActiveRemote.m */; };
+		AB24C10325FB4539863B711B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C556741908499CAD53E68B /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,10 @@
 		0ABCE65917284B2900014317 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0ABCE65C17284B2900014317 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		0ABCE74017288DE900014317 /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
+		26C556741908499CAD53E68B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		67AA0C0D17C6A0BF00636BF7 /* ActiveRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveRemote.h; sourceTree = "<group>"; };
+		67AA0C0E17C6A0BF00636BF7 /* ActiveRemote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActiveRemote.m; sourceTree = "<group>"; };
+		DB52FACAC60149D79313F8C2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +52,7 @@
 			files = (
 				0ABCE64717284B2900014317 /* Cocoa.framework in Frameworks */,
 				0ABCE74117288DE900014317 /* IOBluetooth.framework in Frameworks */,
+				AB24C10325FB4539863B711B /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +65,7 @@
 				0ABCE64C17284B2900014317 /* Otolith Controller */,
 				0ABCE64517284B2900014317 /* Frameworks */,
 				0ABCE64417284B2900014317 /* Products */,
+				DB52FACAC60149D79313F8C2 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +83,7 @@
 				0ABCE74017288DE900014317 /* IOBluetooth.framework */,
 				0ABCE64617284B2900014317 /* Cocoa.framework */,
 				0ABCE64817284B2900014317 /* Other Frameworks */,
+				26C556741908499CAD53E68B /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -100,6 +109,8 @@
 				0A28DB6E172DDD9E00D6AB9B /* StepCounter.mm */,
 				0A28DB70172DEAAE00D6AB9B /* UserAlarm.h */,
 				0A28DB71172DEAAE00D6AB9B /* UserAlarm.m */,
+				67AA0C0D17C6A0BF00636BF7 /* ActiveRemote.h */,
+				67AA0C0E17C6A0BF00636BF7 /* ActiveRemote.m */,
 			);
 			path = "Otolith Controller";
 			sourceTree = "<group>";
@@ -123,9 +134,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0ABCE66017284B2900014317 /* Build configuration list for PBXNativeTarget "Otolith Controller" */;
 			buildPhases = (
+				23288D9402CE4A2E9DCDFEA0 /* Check Pods Manifest.lock */,
 				0ABCE63F17284B2900014317 /* Sources */,
 				0ABCE64017284B2900014317 /* Frameworks */,
 				0ABCE64117284B2900014317 /* Resources */,
+				21044970CF074042BA820D97 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -175,6 +188,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		21044970CF074042BA820D97 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		23288D9402CE4A2E9DCDFEA0 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0ABCE63F17284B2900014317 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -184,6 +230,7 @@
 				0ABCE65A17284B2900014317 /* AppDelegate.m in Sources */,
 				0A28DB6F172DDD9E00D6AB9B /* StepCounter.mm in Sources */,
 				0A28DB72172DEAAE00D6AB9B /* UserAlarm.m in Sources */,
+				67AA0C0F17C6A0BF00636BF7 /* ActiveRemote.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +325,7 @@
 		};
 		0ABCE66117284B2900014317 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB52FACAC60149D79313F8C2 /* Pods.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -290,6 +338,7 @@
 		};
 		0ABCE66217284B2900014317 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB52FACAC60149D79313F8C2 /* Pods.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
