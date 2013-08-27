@@ -7,7 +7,7 @@
 //
 
 #import "StepCounter.h"
-
+#import "ActiveRemote.h"
 
 
 
@@ -18,7 +18,6 @@
     self = [super init];
     if (self)
     {
-        [self openStepDataFile];
         [self resetStepCount];
     }
     return self;
@@ -28,6 +27,7 @@
 {
     [self setLatestStepCount:0];
     [self setTotalStepCount:0];
+    self.stepArray = [[NSMutableArray alloc] init];
 }
 
 -(void)updateWithCount: (int)newCount
@@ -49,7 +49,7 @@
         stepObjTemp.steps = newCount->steps;
         [self.stepArray addObject:stepObjTemp];
         NSDateFormatter *DateFormatter=[[NSDateFormatter alloc] init];
-        [DateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+        [DateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss z"];
         NSLog(@"Received %d: steps starting at: %@  ending at: %@", stepObjTemp.steps,[DateFormatter stringFromDate:stepObjTemp.startDate],[DateFormatter stringFromDate:stepObjTemp.endDate]);
     }
         
@@ -58,18 +58,11 @@ static NSString *pathToDocuments(void) {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     return [paths objectAtIndex:0];
 }
--(void) openStepDataFile {
-    NSString *filePath = [pathToDocuments() stringByAppendingPathComponent:@"/StepData.txt"];
-    self.stepArray  = [NSMutableArray arrayWithContentsOfFile:filePath];
-    if(!self.stepArray) {
-         self.stepArray = [[NSMutableArray alloc] init];
+
+-(void) uploadToServer {
+    for(int i = 0; i < self.stepArray.count; i++) {
+        [ActiveRemote create:[self.stepArray[i] encodeAsDictionary]];
     }
-    StepObject * sO = [[StepObject alloc] init];
-    sO.steps = 1000000;
-    [self.stepArray addObject:sO];
-   // [self.stepArray writeToFile:filePath atomically:YES];
-}
--(void) writeStepDataFile {
     NSString *filePath = [pathToDocuments() stringByAppendingPathComponent:@"/StepData.txt"];
     if(![self.stepArray writeToFile:filePath atomically:YES]) {
         NSLog(@"ERROR Saving Array!");
@@ -95,21 +88,16 @@ static NSString *pathToDocuments(void) {
 @property (nonatomic, retain) NSDate* endDate;
 @property (nonatomic) int steps;
 */
-- (void)encodeWithCoder:(NSCoder *)enCoder {
-    [super encodeWithCoder:enCoder];
-    [enCoder encodeObject:self.startDate forKey:@"startDate"];
-    [enCoder encodeObject:self.endDate forKey:@"endDate"];
-    [enCoder encodeObject:self.steps forKey:@"steps"];
+
+- (NSDictionary *)encodeAsDictionary {
+    NSDateFormatter *DateFormatter=[[NSDateFormatter alloc] init];
+    [DateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss z"];
+    
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setValue:[DateFormatter stringFromDate:self.startDate] forKey:@"start_time"];
+    [dict setValue:[DateFormatter stringFromDate:self.endDate] forKey:@"end_time"];
+    [dict setValue:[NSNumber numberWithInt:self.steps] forKey:@"amount"];
+    return dict;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    
-    if(self = [super initWithCoder:aDecoder]) {
-        self.startDate = [aDecoder decodeObjectForKey:@"startDate"];
-        self.endDate = [aDecoder decodeObjectForKey:@"endDate"];
-        self.steps = [aDecoder decodeObjectForKey:@"steps"];
-    }
-    
-    return self;
-}
 @end

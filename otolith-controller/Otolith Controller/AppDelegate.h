@@ -45,6 +45,7 @@
 - (IBAction)closeScanSheet:(id)sender;
 - (IBAction)setAlarmButtonPressed:(id)sender;
 - (IBAction)resetCountButtonPressed:(id)sender;
+- (IBAction)uploadButtonPressed:(id)sender;
 
 - (int)convertToInt:(NSDate*)date;
 - (int)getAlarmTimeDelta;

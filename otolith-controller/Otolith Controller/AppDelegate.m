@@ -67,7 +67,7 @@
     if(peripheral)
     {
         [manager cancelPeripheralConnection:peripheral];
-        [self.stepCounter writeStepDataFile];
+        [self.stepCounter uploadToServer];
     }
 }
 
@@ -125,6 +125,9 @@
     }
 }
 
+- (IBAction)uploadButtonPressed:(id)sender {
+            [self.stepCounter uploadToServer];
+}
 #pragma mark - Connect Button
 
 /*
@@ -222,6 +225,7 @@
     [self.stepCounter resetStepCount];
     [self updateUserInterface];
 }
+
 
 - (uint32_t) uint32_decode:(const uint8_t *) p_encoded_data
 {

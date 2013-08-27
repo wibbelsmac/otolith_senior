@@ -13,12 +13,12 @@
 
 + (void)create:(NSDictionary*) record
 {
-    NSURL *base_url = [NSURL URLWithString:@"http://localhost:3000"];
+    NSURL *base_url = [NSURL URLWithString:@"http://codoscopy.com"];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:base_url];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
                                                             path:@"steps"
-                                                      parameters:record];
+                                                      parameters:@{ @"step": record}];
     
     
     AFJSONRequestOperation *operation =
