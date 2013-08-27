@@ -64,10 +64,16 @@ static NSString *pathToDocuments(void) {
     if(!self.stepArray) {
          self.stepArray = [[NSMutableArray alloc] init];
     }
+    StepObject * sO = [[StepObject alloc] init];
+    sO.steps = 1000000;
+    [self.stepArray addObject:sO];
+   // [self.stepArray writeToFile:filePath atomically:YES];
 }
 -(void) writeStepDataFile {
     NSString *filePath = [pathToDocuments() stringByAppendingPathComponent:@"/StepData.txt"];
-    [self.stepArray writeToFile:filePath atomically:YES];
+    if(![self.stepArray writeToFile:filePath atomically:YES]) {
+        NSLog(@"ERROR Saving Array!");
+    }
 }
 -(void) pushStep:(StepData*) data {
     
@@ -83,6 +89,27 @@ static NSString *pathToDocuments(void) {
 @end
 
 @implementation StepObject
+/*
+@interface StepObject : NSObject <NSCoding>
+@property (nonatomic, retain) NSDate* startDate;
+@property (nonatomic, retain) NSDate* endDate;
+@property (nonatomic) int steps;
+*/
+- (void)encodeWithCoder:(NSCoder *)enCoder {
+    [super encodeWithCoder:enCoder];
+    [enCoder encodeObject:self.startDate forKey:@"startDate"];
+    [enCoder encodeObject:self.endDate forKey:@"endDate"];
+    [enCoder encodeObject:self.steps forKey:@"steps"];
+}
 
-
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    
+    if(self = [super initWithCoder:aDecoder]) {
+        self.startDate = [aDecoder decodeObjectForKey:@"startDate"];
+        self.endDate = [aDecoder decodeObjectForKey:@"endDate"];
+        self.steps = [aDecoder decodeObjectForKey:@"steps"];
+    }
+    
+    return self;
+}
 @end

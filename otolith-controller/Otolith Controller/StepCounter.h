@@ -23,10 +23,9 @@ typedef struct {
 @property (assign) int totalStepCount;
 @property (nonatomic, retain) NSMutableArray* stepArray;
 @property (nonatomic) int currentCount;
-@property (nonatomic) NSDate* currentTime;
+@property (nonatomic, retain) NSDate* currentTime;
 -(void)resetStepCount;
 -(void)updateWithCount: (int)newCount;
--(void) openStepDataFile;
 static NSString *pathToDocuments(void);
 -(void) openStepDataFile;
 -(void) writeStepDataFile;
@@ -35,7 +34,7 @@ static NSString *pathToDocuments(void);
 
 @end
 
-@interface StepObject : NSObject
+@interface StepObject : NSObject <NSCoding>
 @property (nonatomic, retain) NSDate* startDate;
 @property (nonatomic, retain) NSDate* endDate;
 @property (nonatomic) int steps;

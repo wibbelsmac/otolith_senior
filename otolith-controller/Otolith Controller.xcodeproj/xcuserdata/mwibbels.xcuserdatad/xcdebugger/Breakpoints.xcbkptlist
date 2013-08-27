@@ -86,11 +86,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Otolith Controller/StepCounter.mm"
-         timestampString = "398724528.467983"
+         timestampString = "398890273.012825"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "69"
-         endingLineNumber = "69"
+         startingLineNumber = "73"
+         endingLineNumber = "73"
          landmarkName = "-writeStepDataFile"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,12 +112,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Otolith Controller/StepCounter.mm"
-         timestampString = "398724528.467983"
+         timestampString = "398890615.34099"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "70"
-         endingLineNumber = "70"
+         startingLineNumber = "74"
+         endingLineNumber = "74"
          landmarkName = "-writeStepDataFile"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Otolith Controller/StepCounter.mm"
+         timestampString = "398889353.818909"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "65"
+         endingLineNumber = "65"
+         landmarkName = "-openStepDataFile"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
