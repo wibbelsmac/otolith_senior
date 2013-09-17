@@ -34,6 +34,7 @@
 #include "util.h"
 #include "user_alarm.h"
 #include "motor.h"
+#include "adc.h"
 
                      
 #define BONDMNGR_DELETE_BUTTON_PIN_NO        EVAL_BOARD_BUTTON_1                      /**< Button used for deleting all bonded masters during startup. */
@@ -548,11 +549,11 @@ int main(void)
     timers_init();
     gpiote_init();
     buttons_init();
-		mlog_str("broken as hell\r\n");
     step_counter_init();
     motor_init();
 	  led1_init();
-		mlog_str("Starting MAIN...\r\n");
+		adc_config();
+		mlog_str("Finished Config...\r\n");
 	
     bond_manager_init();
 		ble_stack_init();
@@ -566,7 +567,6 @@ int main(void)
     sec_params_init();
 
     // Actually start advertising
-    //advertising_start();
 		app_button_enable();
     // Enter main loop
     for (;;)

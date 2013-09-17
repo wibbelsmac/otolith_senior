@@ -1,16 +1,27 @@
 #include "adc.h"
+#include "app_error.h"
+#include "nrf.h"
+#include "nrf51_bitfields.h"
+#include "util.h"
 
 void ADC_IRQHandler(void) {
-  if(NRF_ADC->busy) {
+	NVIC_DisableIRQ(ADC_IRQn);
+	NVIC_ClearPendingIRQ(ADC_IRQn);
+  
+  mlog_str("ADC Handler");
+	if(NRF_ADC->BUSY) {
     return;
   }
 
   mlog_println("ADC: ", NRF_ADC->RESULT);
+	NVIC_EnableIRQ(ADC_IRQn);
 }
 
 void adc_config(void) {
+	NVIC_DisableIRQ(ADC_IRQn);
   // ADC must be off to configure
   if(NRF_ADC->BUSY) {
+		mlog_str("ADC Busy");
     NRF_ADC->TASKS_STOP;
   }
 
@@ -30,24 +41,18 @@ void adc_config(void) {
 }
 
 static void ppi_init(void) {
-  uint32_t err_code;
 
-  // Configure PPI channel 1 to toggle ADVERTISING_LED_PIN_NO on every TIMER2 COMPARE[0] match
-  err_code = sd_ppi_channel_assign(PPI_CHAN1_TO_CONT_READ,
-                                   &(NRF_TIMER2->EVENTS_COMPARE[0]),
-                                   &(NRF_ADC->TASKS_START));
-  APP_ERROR_CHECK(err_code);
-
-  // Enable PPI channel 0
-  err_code = sd_ppi_channel_enable_set(PPI_CHEN_CH0_Msk);
-  APP_ERROR_CHECK(err_code);
+	NRF_PPI->CH[3].EEP = (uint32_t)&(NRF_TIMER2->EVENTS_COMPARE[0]);
+	NRF_PPI->CH[3].TEP = (uint32_t)&(NRF_ADC->TASKS_START);
+	NRF_PPI->CHENCLR = PPI_CHEN_CH3_Msk;
+	NRF_PPI->CHENSET = PPI_CHEN_CH3_Msk;
 }
 
 static void timer2_init(void)
 {
     // Configure timer
     NRF_TIMER2->MODE      = TIMER_MODE_MODE_Timer;
-    NRF_TIMER2->BITMODE   = TIMER_BITMODE_BITMODE_8Bit;
+    NRF_TIMER2->BITMODE   = TIMER_BITMODE_BITMODE_08Bit;
     NRF_TIMER2->PRESCALER = ADC_TIMER_PRESCALER;
 
     // Clear the timer
