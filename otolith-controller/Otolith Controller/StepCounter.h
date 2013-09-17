@@ -27,16 +27,16 @@ typedef struct {
 -(void)resetStepCount;
 -(void)updateWithCount: (int)newCount;
 static NSString *pathToDocuments(void);
--(void) openStepDataFile;
--(void) writeStepDataFile;
+-(void) uploadToServer;
 -(void) pushStep:(StepData*) data;
 -(void)updateWithStepStruct: (StepData*)newCount;
 
 @end
 
-@interface StepObject : NSObject <NSCoding>
+@interface StepObject : NSObject
 @property (nonatomic, retain) NSDate* startDate;
 @property (nonatomic, retain) NSDate* endDate;
 @property (nonatomic) int steps;
+- (NSDictionary*) encodeAsDictionary;
 @end
 
