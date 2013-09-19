@@ -1,32 +1,34 @@
 #include "adc.h"
 #include "app_error.h"
 #include "nrf.h"
+#include "nrf_gpio.h"
 #include "nrf51_bitfields.h"
 #include "util.h"
 
 void ADC_IRQHandler(void) {
-	NVIC_DisableIRQ(ADC_IRQn);
 	NVIC_ClearPendingIRQ(ADC_IRQn);
   
-  mlog_str("ADC Handler");
+ 
 	if(NRF_ADC->BUSY) {
+    mlog_str("ADC Handler\r\n");
     return;
   }
-
-  mlog_println("ADC: ", NRF_ADC->RESULT);
-	NVIC_EnableIRQ(ADC_IRQn);
+	//if(NRF_ADC->RESULT != 0)
+		mlog_println("ADC: ", NRF_ADC->RESULT);
+	NRF_ADC->EVENTS_END = 0;
+	//NRF_ADC->TASKS_STOP = 1;
 }
 
 void adc_config(void) {
 	NVIC_DisableIRQ(ADC_IRQn);
   // ADC must be off to configure
   if(NRF_ADC->BUSY) {
-		mlog_str("ADC Busy");
-    NRF_ADC->TASKS_STOP;
+		mlog_str("ADC Busy\r\n");
+    NRF_ADC->TASKS_STOP = 1;
   }
 
   NRF_ADC->CONFIG = (
-    (ADC_CONFIG_PSEL_AnalogInput0 << ADC_CONFIG_PSEL_Pos)|
+    (ADC_CONFIG_PSEL_AnalogInput3 << ADC_CONFIG_PSEL_Pos)|
     (ADC_CONFIG_RES_8bit << ADC_CONFIG_RES_Pos)|
     (ADC_CONFIG_INPSEL_AnalogInputNoPrescaling << ADC_CONFIG_INPSEL_Pos)|
     (ADC_CONFIG_REFSEL_VBG << ADC_CONFIG_REFSEL_Pos)|
@@ -35,9 +37,14 @@ void adc_config(void) {
 
   ppi_init();
   timer2_init();
-
-  NRF_ADC->ENABLE = 1;
+	
+  NRF_ADC->INTENSET = ADC_INTENSET_END_Msk;
+  NRF_ADC->ENABLE = ADC_ENABLE_ENABLE_Enabled;
+  NVIC_ClearPendingIRQ(ADC_IRQn);
+  NVIC_SetPriority(ADC_IRQn, ADC_IRQ_PRI);
   NVIC_EnableIRQ(ADC_IRQn);
+	
+	NRF_TIMER2->TASKS_START = 1;
 }
 
 static void ppi_init(void) {
@@ -52,7 +59,7 @@ static void timer2_init(void)
 {
     // Configure timer
     NRF_TIMER2->MODE      = TIMER_MODE_MODE_Timer;
-    NRF_TIMER2->BITMODE   = TIMER_BITMODE_BITMODE_08Bit;
+    NRF_TIMER2->BITMODE   = TIMER_BITMODE_BITMODE_32Bit;
     NRF_TIMER2->PRESCALER = ADC_TIMER_PRESCALER;
 
     // Clear the timer

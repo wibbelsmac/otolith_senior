@@ -69,7 +69,7 @@ typedef uint32_t (*ble_stack_evt_schedule_func_t) (void);
                                           sizeof(EVT_BUFFER),                                      \
                                           (EVT_HANDLER),                                           \
                                           (USE_SCHEDULER) ? ble_stack_evt_schedule : NULL);        \
-        APP_ERROR_CHECK(ERR_CODE);                                                                 \
+			  APP_ERROR_CHECK(ERR_CODE);                                                                 \
     } while (0)
 
 /**@brief Initialize stack handler module.

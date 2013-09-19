@@ -4,7 +4,6 @@
  *
  */
 
-
 #include "main.h"
 #include <stdint.h>
 #include <string.h>
@@ -545,19 +544,19 @@ int main(void)
 	  connected = false;
 	
     mlog_init();
-		mlog_str("Started Main\r\n");
+	mlog_str("Started Main\r\n");
     timers_init();
     gpiote_init();
     buttons_init();
     step_counter_init();
     motor_init();
-	  led1_init();
-		adc_config();
-		mlog_str("Finished Config...\r\n");
+	led1_init();
+	adc_config();
+	mlog_str("Finished Config...\r\n");
 	
     bond_manager_init();
-		ble_stack_init();
-		radio_notification_init();
+	ble_stack_init();
+	radio_notification_init();
 
     // Initialize Bluetooth Stack parameters
     gap_params_init();
@@ -567,6 +566,7 @@ int main(void)
     sec_params_init();
 
     // Actually start advertising
+		mlog_str("Finished Init...\r\n");
 		app_button_enable();
     // Enter main loop
     for (;;)
