@@ -1,7 +1,8 @@
-#ifdef DAC_DRIVER_h
-void update_acc_data(acc_data_t *);
-int write_register(uint8_t register_address, uint8_t value);
-int read_register(uint8_t register_address, int num_bytes, uint8_t* values);
-int acc_init(void);
+#ifndef DAC_DRIVER_h
+
+uint16_t const DAC_WRITE = 0x7000;
+uint16_t const DAC_SHUTDOWN = 0x6000;
+int dac_init(void);
+int write_voltage(uint8_t value);
 
 #endif

@@ -30,7 +30,7 @@ int int_init(void)
     return 0;
 }
 int acc_init() {
-    // Use SPI0, mode0 with lsb shifted as requested  PLACE AT TOP	
+    // Use SPI0, mode3 with lsb shifted as requested  PLACE AT TOP	
     volatile uint32_t counter = 0;
     spi_ba = spi_master_init(SPI0, SPI_MODE3, false);
     if (spi_ba == 0) {

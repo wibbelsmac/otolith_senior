@@ -34,6 +34,7 @@
 #include "user_alarm.h"
 #include "motor.h"
 #include "adc.h"
+#include "dac_driver.h"
 
                      
 #define BONDMNGR_DELETE_BUTTON_PIN_NO        EVAL_BOARD_BUTTON_1                      /**< Button used for deleting all bonded masters during startup. */
@@ -552,6 +553,7 @@ int main(void)
     motor_init();
 	led1_init();
 	adc_config();
+  dac_init();
 	mlog_str("Finished Config...\r\n");
 	
     bond_manager_init();
