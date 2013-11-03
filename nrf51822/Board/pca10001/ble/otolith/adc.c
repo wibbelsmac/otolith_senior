@@ -7,14 +7,13 @@
 
 void ADC_IRQHandler(void) {
 	NVIC_ClearPendingIRQ(ADC_IRQn);
-  
- 
+	
 	if(NRF_ADC->BUSY) {
     mlog_str("ADC Handler\r\n");
     return;
   }
 	//if(NRF_ADC->RESULT != 0)
-		mlog_println("ADC: ", NRF_ADC->RESULT);
+	//	mlog_println("ADC: ", NRF_ADC->RESULT);
 	NRF_ADC->EVENTS_END = 0;
 	//NRF_ADC->TASKS_STOP = 1;
 }

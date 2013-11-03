@@ -3,8 +3,8 @@
 
 #include "app_util.h"
 
-#define ADC_CAPTURE_COMPARE_0_VALUE 0xFFF // measure at 488hz
-#define ADC_TIMER_PRESCALER 0xF // clock ~= 976hz
+#define ADC_CAPTURE_COMPARE_0_VALUE 0x7F
+#define ADC_TIMER_PRESCALER 0xF
 #define PPI_CHAN1_TO_CONT_READ 1
 #define ADC_IRQ_PRI APP_IRQ_PRIORITY_HIGH
 #define ADC_IN_PIN_NUMBER (1)
