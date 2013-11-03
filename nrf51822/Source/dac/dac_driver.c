@@ -1,5 +1,6 @@
 #include <spi_master.h>
 #include "dac_driver.h"
+#include "util.h"
 
 int write_register(uint8_t register_address, uint8_t value);
 
@@ -13,9 +14,9 @@ int dac_init() {
     return -1;
   }
 	
-	uint8_t foo = 0x7f;
+	uint8_t foo = 0xff;
   //while(true) {
-    write_voltage(foo);
+    shutdown_voltage();
     volatile int i = 0;
     for(i = 0; i < 5000; i++);
   //}
@@ -23,12 +24,18 @@ int dac_init() {
   return 0;
 }
 
-int write_voltage(uint16_t value) 
+int write_voltage(uint16_t value)
 {
-  uint8_t rx[2];
-  uint8_t tx[2];
+  return write_to_dac(DAC_WRITE, value);
+}
+
+int write_to_dac(uint16_t config, uint16_t value) {
 	// shifting by 4 for 8 bit resolution
-	*((uint16_t*)tx) = DAC_WRITE | (value << 4);
+	uint16_t data = config | (value << 4);
+	uint8_t tx[2];
+	uint8_t rx[2];
+	tx[1] = data & 0x00FF;
+	tx[0] = data >> 8;
 
   if(!spi_master_tx_rx(spi_base, 2, tx, rx)) 
   {
@@ -36,6 +43,11 @@ int write_voltage(uint16_t value)
   }
 
   return 0;
+}
+
+int shutdown_voltage()
+{
+  return write_to_dac(DAC_SHUTDOWN, 0x0);
 }
 
 
