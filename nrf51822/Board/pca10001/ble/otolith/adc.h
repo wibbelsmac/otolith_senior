@@ -11,5 +11,6 @@
 void adc_config(void);
 static void ppi_init(void);
 static void timer2_init(void);
-
+uint32_t adc3_read();
+uint32_t adc4_read();
 #endif

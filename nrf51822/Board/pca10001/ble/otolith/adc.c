@@ -26,6 +26,16 @@ void ADC_IRQHandler(void) {
 	NRF_ADC->EVENTS_END = 0;
 }
 
+uint32_t adc3_read() {
+  NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput3 <<  ADC_CONFIG_PSEL_MSK);
+  return NRF_ADC->RESULT;
+}
+
+uint32_t adc4_read() {
+  NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput4 <<  ADC_CONFIG_PSEL_MSK);
+  return NRF_ADC->RESULT;
+}
+
 void adc_config(void) {
 	NVIC_DisableIRQ(ADC_IRQn);
   // ADC must be off to configure
@@ -57,7 +67,6 @@ void adc_config(void) {
 }
 
 static void ppi_init(void) {
-
 	NRF_PPI->CH[3].EEP = (uint32_t)&(NRF_TIMER2->EVENTS_COMPARE[0]);
 	NRF_PPI->CH[3].TEP = (uint32_t)&(NRF_ADC->TASKS_START);
 	NRF_PPI->CHENCLR = PPI_CHEN_CH3_Msk;
