@@ -8,10 +8,11 @@
 #include "moving_avg.h"
 
 static samples_struct moving_avg;
+static uint8_t v_plus = 8;
 
 void ADC_IRQHandler(void) {
 	NVIC_ClearPendingIRQ(ADC_IRQn);
-  add_sample(&moving_avg);	
+  add_sample(&moving_avg, NRF_ADC->RESULT);	
 	
 	if(NRF_ADC->BUSY) {
     mlog_str("ADC Handler\r\n");
@@ -19,9 +20,9 @@ void ADC_IRQHandler(void) {
   }
 	
   mlog_println("ADC: ", NRF_ADC->RESULT);
-	mlog_println("AVG: ", moving_avg->avg);
+	mlog_println("AVG: ", moving_avg.avg);
 	
-  write_voltage(moving_avg->avg + 8);
+  write_voltage(moving_avg.avg );
 	NRF_ADC->EVENTS_END = 0;
 }
 

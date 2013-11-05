@@ -1,7 +1,10 @@
 #ifndef MOVING_AVG_h
 #define MOVING_AVG_h
+#include <stdint.h>
+#include <string.h>
 
-#define SAMPLE_SIZE = 256;
+#define SAMPLE_SIZE 256
+
 typedef struct {
   uint32_t avg;
   uint32_t sum;

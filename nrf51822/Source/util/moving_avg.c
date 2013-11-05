@@ -12,12 +12,12 @@ void samples_init(uint16_t *_samples) {
 }
 
 void add_sample(samples_struct* s, uint16_t value) {
-  uint16_t old_value = s->samples[oldest_sample];
-  s->samples[oldest_sample] = value;
-  s->sum = (sum - old_value) + value;
-  s->avg = sum / SAMPLE_SIZE;
+  uint16_t old_value = s->samples[s->oldest_sample];
+  s->samples[s->oldest_sample] = value;
+  s->sum = (s->sum - old_value) + value;
+  s->avg = s->sum / SAMPLE_SIZE;
 
-  if(oldest_sample < SAMPLE_SIZE - 1) {
+  if(s->oldest_sample < SAMPLE_SIZE - 1) {
     s->oldest_sample++;
   }
   else {

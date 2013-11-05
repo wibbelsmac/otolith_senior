@@ -38,7 +38,7 @@ int write_to_dac(uint16_t config, uint16_t value) {
   return 0;
 }
 
-int shutdown_voltage()
+int shutdown_voltage(void)
 {
   return write_to_dac(DAC_SHUTDOWN, 0x0);
 }

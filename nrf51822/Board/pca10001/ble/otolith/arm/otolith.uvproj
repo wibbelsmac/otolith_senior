@@ -350,7 +350,7 @@
               <MiscControls>--c99</MiscControls>
               <Define>NRF51,DEBUG_NRF_USER</Define>
               <Undefine></Undefine>
-              <IncludePath>..;..\..\..\..\..\Include;..\..\..\..\..\Include\app_common;..\..\..\..\..\Include\ble;..\..\..\..\..\Include\ble\ble_services;..\..\..\..\..\Include\ble\softdevice</IncludePath>
+              <IncludePath>..;..\..\..\..\..\Include;..\..\..\..\..\Include\app_common;..\..\..\..\..\Include\ble;..\..\..\..\..\Include\ble\ble_services;..\..\..\..\..\Include\ble\softdevice;..\..\..\..\..\Include\util</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -440,6 +440,16 @@
               <FileName>dac_driver.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\Source\dac\dac_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>moving_avg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Source\util\moving_avg.c</FilePath>
+            </File>
+            <File>
+              <FileName>util.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Source\util\util.c</FilePath>
             </File>
           </Files>
         </Group>

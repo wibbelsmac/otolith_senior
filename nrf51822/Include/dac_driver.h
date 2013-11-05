@@ -5,6 +5,6 @@
 int dac_init(void);
 int write_voltage(uint16_t value);
 int write_to_dac(uint16_t config, uint16_t value);
-int shutdown_voltage();
+int shutdown_voltage(void);
 
 #endif
