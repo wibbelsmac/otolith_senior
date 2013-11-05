@@ -4,16 +4,35 @@
 #include "nrf_gpio.h"
 #include "nrf51_bitfields.h"
 #include "util.h"
+#include "dac_driver.h"
+
+static uint8_t avg = 0;
+static uint16_t count = 0;
+static uint32_t sum = 0;
+static uint16_t TOTAL_SAMPLES = 0;
+static uint8_t samples[TOTAL_SAMPLES];
 
 void ADC_IRQHandler(void) {
 	NVIC_ClearPendingIRQ(ADC_IRQn);
+	
+	if(count < 128) {
+		count++;
+		sum += NRF_ADC->RESULT;
+	} 
+	else {
+		avg = sum / 128;
+		count = 0;
+		sum = 0;
+	}
 	
 	if(NRF_ADC->BUSY) {
     mlog_str("ADC Handler\r\n");
     return;
   }
 	//if(NRF_ADC->RESULT != 0)
-	//	mlog_println("ADC: ", NRF_ADC->RESULT);
+	mlog_println("ADC: ", NRF_ADC->RESULT);
+	mlog_println("AVG: ", avg);
+	write_voltage(avg + 8);
 	NRF_ADC->EVENTS_END = 0;
 	//NRF_ADC->TASKS_STOP = 1;
 }
@@ -29,7 +48,7 @@ void adc_config(void) {
   NRF_ADC->CONFIG = (
     (ADC_CONFIG_PSEL_AnalogInput3 << ADC_CONFIG_PSEL_Pos)|
     (ADC_CONFIG_RES_8bit << ADC_CONFIG_RES_Pos)|
-    (ADC_CONFIG_INPSEL_AnalogInputNoPrescaling << ADC_CONFIG_INPSEL_Pos)|
+    (ADC_CONFIG_INPSEL_AnalogInputOneThirdPrescaling << ADC_CONFIG_INPSEL_Pos)|
     (ADC_CONFIG_REFSEL_VBG << ADC_CONFIG_REFSEL_Pos)|
     (ADC_CONFIG_EXTREFSEL_None << ADC_CONFIG_EXTREFSEL_Pos)
   );

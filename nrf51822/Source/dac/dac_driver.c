@@ -14,13 +14,6 @@ int dac_init() {
     return -1;
   }
 	
-	uint8_t foo = 0xff;
-  //while(true) {
-    shutdown_voltage();
-    volatile int i = 0;
-    for(i = 0; i < 5000; i++);
-  //}
-
   return 0;
 }
 
