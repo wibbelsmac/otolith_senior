@@ -9,31 +9,74 @@
 
 static samples_struct moving_avg;
 static uint8_t v_plus = 8;
+static uint8_t v_max = 226;
+static uint8_t v_min = 30;
+static uint8_t read_adc = 3; 
 
 void ADC_IRQHandler(void) {
 	NVIC_ClearPendingIRQ(ADC_IRQn);
-  add_sample(&moving_avg, NRF_ADC->RESULT);	
 	
 	if(NRF_ADC->BUSY) {
     mlog_str("ADC Handler\r\n");
     return;
   }
 	
-  mlog_println("ADC: ", NRF_ADC->RESULT);
-	mlog_println("AVG: ", moving_avg.avg);
+	uint8_t result = NRF_ADC->RESULT;
+	if(read_adc == 3) {
+		add_sample(&moving_avg, result);
+		write_voltage(moving_avg.avg + v_plus);
+		//mlog_println("ADC3: ", result);
+		read_adc = 4;	
+	}
+	else if(read_adc == 4) {
+		read_adc = 3;
+		
+		if(result < v_min) {
+			v_plus++;
+			mlog_println("VPLUS: ", v_plus);
+		}
+		else if(result > v_max) {
+			v_plus--;
+			mlog_println("VPLUS: ", v_plus);
+		}
+		
+		//mlog_println("ADC4: ", result);
+	}
 	
-  write_voltage(moving_avg.avg );
+	set_adc_pin_select(read_adc);
 	NRF_ADC->EVENTS_END = 0;
 }
 
-uint32_t adc3_read() {
-  NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput3 <<  ADC_CONFIG_PSEL_MSK);
-  return NRF_ADC->RESULT;
-}
-
-uint32_t adc4_read() {
-  NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput4 <<  ADC_CONFIG_PSEL_MSK);
-  return NRF_ADC->RESULT;
+void set_adc_pin_select(uint8_t adc_in) {
+	NRF_ADC->CONFIG = NRF_ADC->CONFIG & ~ADC_CONFIG_PSEL_Msk;
+	switch(adc_in) {
+	case 0:
+		NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput0 <<  ADC_CONFIG_PSEL_Pos);
+		break;
+	case 1:
+		NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput1 <<  ADC_CONFIG_PSEL_Pos);
+		break;
+	case 2:
+		NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput2 <<  ADC_CONFIG_PSEL_Pos);
+		break;
+	case 3:
+		NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput3 <<  ADC_CONFIG_PSEL_Pos);
+		break;
+	case 4:
+		NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput4 <<  ADC_CONFIG_PSEL_Pos);
+		break;
+	case 5:
+		NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput5 <<  ADC_CONFIG_PSEL_Pos);
+		break;
+	case 6:
+		NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput6 <<  ADC_CONFIG_PSEL_Pos);
+		break;
+	case 7:
+		NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput7 <<  ADC_CONFIG_PSEL_Pos);
+		break;
+	default:
+		NRF_ADC->CONFIG = NRF_ADC->CONFIG | (ADC_CONFIG_PSEL_AnalogInput3 <<  ADC_CONFIG_PSEL_Pos);
+	}
 }
 
 void adc_config(void) {
