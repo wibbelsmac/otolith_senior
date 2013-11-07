@@ -69,7 +69,7 @@ I (..\..\..\..\..\Include\util\util.h)(0x52784897)
 I (..\..\..\..\..\Include\simple_uart.h)(0x52754A1B)
 I (..\user_alarm.h)(0x52754A1B)
 I (..\motor.h)(0x52754A1B)
-I (..\adc.h)(0x527572E2)
+I (..\adc.h)(0x52785DAF)
 I (..\..\..\..\..\Include\dac_driver.h)(0x52784C79)
 F (..\led.c)(0x52754A1B)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\led.o" --omf_browse ".\_build\led.crf" --depend ".\_build\led.d")
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
@@ -136,8 +136,8 @@ I (..\..\..\..\..\Include\system_nrf51.h)(0x52754A1B)
 I (..\..\..\..\..\Include\nrf51_bitfields.h)(0x52754A1B)
 I (..\..\..\..\..\Include\nrf51_deprecated.h)(0x52754A1B)
 I (..\rtc.h)(0x52754A1B)
-F (..\adc.c)(0x5278518C)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\adc.o" --omf_browse ".\_build\adc.crf" --depend ".\_build\adc.d")
-I (..\adc.h)(0x527572E2)
+F (..\adc.c)(0x52786326)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\adc.o" --omf_browse ".\_build\adc.crf" --depend ".\_build\adc.d")
+I (..\adc.h)(0x52785DAF)
 I (..\..\..\..\..\Include\app_common\app_util.h)(0x52754A1B)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
 I (..\..\..\..\..\Include\compiler_abstraction.h)(0x52754A1B)
