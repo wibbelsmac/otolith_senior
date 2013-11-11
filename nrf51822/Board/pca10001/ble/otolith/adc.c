@@ -23,7 +23,9 @@ void ADC_IRQHandler(void) {
 	
 	uint8_t result = NRF_ADC->RESULT;
 	if(read_adc == 3) {
-		add_sample(&moving_avg, result);
+		if(add_sample(&moving_avg, result)) {
+			mlog_println("BPM: ", calculate_bpm());
+		}
 		write_voltage(moving_avg.avg + v_plus);
 		//mlog_println("ADC3: ", result);
 		read_adc = 4;	
