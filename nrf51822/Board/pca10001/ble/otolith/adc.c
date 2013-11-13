@@ -6,6 +6,7 @@
 #include "util.h"
 #include "dac_driver.h"
 #include "moving_avg.h"
+#include "pulse.h"
 
 static samples_struct moving_avg;
 static uint8_t v_plus = 8;
@@ -23,9 +24,7 @@ void ADC_IRQHandler(void) {
 	
 	uint8_t result = NRF_ADC->RESULT;
 	if(read_adc == 3) {
-		if(add_sample(&moving_avg, result)) {
-			mlog_println("BPM: ", calculate_bpm());
-		}
+		add_moving_average_sample(&moving_avg, result);
 		write_voltage(moving_avg.avg + v_plus);
 		//mlog_println("ADC3: ", result);
 		read_adc = 4;	
@@ -33,6 +32,9 @@ void ADC_IRQHandler(void) {
 	else if(read_adc == 4) {
 		read_adc = 3;
 		
+		if(add_pulse_sample(result, moving_avg.avg)) {
+			mlog_println("BPM: ", calculate_bpm());
+		}		
 		if(result < v_min) {
 			v_plus++;
 			mlog_println("VPLUS: ", v_plus);

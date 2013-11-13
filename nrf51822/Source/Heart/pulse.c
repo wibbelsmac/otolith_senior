@@ -2,12 +2,9 @@
 #include "kiss_fftr.h"
 #include <math.h>
 
-
-
-// =========
 #define SAMPLE_FREQ 240
 // #define SAMPLE_SIZE SAMPLE_FREQ * 4
-#define SAMPLE_SIZE 1024
+#define SAMPLE_SIZE 1
 #define SAMPLE_SIZE_FREQ SAMPLE_SIZE/2 + 1
 #define GAIN 32
 
@@ -21,7 +18,8 @@ void pulse_init(void) {
 
 uint8_t add_pulse_sample(uint8_t ac, uint8_t v_ref) {
   if(sample_set_index < SAMPLE_SIZE) {    
-    sample_set[sample_set_index++] = v_ref * GAIN + ac;
+    sample_set[sample_set_index] = v_ref * GAIN + ac;
+		sample_set_index++;
     return 0;
   }
   else {

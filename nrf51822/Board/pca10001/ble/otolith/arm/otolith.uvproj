@@ -297,7 +297,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x14000</StartAddress>
-                <Size>0x2c000</Size>
+                <Size>0x2c0000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -350,7 +350,7 @@
               <MiscControls>--c99</MiscControls>
               <Define>NRF51,DEBUG_NRF_USER</Define>
               <Undefine></Undefine>
-              <IncludePath>..;..\..\..\..\..\Include;..\..\..\..\..\Include\app_common;..\..\..\..\..\Include\ble;..\..\..\..\..\Include\ble\ble_services;..\..\..\..\..\Include\ble\softdevice;..\..\..\..\..\Include\util</IncludePath>
+              <IncludePath>..;..\..\..\..\..\Include;..\..\..\..\..\Include\app_common;..\..\..\..\..\Include\ble;..\..\..\..\..\Include\ble\ble_services;..\..\..\..\..\Include\ble\softdevice;..\..\..\..\..\Include\util;..\..\..\..\..\Include\heart;..\..\..\..\..\Include\kiss_fft</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -555,6 +555,21 @@
               <FileName>step_counter.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\Source\step_counter\step_counter.c</FilePath>
+            </File>
+            <File>
+              <FileName>kiss_fft.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Source\kiss_fft\kiss_fft.c</FilePath>
+            </File>
+            <File>
+              <FileName>kiss_fftr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Source\kiss_fft\kiss_fftr.c</FilePath>
+            </File>
+            <File>
+              <FileName>pulse.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Source\Heart\pulse.c</FilePath>
             </File>
           </Files>
         </Group>

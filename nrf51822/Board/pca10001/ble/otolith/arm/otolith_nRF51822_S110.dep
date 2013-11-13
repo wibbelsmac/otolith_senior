@@ -11,7 +11,7 @@ I (C:\Keil\ARM\CMSIS\Include\core_cmFunc.h)(0x5088124E)
 I (..\..\..\..\..\Include\system_nrf51.h)(0x52754A1B)
 I (..\..\..\..\..\Include\nrf51_bitfields.h)(0x52754A1B)
 I (..\..\..\..\..\Include\nrf51_deprecated.h)(0x52754A1B)
-F (.\..\main.c)(0x52758F4F)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\main.o" --omf_browse ".\_build\main.crf" --depend ".\_build\main.d")
+F (.\..\main.c)(0x52816429)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\main.o" --omf_browse ".\_build\main.crf" --depend ".\_build\main.d")
 I (..\main.h)(0x52754A1B)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
 I (C:\Keil\ARM\ARMCC\bin\..\include\string.h)(0x50FA2630)
@@ -136,7 +136,7 @@ I (..\..\..\..\..\Include\system_nrf51.h)(0x52754A1B)
 I (..\..\..\..\..\Include\nrf51_bitfields.h)(0x52754A1B)
 I (..\..\..\..\..\Include\nrf51_deprecated.h)(0x52754A1B)
 I (..\rtc.h)(0x52754A1B)
-F (..\adc.c)(0x52786326)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\adc.o" --omf_browse ".\_build\adc.crf" --depend ".\_build\adc.d")
+F (..\adc.c)(0x5281762A)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\adc.o" --omf_browse ".\_build\adc.crf" --depend ".\_build\adc.d")
 I (..\adc.h)(0x52785DAF)
 I (..\..\..\..\..\Include\app_common\app_util.h)(0x52754A1B)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
@@ -156,8 +156,9 @@ I (..\..\..\..\..\Include\nrf_gpio.h)(0x52754A1B)
 I (..\..\..\..\..\Include\util\util.h)(0x52784897)
 I (..\..\..\..\..\Include\simple_uart.h)(0x52754A1B)
 I (..\..\..\..\..\Include\dac_driver.h)(0x52784C79)
-I (..\..\..\..\..\Include\util\moving_avg.h)(0x52784AEC)
+I (..\..\..\..\..\Include\util\moving_avg.h)(0x52816388)
 I (C:\Keil\ARM\ARMCC\bin\..\include\string.h)(0x50FA2630)
+I (..\..\..\..\..\Include\heart\pulse.h)(0x528162CA)
 F (..\..\..\..\..\Source\dac\dac_driver.c)(0x52784C94)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\dac_driver.o" --omf_browse ".\_build\dac_driver.crf" --depend ".\_build\dac_driver.d")
 I (..\..\..\..\..\Include\spi_master.h)(0x52754A1B)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h)(0x50FA2630)
@@ -165,8 +166,8 @@ I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
 I (..\..\..\..\..\Include\dac_driver.h)(0x52784C79)
 I (..\..\..\..\..\Include\util\util.h)(0x52784897)
 I (..\..\..\..\..\Include\simple_uart.h)(0x52754A1B)
-F (..\..\..\..\..\Source\util\moving_avg.c)(0x52784B73)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\moving_avg.o" --omf_browse ".\_build\moving_avg.crf" --depend ".\_build\moving_avg.d")
-I (..\..\..\..\..\Include\util\moving_avg.h)(0x52784AEC)
+F (..\..\..\..\..\Source\util\moving_avg.c)(0x52816395)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\moving_avg.o" --omf_browse ".\_build\moving_avg.crf" --depend ".\_build\moving_avg.d")
+I (..\..\..\..\..\Include\util\moving_avg.h)(0x52816388)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
 I (C:\Keil\ARM\ARMCC\bin\..\include\string.h)(0x50FA2630)
 F (..\..\..\..\..\Source\util\util.c)(0x52754A1C)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\util.o" --omf_browse ".\_build\util.crf" --depend ".\_build\util.d")
@@ -526,10 +527,6 @@ I (C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h)(0x50FA2630)
 I (..\..\..\..\..\Include\nrf_delay.h)(0x52754A1B)
 I (..\..\..\..\..\Include\nrf_gpio.h)(0x52754A1B)
 F (..\..\..\..\..\Source\util\util.c)(0x52754A1C)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\util.o" --omf_browse ".\_build\util.crf" --depend ".\_build\util.d")
-I (..\..\..\..\..\Include\util\util.h)(0x52784897)
-I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
-I (..\..\..\..\..\Include\simple_uart.h)(0x52754A1B)
-I (C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h)(0x50FA2630)
 F (..\..\..\..\..\Source\spi_master\spi_master.c)(0x52754A1C)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\spi_master.o" --omf_browse ".\_build\spi_master.crf" --depend ".\_build\spi_master.d")
 I (..\..\..\..\..\Include\spi_master.h)(0x52754A1B)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h)(0x50FA2630)
@@ -609,8 +606,8 @@ I (C:\Keil\ARM\ARMCC\bin\..\include\math.h)(0x50FA2630)
 I (C:\Keil\ARM\ARMCC\bin\..\include\string.h)(0x50FA2630)
 I (..\..\..\..\..\Include\kiss_fft\_kiss_fft_guts.h)(0x500695CE)
 I (C:\Keil\ARM\ARMCC\bin\..\include\limits.h)(0x50FA262E)
-F (..\..\..\..\..\Source\Heart\pulse.c)(0x527B127F)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\pulse.o" --omf_browse ".\_build\pulse.crf" --depend ".\_build\pulse.d")
-I (..\..\..\..\..\Include\heart\pulse.h)(0x527B129A)
+F (..\..\..\..\..\Source\Heart\pulse.c)(0x52817616)(-c --cpu Cortex-M0 -D__EVAL --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99 -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\pulse.o" --omf_browse ".\_build\pulse.crf" --depend ".\_build\pulse.d")
+I (..\..\..\..\..\Include\heart\pulse.h)(0x528162CA)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
 I (..\..\..\..\..\Include\kiss_fft\kiss_fftr.h)(0x527AFA11)
 I (..\..\..\..\..\Include\kiss_fft\kiss_fft.h)(0x527AFED0)

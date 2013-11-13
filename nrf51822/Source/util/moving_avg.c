@@ -11,7 +11,7 @@ void samples_init(uint16_t *_samples) {
   memset(_samples, 0, sizeof(_samples[0]) * SAMPLE_SIZE);
 }
 
-void add_sample(samples_struct* s, uint16_t value) {
+void add_moving_average_sample(samples_struct* s, uint16_t value) {
   uint16_t old_value = s->samples[s->oldest_sample];
   s->samples[s->oldest_sample] = value;
   s->sum = (s->sum - old_value) + value;

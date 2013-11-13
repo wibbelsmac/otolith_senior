@@ -1,4 +1,4 @@
-™/*
+/*
  *
  * Based on the Heart Rate Service Sample Application for nRF51822 evaluation board
  *
@@ -13,7 +13,7 @@
 #include "nrf51_bitfields.h"
 #include "ble.h"
 #include "ble_srv_common.h"
-#include "ble_advdata.h"2
+#include "ble_advdata.h"
 #include "ble_conn_params.h"
 #include "ble_eval_board_pins.h"
 #include "ble_stack_handler.h"
@@ -554,7 +554,6 @@ int main(void)
 	led1_init();
 	adc_config();
     dac_init();
-    pulse_init();
 	mlog_str("Finished Config...\r\n");
 	
     bond_manager_init();
