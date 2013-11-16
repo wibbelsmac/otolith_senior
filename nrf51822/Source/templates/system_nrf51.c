@@ -44,7 +44,7 @@ device.
   systems that the variable is physically present in memory so that it can be
   examined to configure the debugger.
 */
-uint32_t SystemCoreClock = __SYSTEM_CLOCK;
+extern uint32_t SystemCoreClock = __SYSTEM_CLOCK;
 
 /**
   Sets up the microcontroller system.

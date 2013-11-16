@@ -20,8 +20,8 @@ static step_data             current_data;
 static int                   node_count;
 static int                   walking;
 
-static const int             size =  SAMPLE_SIZE;
-static acc_data_t            acc_arr[size];
+//static int                   size =  SAMPLE_SIZE;
+static acc_data_t            acc_arr[(int)SAMPLE_SIZE];
 static int                   collected_data;
 
 static uint32_t              steps_since_last_send;

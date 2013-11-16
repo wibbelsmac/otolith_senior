@@ -5,6 +5,6 @@ else
 endif
 
 GNU_INSTALL_ROOT := $(PROGFILES)\CodeSourcery\Sourcery_CodeBench_Lite_for_ARM_EABI
-GNU_VERSION := 4.6.3
+GNU_VERSION := 4.7.3
 GNU_PREFIX := arm-none-eabi
 

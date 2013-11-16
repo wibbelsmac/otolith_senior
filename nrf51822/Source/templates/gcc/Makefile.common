@@ -45,19 +45,31 @@ C_SOURCE_FILES += system_$(DEVICESERIES).c
 ASSEMBLER_SOURCE_FILES += gcc_startup_$(DEVICESERIES).s
 
 # Linker flags
+LDFLAGS += -lm
 LDFLAGS += -L"$(GNU_INSTALL_ROOT)/arm-none-eabi/lib/armv6-m"
 LDFLAGS += -L"$(GNU_INSTALL_ROOT)/lib/gcc/arm-none-eabi/$(GNU_VERSION)/armv6-m"
 LDFLAGS += -Xlinker -Map=$(LISTING_DIRECTORY)/$(OUTPUT_FILENAME).map
 LDFLAGS += -mcpu=$(CPU) -mthumb -mabi=aapcs -L $(TEMPLATE_PATH) -T$(LINKER_SCRIPT)
 
+
 # Compiler flags
-CFLAGS += -mcpu=$(CPU) -mthumb -mabi=aapcs -D$(DEVICE)  -D$(BOARD) --std=gnu99
-CFLAGS += -Wall -Werror
+CFLAGS += -lm -mcpu=$(CPU) -mthumb -mabi=aapcs -D$(DEVICE)  -D$(BOARD) --std=gnu99
+CFLAGS += -Wall
 
 INCLUDEPATHS += -I../
 INCLUDEPATHS += -I$(SDK_PATH)Include
 INCLUDEPATHS += -I$(SDK_PATH)Include/gcc
+INCLUDEPATHS += -I$(SDK_PATH)Include/app_common
 INCLUDEPATHS += -I$(SDK_PATH)Include/ext_sensors
+INCLUDEPATHS += -I$(SDK_PATH)Include/ble
+INCLUDEPATHS += -I$(SDK_PATH)Include/ble/ble_services
+INCLUDEPATHS += -I$(SDK_PATH)Include/ble/softdevice
+INCLUDEPATHS += -I$(SDK_PATH)Include/boards
+INCLUDEPATHS += -I$(SDK_PATH)Include/gzll
+INCLUDEPATHS += -I$(SDK_PATH)Include/gzp
+INCLUDEPATHS += -I$(SDK_PATH)Include/heart
+INCLUDEPATHS += -I$(SDK_PATH)Include/kiss_fft
+INCLUDEPATHS += -I$(SDK_PATH)Include/util
 
 # Sorting removes duplicates
 BUILD_DIRECTORIES := $(sort $(OBJECT_DIRECTORY) $(OUTPUT_BINARY_DIRECTORY) $(LISTING_DIRECTORY) )
@@ -70,7 +82,11 @@ C_SOURCE_FILENAMES = $(notdir $(C_SOURCE_FILES) )
 ASSEMBLER_SOURCE_FILENAMES = $(notdir $(ASSEMBLER_SOURCE_FILES) )
 
 # Make a list of source paths
-C_SOURCE_PATHS = ../ $(SDK_SOURCE_PATH) $(TEMPLATE_PATH) $(wildcard $(SDK_SOURCE_PATH)*/)  $(wildcard $(SDK_SOURCE_PATH)ext_sensors/*/)
+C_SOURCE_PATHS = ../ $(SDK_SOURCE_PATH) $(TEMPLATE_PATH) $(wildcard $(SDK_SOURCE_PATH)*/) \
+ $(wildcard $(SDK_SOURCE_PATH)ext_sensors/*/) \
+ $(wildcard $(SDK_SOURCE_PATH)ble/*/) \
+ $(wildcard $(SDK_SOURCE_PATH)step_counter/*)
+
 ASSEMBLER_SOURCE_PATHS = ../ $(SDK_SOURCE_PATH) $(TEMPLATE_PATH) $(wildcard $(SDK_SOURCE_PATH)*/)
 
 C_OBJECTS = $(addprefix $(OBJECT_DIRECTORY)/, $(C_SOURCE_FILENAMES:.c=.o) )
@@ -85,7 +101,7 @@ vpath %.s $(ASSEMBLER_SOURCE_PATHS)
 
 ### Targets
 .PHONY: debug
-debug:    CFLAGS += -DDEBUG -g3 -O0
+debug:    CFLAGS += -DDEBUG -g3 -O3
 debug:    $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).bin $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).hex
 
 .PHONY: release
@@ -95,6 +111,8 @@ release:  $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).bin $(OUTPUT_BINARY_DIRE
 echostuff:
 	echo $(C_OBJECTS)
 	echo $(C_SOURCE_FILES)
+	echo $(SDK_INCLUDE_PATH)
+	echo $(CURDIR)
 
 ## Create build directories
 $(BUILD_DIRECTORIES):
