@@ -57,6 +57,62 @@
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
+		<cconfiguration id="0.1730503271.864024301">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="0.1730503271.864024301" moduleId="org.eclipse.cdt.core.settings" name="release">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration buildProperties="" description="" id="0.1730503271.864024301" name="release" parent="org.eclipse.cdt.build.core.prefbase.cfg">
+					<folderInfo id="0.1730503271.864024301." name="/" resourcePath="">
+						<toolChain id="org.eclipse.cdt.build.core.prefbase.toolchain.712188104" name="No ToolChain" resourceTypeBasedDiscovery="false" superClass="org.eclipse.cdt.build.core.prefbase.toolchain">
+							<targetPlatform id="org.eclipse.cdt.build.core.prefbase.toolchain.712188104.1358138430" name=""/>
+							<builder autoBuildTarget="release" buildPath="${workspace_loc:/otolith/gcc}" command="cs-make" enableAutoBuild="true" id="cdt.managedbuild.builder.gnu.cross.68676784" incrementalBuildTarget="release" keepEnvironmentInBuildfile="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.libs.342486470" name="holder for library settings" superClass="org.eclipse.cdt.build.core.settings.holder.libs"/>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.1261422402" name="Assembly" superClass="org.eclipse.cdt.build.core.settings.holder">
+								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1806452170" languageId="org.eclipse.cdt.core.assembly" languageName="Assembly" sourceContentType="org.eclipse.cdt.core.asmSource" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
+							</tool>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.790525533" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder">
+								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.86461870" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
+							</tool>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.1512560842" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
+								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1855261791" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;C:\Program Files (x86)\CodeSourcery\Sourcery_CodeBench_Lite_for_ARM_EABI\arm-none-eabi\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Program Files (x86)\CodeSourcery\Sourcery_CodeBench_Lite_for_ARM_EABI\lib\gcc\arm-none-eabi\4.7.3\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\gcc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\app_common&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\ble&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\ble\ble_services&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\ble\softdevice&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\boards&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\gzll&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\gzp&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\heart&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\kiss_fft&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\util&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Include\ext_sensors&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\travis\Code\otolith_senior\nrf51822\Board\pca10001\ble\otolith&quot;"/>
+								</option>
+								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.858854251" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="NRF51=1"/>
+									<listOptionValue builtIn="false" value="BOARD_PCA10001=1"/>
+								</option>
+								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1767893735" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="otolith.null.1160003559" name="otolith"/>

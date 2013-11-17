@@ -1,6 +1,6 @@
 #include "pulse.h"
 #include "kiss_fftr.h"
-#include <math.h>
+#include "math.h"
 
 #define SAMPLE_FREQ 240
 // #define SAMPLE_SIZE SAMPLE_FREQ * 4
@@ -66,5 +66,5 @@ uint16_t get_max_freq() {
 }
 
 uint16_t get_magnitude(int16_t real, int16_t img) {
-  return (uint16_t) sqrt((real*real) + (img*img));
+  return (uint16_t) sqrt((double)((real*real) + (img*img)));
 }

@@ -45,12 +45,12 @@ C_SOURCE_FILES += system_$(DEVICESERIES).c
 ASSEMBLER_SOURCE_FILES += gcc_startup_$(DEVICESERIES).s
 
 # Linker flags
-LDFLAGS += -lm
 LDFLAGS += -L"$(GNU_INSTALL_ROOT)/arm-none-eabi/lib/armv6-m"
 LDFLAGS += -L"$(GNU_INSTALL_ROOT)/lib/gcc/arm-none-eabi/$(GNU_VERSION)/armv6-m"
 LDFLAGS += -Xlinker -Map=$(LISTING_DIRECTORY)/$(OUTPUT_FILENAME).map
 LDFLAGS += -mcpu=$(CPU) -mthumb -mabi=aapcs -L $(TEMPLATE_PATH) -T$(LINKER_SCRIPT)
 
+LIBM := -L"$(GNU_INSTALL_ROOT)/arm-none-eabi/lib/armv6-m" -lm
 
 # Compiler flags
 CFLAGS += -lm -mcpu=$(CPU) -mthumb -mabi=aapcs -D$(DEVICE)  -D$(BOARD) --std=gnu99
@@ -101,7 +101,7 @@ vpath %.s $(ASSEMBLER_SOURCE_PATHS)
 
 ### Targets
 .PHONY: debug
-debug:    CFLAGS += -DDEBUG -g3 -O3
+debug:    CFLAGS += -DDEBUG -g3 -O0
 debug:    $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).bin $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).hex
 
 .PHONY: release
@@ -131,7 +131,7 @@ $(OBJECT_DIRECTORY)/%.o: %.s
 
 ## Link C and assembler objects to an .out file
 $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out: $(BUILD_DIRECTORIES) $(C_OBJECTS) $(ASSEMBLER_OBJECTS)
-	$(CC) $(LDFLAGS) $(C_OBJECTS) $(ASSEMBLER_OBJECTS) -o $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out
+	$(CC) $(LDFLAGS) $(C_OBJECTS) $(ASSEMBLER_OBJECTS) -o $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out $(LIBM)
 
 ## Create binary .bin file from the .out file
 $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).bin: $(OUTPUT_BINARY_DIRECTORY)/$(OUTPUT_FILENAME).out

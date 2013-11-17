@@ -4,37 +4,43 @@
  *
  */
 
+//#define __cs3_heap_start 0x20000000
+//#define __cs3_heap_limit 0x2000
+//#define __cs3_stack_start 0x20002000
+//#define __cs3_stack_limit 0x2000
+
+
+#include "adc.h"
+#include "app_button.h"
+#include "app_error.h"
+#include "app_gpiote.h"
+#include "app_timer.h"
+#include "ble.h"
+#include "ble_advdata.h"
+#include "ble_as.h"
+#include "ble_bondmngr.h"
+#include "ble_conn_params.h"
+#include "ble_debug_assert_handler.h"
+#include "ble_eval_board_pins.h"
+#include "ble_flash.h"
+#include "ble_oto.h"
+#include "ble_radio_notification.h"
+#include "ble_srv_common.h"
+#include "ble_stack_handler.h"
+#include "dac_driver.h"
+#include "led.h"
 #include "main.h"
-#include <stdint.h>
-#include <string.h>
+#include "motor.h"
 #include "nordic_common.h"
 #include "nrf.h"
-#include "app_error.h"
 #include "nrf51_bitfields.h"
-#include "ble.h"
-#include "ble_srv_common.h"
-#include "ble_advdata.h"
-#include "ble_conn_params.h"
-#include "ble_eval_board_pins.h"
-#include "ble_stack_handler.h"
-#include "app_timer.h"
 #include "nrf_gpio.h"
-#include "led.h"
-#include "ble_bondmngr.h"
-#include "app_gpiote.h"
-#include "app_button.h"
-#include "ble_radio_notification.h"
-#include "ble_flash.h"
-#include "ble_debug_assert_handler.h"
-#include "ble_oto.h"
-#include "ble_as.h"
 #include "nrf_gpiote.h"
 #include "step_counter.h"
-#include "util.h"
 #include "user_alarm.h"
-#include "motor.h"
-#include "adc.h"
-#include "dac_driver.h"
+#include "util.h"
+#include <stdint.h>
+#include <string.h>
 
                      
 #define BONDMNGR_DELETE_BUTTON_PIN_NO        EVAL_BOARD_BUTTON_1                      /**< Button used for deleting all bonded masters during startup. */
@@ -539,21 +545,25 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
  */
 int main(void)
 {
-		
+
+
+	printf("%x", __cs3_heap_start);
+
+
     uint32_t err_code;
      
 	  connected = false;
-	
+	volatile char * b = malloc(1);
     mlog_init();
 	mlog_str("Started Main\r\n");
     timers_init();
     gpiote_init();
     buttons_init();
     step_counter_init();
-    motor_init();
-	led1_init();
-	adc_config();
-    dac_init();
+//    motor_init();
+//	led1_init();
+//	adc_config();
+//    dac_init();
 	mlog_str("Finished Config...\r\n");
 	
     bond_manager_init();
