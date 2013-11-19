@@ -4,16 +4,22 @@
 
 #define SAMPLE_FREQ 240
 // #define SAMPLE_SIZE SAMPLE_FREQ * 4
-#define SAMPLE_SIZE 1
+#define SAMPLE_SIZE 16
 #define SAMPLE_SIZE_FREQ SAMPLE_SIZE/2 + 1
 #define GAIN 32
 
-static kiss_fft_scalar sample_set[SAMPLE_SIZE];
-static kiss_fft_cpx sample_set_freq[SAMPLE_SIZE_FREQ];
-static uint16_t sample_set_index = 0;
+//static kiss_fft_scalar sample_set[SAMPLE_SIZE];
+//static kiss_fft_cpx sample_set_freq[SAMPLE_SIZE_FREQ];
+//static uint16_t sample_set_index = 0;
+
+
+kiss_fft_scalar * sample_set;
+kiss_fft_cpx * sample_set_freq;
+uint16_t sample_set_index = 0;
 
 void pulse_init(void) {
-  
+sample_set = malloc(sizeof(kiss_fft_scalar) * SAMPLE_SIZE);
+sample_set_freq =  malloc(sizeof(kiss_fft_cpx) * SAMPLE_SIZE_FREQ);
 }
 
 uint8_t add_pulse_sample(uint8_t ac, uint8_t v_ref) {
@@ -24,7 +30,7 @@ uint8_t add_pulse_sample(uint8_t ac, uint8_t v_ref) {
   }
   else {
     sample_set_index = 0;
-    return 1;
+    return 0;
   }
 }
 

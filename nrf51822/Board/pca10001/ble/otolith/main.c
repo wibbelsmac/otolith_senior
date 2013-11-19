@@ -4,12 +4,6 @@
  *
  */
 
-//#define __cs3_heap_start 0x20000000
-//#define __cs3_heap_limit 0x2000
-//#define __cs3_stack_start 0x20002000
-//#define __cs3_stack_limit 0x2000
-
-
 #include "adc.h"
 #include "app_button.h"
 #include "app_error.h"
@@ -36,6 +30,7 @@
 #include "nrf51_bitfields.h"
 #include "nrf_gpio.h"
 #include "nrf_gpiote.h"
+#include "pulse.h"
 #include "step_counter.h"
 #include "user_alarm.h"
 #include "util.h"
@@ -545,25 +540,21 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
  */
 int main(void)
 {
-
-
-	printf("%x", __cs3_heap_start);
-
-
     uint32_t err_code;
-     
 	  connected = false;
-	volatile char * b = malloc(1);
     mlog_init();
 	mlog_str("Started Main\r\n");
+	   volatile double* myDouble = malloc(sizeof(double)* 8); 
+		mlog_num((int) myDouble);
     timers_init();
     gpiote_init();
     buttons_init();
     step_counter_init();
-//    motor_init();
-//	led1_init();
-//	adc_config();
-//    dac_init();
+    motor_init();
+		led1_init();
+		adc_config();
+    dac_init();
+    //pulse_init();
 	mlog_str("Finished Config...\r\n");
 	
     bond_manager_init();
