@@ -31,6 +31,8 @@ static app_gpiote_user_id_t  step_counter_gpiote_user;
 static app_timer_id_t        step_timer_id;
 static uint32_t              total_minutes_past;
 
+// otolith service struct
+static ble_oto_t             otolith_service
 
 
 
@@ -51,14 +53,14 @@ void filter(acc_data_t * acc_data_array, int size)
     acc_data_array[i].y =  (acc_data_array[i].y + acc_data_array[i + 1].y + acc_data_array[i + 2].y + acc_data_array[i + 3].y) / 4;
     acc_data_array[i].z =  (acc_data_array[i].z + acc_data_array[i + 1].z + acc_data_array[i + 2].z + acc_data_array[i + 3].z) / 4;
   }
-	acc_data_array[size- 3].x =  (acc_data_array[size- 3].x + acc_data_array[size- 2].x + acc_data_array[size- 1].x) / 3;
-	acc_data_array[size- 3].y =  (acc_data_array[size- 3].y + acc_data_array[size- 2].y + acc_data_array[size- 1].y) / 3;
-	acc_data_array[size- 3].z =  (acc_data_array[size- 3].z + acc_data_array[size- 2].z + acc_data_array[size- 1].z) / 3;
-	
-	acc_data_array[size- 2].x =  (acc_data_array[size- 2].x + acc_data_array[size- 1].x) / 2;
-	acc_data_array[size- 2].y =  (acc_data_array[size- 2].y + acc_data_array[size- 1].y) / 2;
-	acc_data_array[size- 2].z =  (acc_data_array[size- 2].z + acc_data_array[size- 1].z) / 2;	
-	
+  acc_data_array[size- 3].x =  (acc_data_array[size- 3].x + acc_data_array[size- 2].x + acc_data_array[size- 1].x) / 3;
+  acc_data_array[size- 3].y =  (acc_data_array[size- 3].y + acc_data_array[size- 2].y + acc_data_array[size- 1].y) / 3;
+  acc_data_array[size- 3].z =  (acc_data_array[size- 3].z + acc_data_array[size- 2].z + acc_data_array[size- 1].z) / 3;
+
+  acc_data_array[size- 2].x =  (acc_data_array[size- 2].x + acc_data_array[size- 1].x) / 2;
+  acc_data_array[size- 2].y =  (acc_data_array[size- 2].y + acc_data_array[size- 1].y) / 2;
+  acc_data_array[size- 2].z =  (acc_data_array[size- 2].z + acc_data_array[size- 1].z) / 2;	
+
 }
 
 void set_acc_data(acc_data_t *data, int x, int y, int z) {
@@ -70,9 +72,9 @@ int max_axis_offset(int dx, int dy, int dz)
 {
   if(dx > dy) {
     if(dx > dz)
-        return X;
-      else
-        return Z;
+      return X;
+    else
+      return Z;
   } else {
     if(dy > dz)
       return Y;
@@ -85,28 +87,28 @@ void get_max_min(measurements *measure, acc_data_t *data, int size) {
   int i = 0;
 
   set_acc_data(&max, data[i].x,
-                     data[i].y, 
-                     data[i].z);
-    
+      data[i].y, 
+      data[i].z);
+
   set_acc_data(&min, data[i].x, 
-                     data[i].y, 
-                     data[i].z);
-  
+      data[i].y, 
+      data[i].z);
+
   for(i = 1; i < size; i++) {
     set_acc_data(&max, max_of(max.x, data[i].x),
-                       max_of(max.y, data[i].y), 
-                       max_of(max.z, data[i].z));
-    
+        max_of(max.y, data[i].y), 
+        max_of(max.z, data[i].z));
+
     set_acc_data(&min, min_of(min.x, data[i].x), 
-                       min_of(min.y, data[i].y), 
-                       min_of(min.z, data[i].z));
+        min_of(min.y, data[i].y), 
+        min_of(min.z, data[i].z));
   }
 
   measure->axis = max_axis_offset(max.x - min.x, max.y - min.y, max.z - min.z);
   measure->max =  GET_FIELD(&max, measure->axis);
   measure->min =  GET_FIELD(&min, measure->axis);
   measure->threshold = (measure->max + measure->min) / 2;
-	measure->precision = max_of(abs((measure->max - measure->min) / 8), MIN_PRECISION);
+  measure->precision = max_of(abs((measure->max - measure->min) / 8), MIN_PRECISION);
 }
 
 int get_steps(int steps) {
@@ -114,7 +116,7 @@ int get_steps(int steps) {
   float secs = (SAMPLE_SIZE / SAMPLE_RATE);
   max_steps = MAX_STEP_FREQ * secs;
   min_steps = MIN_STEP_FREQ * secs;
- return (steps <= max_steps && steps >= min_steps) ? steps : 0;
+  return (steps <= max_steps && steps >= min_steps) ? steps : 0;
 }
 
 int count_steps(measurements *measure, acc_data_t *acc_data_array, int size) {
@@ -129,7 +131,7 @@ int count_steps(measurements *measure, acc_data_t *acc_data_array, int size) {
 
   for(i = 0; i < size; i++) {
     result = GET_FIELD((acc_data_array + i), measure->axis);
-    
+
     if((result > thresh && !above_taken) || (result > sample_above && above_taken)) {
       // take a sample above the thresh
       sample_above = result;
@@ -141,10 +143,10 @@ int count_steps(measurements *measure, acc_data_t *acc_data_array, int size) {
     }
     if(below_taken && above_taken) {
       if(((sample_above - sample_below) > measure->precision)) { 
-          if(((i - last_sample_index) >= MIN_SAMPlES_BETWEEN)) {
-            steps++;
-            last_sample_index = i;
-         } 
+        if(((i - last_sample_index) >= MIN_SAMPlES_BETWEEN)) {
+          steps++;
+          last_sample_index = i;
+        } 
       }
       above_taken = 0;
       below_taken = 0;
@@ -158,7 +160,7 @@ int count_steps1(measurements *measure, acc_data_t *acc_data_array, int size) {
   int sample_old;
   int result;
   int i;
-	int steps = 0;
+  int steps = 0;
   sample_new = GET_FIELD((acc_data_array), measure->axis);
 
   for(i = 0; i < size; i++) {
@@ -168,23 +170,23 @@ int count_steps1(measurements *measure, acc_data_t *acc_data_array, int size) {
     if(abs(sample_new - result) > measure->precision) {
       sample_new = result;
     }
-    
+
     if((sample_old > measure->threshold) && (sample_new < measure->threshold)) {
-          if((measure->interval > 10) && (measure->interval < 100)) {
-						if(measure->temp_steps < MIN_CONSECUTIVE_STEPS)	{
-								measure->temp_steps++;
-						} else if(measure->temp_steps == MIN_CONSECUTIVE_STEPS)	{
-								steps += ++measure->temp_steps;
-						} else if(measure->temp_steps > MIN_CONSECUTIVE_STEPS) {
-								steps++;
-						}
-						measure->interval = 0;
-          } else {
-							if(measure->interval > 100) {
-								measure->temp_steps = 0;
-								measure->interval = 0;
-							}
-          }
+      if((measure->interval > 10) && (measure->interval < 100)) {
+        if(measure->temp_steps < MIN_CONSECUTIVE_STEPS)	{
+          measure->temp_steps++;
+        } else if(measure->temp_steps == MIN_CONSECUTIVE_STEPS)	{
+          steps += ++measure->temp_steps;
+        } else if(measure->temp_steps > MIN_CONSECUTIVE_STEPS) {
+          steps++;
+        }
+        measure->interval = 0;
+      } else {
+        if(measure->interval > 100) {
+          measure->temp_steps = 0;
+          measure->interval = 0;
+        }
+      }
     }
   }
   return steps;
@@ -192,15 +194,15 @@ int count_steps1(measurements *measure, acc_data_t *acc_data_array, int size) {
 
 
 void print_measure_data(measurements* measure) {
-    mlog_print("STEPS: " , measure->total_steps);
-    mlog_print(" T_STEPS: " , measure->temp_steps);
-    mlog_print(" AXIS: ", measure->axis);
-    mlog_print(" MAX: ", measure->max);
-    mlog_print(" MIN: ", measure->min);
-    mlog_print(" INTER: ", measure->interval);
-    mlog_print(" THRESH: ", measure->threshold);
-    mlog_print(" PREC: ", measure->precision);
-    mlog_str("\r\n");
+  mlog_print("STEPS: " , measure->total_steps);
+  mlog_print(" T_STEPS: " , measure->temp_steps);
+  mlog_print(" AXIS: ", measure->axis);
+  mlog_print(" MAX: ", measure->max);
+  mlog_print(" MIN: ", measure->min);
+  mlog_print(" INTER: ", measure->interval);
+  mlog_print(" THRESH: ", measure->threshold);
+  mlog_print(" PREC: ", measure->precision);
+  mlog_str("\r\n");
 }
 
 void print_csv(int num_step) {
@@ -228,24 +230,24 @@ void print_csv(int num_step) {
   }
 }
 void print_csv_header() {
-    mlog_str("X");
-    mlog_str(",");
-    mlog_str("Y");
-    mlog_str(",");
-    mlog_str("Z");
-    mlog_str(",");
-    mlog_str("AXIS");
-    mlog_str(",");
-    mlog_str("MAX");
-    mlog_str(",");
-    mlog_str("MIN");
-    mlog_str(",");
-    mlog_str("THRESH");
-    mlog_str(",");
-    mlog_str("PREC");
-    mlog_str(",");
-    mlog_str("STEPS");
-    mlog_str("\r\n");
+  mlog_str("X");
+  mlog_str(",");
+  mlog_str("Y");
+  mlog_str(",");
+  mlog_str("Z");
+  mlog_str(",");
+  mlog_str("AXIS");
+  mlog_str(",");
+  mlog_str("MAX");
+  mlog_str(",");
+  mlog_str("MIN");
+  mlog_str(",");
+  mlog_str("THRESH");
+  mlog_str(",");
+  mlog_str("PREC");
+  mlog_str(",");
+  mlog_str("STEPS");
+  mlog_str("\r\n");
 }
 
 void print_acc_data_array(acc_data_t* acc_data_array, int size) {
@@ -260,30 +262,30 @@ void print_acc_data_array(acc_data_t* acc_data_array, int size) {
 int fill_data(acc_data_t* acc_array) 
 {
   int max, temp;
-	
+
   if(collected_data >= SAMPLE_SIZE) {
     collected_data = 0;
   }
-  
+
   temp = collected_data + FIFO_SAMPLES;
   max = (temp < SAMPLE_SIZE) ? temp : SAMPLE_SIZE;
-	
+
   for(; collected_data < max; collected_data++) {
     update_acc_data(acc_array + collected_data);
   }
-	
+
   if(collected_data >= SAMPLE_SIZE)
     return 1;
-	
+
   return 0;
 }
 
 /** GPIOTE interrupt handler.
-* Triggered on motion interrupt pin input low-to-high transition.
-*/
+ * Triggered on motion interrupt pin input low-to-high transition.
+ */
 // void GPIOTE_IRQHandler(void)
 static void on_fifo_full_event(uint32_t event_pins_low_to_high,
-                               uint32_t event_pins_high_to_low)
+    uint32_t event_pins_high_to_low)
 {
   if ((event_pins_low_to_high >> FIFO_INTERRUPT_PIN_NUMBER) & 1) {
     int steps;
@@ -302,16 +304,16 @@ static void on_fifo_full_event(uint32_t event_pins_low_to_high,
 
 void store_stepCount(int steps) {
   if(steps != 0 && !walking) {  // started taking steps 
-      current_data.start_time = total_minutes_past;
-      walking = 1;
-      current_data.steps = steps;
+    current_data.start_time = total_minutes_past;
+    walking = 1;
+    current_data.steps = steps;
   } else if(steps == 0 && walking) {  // stopped taking steps
-      current_data.end_time = total_minutes_past;
-      walking = 0;
-      current_data.status = 0;
-      push_measurement(current_data);
+    current_data.end_time = total_minutes_past;
+    walking = 0;
+    current_data.status = 0;
+    push_measurement(current_data);
   } else { // continued taking steps
-      current_data.steps += steps;
+    current_data.steps += steps;
   }
 }
 
@@ -323,20 +325,28 @@ int pop_measurement (step_data * data) {
   if(head != NULL) {
     step_node *temp = head->next;
     *data = head->data;
-		free(head);
+    free(head);
     head = temp;
     node_count--;
     return 0;
   }
-	return 1;
+  return 1;
 }
 
 void push_measurement (step_data data) {
+  push_measurement(data, true);
+}
+
+void push_measurement (step_data data, bool sync_steps) {
   step_node * temp = malloc(sizeof(step_node));
   temp->data = data;
   temp->next = head;
   head = temp;
   node_count++;
+
+  if(sync_steps) {
+    ble_oto_send_step_count(otolith_service);
+  }
 }
 
 void push_sync_node () {
@@ -345,7 +355,7 @@ void push_sync_node () {
   status.start_time = total_minutes_past;
   status.end_time = total_minutes_past;
   status.steps = 0;
-  push_measurement(status);
+  push_measurement(status, false);
 }
 
 uint32_t get_step_count()
@@ -358,14 +368,14 @@ uint32_t get_step_count()
 static void initialize(void) {
   data.interval = 10;
   data.temp_steps = 0;
-	head = malloc(sizeof(step_node));
+  head = malloc(sizeof(step_node));
   node_count = 0;
   walking = 0;
   current_data.start_time = 0;
   current_data.end_time = 0;
   current_data.steps = 0;
   current_data.status = 0;
-	steps_since_last_send = 0;
+  steps_since_last_send = 0;
 }
 
 static void on_timeout_handler(void * p_context) {
@@ -383,32 +393,27 @@ static void init_step_timer() {
 
   // Create a repeating alarm that expires every minute
   err_code = app_timer_create(&step_timer_id,
-                              APP_TIMER_MODE_REPEATED,
-                              on_timeout_handler);
+      APP_TIMER_MODE_REPEATED,
+      on_timeout_handler);
   APP_ERROR_CHECK(err_code);
 
   app_timer_start(step_timer_id, APP_TIMER_TICKS(one_minute, prescaler), NULL);
 }
 
-void step_counter_init()
-{
+void step_counter_init(ble_oto_t _otolith_service)
+
   // setup private data
-	initialize();
-	mlog_str("Initialize\r\n");
+  otolith_service = _otolith_service;
+  initialize();
+
   // Configure fifo interrupt pin
   nrf_gpio_cfg_input(FIFO_INTERRUPT_PIN_NUMBER, NRF_GPIO_PIN_NOPULL);
-	    mlog_str("GPIO\r\n");
   uint32_t mask = 1 << FIFO_INTERRUPT_PIN_NUMBER;
   app_gpiote_user_register(&step_counter_gpiote_user, mask, 0, on_fifo_full_event);
   app_gpiote_user_enable(step_counter_gpiote_user);
-	mlog_str("User enable and Register\r\n");
+
   // setup timer
-  init_step_timer();  
-    mlog_str("Step Timer Init\r\n");
+  init_step_timer();
   acc_init();
-	    mlog_str("Acc Init\r\n");
 }
-
-
-
 

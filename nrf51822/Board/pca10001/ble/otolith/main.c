@@ -37,7 +37,7 @@
 #include <stdint.h>
 #include <string.h>
 
-                     
+
 #define BONDMNGR_DELETE_BUTTON_PIN_NO        EVAL_BOARD_BUTTON_1                      /**< Button used for deleting all bonded masters during startup. */
 
 #define DEVICE_NAME                          "Otolith"                                 /**< Name of device. Will be included in the advertising data. */
@@ -90,8 +90,8 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt);
 
 
 /*****************************************************************************
-* Error Handling Functions
-*****************************************************************************/
+ * Error Handling Functions
+ *****************************************************************************/
 
 
 /**@brief Error handler function, which is called when an error has occurred. 
@@ -105,8 +105,8 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt);
  */
 void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p_file_name)
 {
-    // On assert, the system can only recover with a reset.
-    NVIC_SystemReset();
+  // On assert, the system can only recover with a reset.
+  NVIC_SystemReset();
 }
 
 
@@ -123,7 +123,7 @@ void app_error_handler(uint32_t error_code, uint32_t line_num, const uint8_t * p
  */
 void assert_nrf_callback(uint16_t line_num, const uint8_t * p_file_name)
 {
-    app_error_handler(DEAD_BEEF, line_num, p_file_name);
+  app_error_handler(DEAD_BEEF, line_num, p_file_name);
 }
 
 
@@ -133,7 +133,7 @@ void assert_nrf_callback(uint16_t line_num, const uint8_t * p_file_name)
  */
 static void conn_params_error_handler(uint32_t nrf_error)
 {
-    APP_ERROR_HANDLER(nrf_error);
+  APP_ERROR_HANDLER(nrf_error);
 }
 
 
@@ -143,7 +143,7 @@ static void conn_params_error_handler(uint32_t nrf_error)
  */
 static void bond_manager_error_handler(uint32_t nrf_error)
 {
-    APP_ERROR_HANDLER(nrf_error);
+  APP_ERROR_HANDLER(nrf_error);
 }
 
 
@@ -157,29 +157,29 @@ static void advertising_start(void);
  */
 static void button_event_handler(uint8_t pin_no)
 {
-    switch (pin_no)
-    {
-        case EVAL_BOARD_BUTTON_0:
-            mlog_str("button 0 pressed\r\n");
-				    
-			if (connected) {
-                ble_oto_send_step_count(&m_oto);
-            }
-            
-            motor_off();
-            led_stop();
-            break;
-            
-        case EVAL_BOARD_BUTTON_1:
-            mlog_str("button 1 pressed\r\n");
-				
-				    if (!connected)
-				      advertising_start();
-            break;
-            
-        default:
-            APP_ERROR_HANDLER(pin_no);
-    }
+  switch (pin_no)
+  {
+    case EVAL_BOARD_BUTTON_0:
+      mlog_str("button 0 pressed\r\n");
+
+//      if (connected) {
+//               ble_oto_send_step_count(&m_oto);
+//      }
+
+      motor_off();
+      led_stop();
+      break;
+
+    case EVAL_BOARD_BUTTON_1:
+      mlog_str("button 1 pressed\r\n");
+
+      if (!connected)
+        advertising_start();
+      break;
+
+    default:
+      APP_ERROR_HANDLER(pin_no);
+  }
 }
 
 
@@ -190,7 +190,7 @@ static void button_event_handler(uint8_t pin_no)
  */
 void on_ble_as_update(uint16_t updated_alarm_time)
 {
-    user_alarm_set(updated_alarm_time);
+  user_alarm_set(updated_alarm_time);
 }
 
 /*
@@ -198,30 +198,30 @@ void on_ble_as_update(uint16_t updated_alarm_time)
  */
 void on_user_alarm_expire()
 {
-    motor_on();
-    led_start();
+  motor_on();
+  led_start();
 }
 
 
 /*****************************************************************************
-* Static Initialization Functions
-*****************************************************************************/
+ * Static Initialization Functions
+ *****************************************************************************/
 
 /**@brief Timer initialization.
  *
-* @details Initializes the timer module. This creates and starts application timers.
-*/
+ * @details Initializes the timer module. This creates and starts application timers.
+ */
 static void timers_init(void)
 {
-    uint32_t err_code;
-    
-    // Initialize timer module
-    APP_TIMER_INIT(APP_TIMER_PRESCALER, APP_TIMER_MAX_TIMERS, APP_TIMER_OP_QUEUE_SIZE, false);
-    
-    // Init User Alarm with callback
-    err_code = user_alarm_init(on_user_alarm_expire);
-    
-    APP_ERROR_CHECK(err_code);
+  uint32_t err_code;
+
+  // Initialize timer module
+  APP_TIMER_INIT(APP_TIMER_PRESCALER, APP_TIMER_MAX_TIMERS, APP_TIMER_OP_QUEUE_SIZE, false);
+
+  // Init User Alarm with callback
+  err_code = user_alarm_init(on_user_alarm_expire);
+
+  APP_ERROR_CHECK(err_code);
 }
 
 
@@ -232,27 +232,27 @@ static void timers_init(void)
  */
 static void gap_params_init(void)
 {
-    uint32_t                err_code;
-    ble_gap_conn_params_t   gap_conn_params;
-    ble_gap_conn_sec_mode_t sec_mode;
+  uint32_t                err_code;
+  ble_gap_conn_params_t   gap_conn_params;
+  ble_gap_conn_sec_mode_t sec_mode;
 
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
+  BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
 
-    err_code = sd_ble_gap_device_name_set(&sec_mode, DEVICE_NAME, strlen(DEVICE_NAME));
-    APP_ERROR_CHECK(err_code);
+  err_code = sd_ble_gap_device_name_set(&sec_mode, DEVICE_NAME, strlen(DEVICE_NAME));
+  APP_ERROR_CHECK(err_code);
 
-    err_code = sd_ble_gap_appearance_set(BLE_APPEARANCE_HEART_RATE_SENSOR_HEART_RATE_BELT);
-    APP_ERROR_CHECK(err_code);
+  err_code = sd_ble_gap_appearance_set(BLE_APPEARANCE_HEART_RATE_SENSOR_HEART_RATE_BELT);
+  APP_ERROR_CHECK(err_code);
 
-    memset(&gap_conn_params, 0, sizeof(gap_conn_params));
+  memset(&gap_conn_params, 0, sizeof(gap_conn_params));
 
-    gap_conn_params.min_conn_interval = MIN_CONN_INTERVAL;
-    gap_conn_params.max_conn_interval = MAX_CONN_INTERVAL;
-    gap_conn_params.slave_latency     = SLAVE_LATENCY;
-    gap_conn_params.conn_sup_timeout  = CONN_SUP_TIMEOUT;
+  gap_conn_params.min_conn_interval = MIN_CONN_INTERVAL;
+  gap_conn_params.max_conn_interval = MAX_CONN_INTERVAL;
+  gap_conn_params.slave_latency     = SLAVE_LATENCY;
+  gap_conn_params.conn_sup_timeout  = CONN_SUP_TIMEOUT;
 
-    err_code = sd_ble_gap_ppcp_set(&gap_conn_params);
-    APP_ERROR_CHECK(err_code);
+  err_code = sd_ble_gap_ppcp_set(&gap_conn_params);
+  APP_ERROR_CHECK(err_code);
 }
 
 
@@ -263,140 +263,140 @@ static void gap_params_init(void)
  */
 static void advertising_init(void)
 {
-    uint32_t      err_code;
-    ble_advdata_t advdata;
-    uint8_t       flags = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
+  uint32_t      err_code;
+  ble_advdata_t advdata;
+  uint8_t       flags = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
 
-    ble_uuid_t adv_uuids[] =
-    {
-        {BLE_UUID_OTOLITH_SERVICE,            BLE_UUID_TYPE_BLE},
-        {BLE_UUID_ALARM_SERVICE,              BLE_UUID_TYPE_BLE}
-    };
+  ble_uuid_t adv_uuids[] =
+  {
+    {BLE_UUID_OTOLITH_SERVICE,            BLE_UUID_TYPE_BLE},
+    {BLE_UUID_ALARM_SERVICE,              BLE_UUID_TYPE_BLE}
+  };
 
-    // Build and set advertising data
-    memset(&advdata, 0, sizeof(advdata));
+  // Build and set advertising data
+  memset(&advdata, 0, sizeof(advdata));
 
-    advdata.name_type               = BLE_ADVDATA_FULL_NAME;
-    advdata.include_appearance      = true;
-    advdata.flags.size              = sizeof(flags);
-    advdata.flags.p_data            = &flags;
-    advdata.uuids_complete.uuid_cnt = sizeof(adv_uuids) / sizeof(adv_uuids[0]);
-    advdata.uuids_complete.p_uuids  = adv_uuids;
+  advdata.name_type               = BLE_ADVDATA_FULL_NAME;
+  advdata.include_appearance      = true;
+  advdata.flags.size              = sizeof(flags);
+  advdata.flags.p_data            = &flags;
+  advdata.uuids_complete.uuid_cnt = sizeof(adv_uuids) / sizeof(adv_uuids[0]);
+  advdata.uuids_complete.p_uuids  = adv_uuids;
 
-    err_code = ble_advdata_set(&advdata, NULL);
-    APP_ERROR_CHECK(err_code);
+  err_code = ble_advdata_set(&advdata, NULL);
+  APP_ERROR_CHECK(err_code);
 
-    // Initialise advertising parameters (used when starting advertising)
-    memset(&m_adv_params, 0, sizeof(m_adv_params));
-    
-    m_adv_params.type        = BLE_GAP_ADV_TYPE_ADV_IND;
-    m_adv_params.p_peer_addr = NULL;                           // Undirected advertisement
-    m_adv_params.fp          = BLE_GAP_ADV_FP_ANY;
-    m_adv_params.interval    = APP_ADV_INTERVAL;
-    m_adv_params.timeout     = APP_ADV_TIMEOUT_IN_SECONDS;
+  // Initialise advertising parameters (used when starting advertising)
+  memset(&m_adv_params, 0, sizeof(m_adv_params));
+
+  m_adv_params.type        = BLE_GAP_ADV_TYPE_ADV_IND;
+  m_adv_params.p_peer_addr = NULL;                           // Undirected advertisement
+  m_adv_params.fp          = BLE_GAP_ADV_FP_ANY;
+  m_adv_params.interval    = APP_ADV_INTERVAL;
+  m_adv_params.timeout     = APP_ADV_TIMEOUT_IN_SECONDS;
 }
 
 /**@brief Initialize services that will be used by the application.
- */
+*/
 static void services_init(void)
 {
-    uint32_t       err_code;
-    ble_oto_init_t oto_init;
-    ble_as_init_t  as_init;
+  uint32_t       err_code;
+  ble_oto_init_t oto_init;
+  ble_as_init_t  as_init;
 
-    // Initialize Otolith Service
-    memset(&oto_init, 0, sizeof(oto_init));
+  // Initialize Otolith Service
+  memset(&oto_init, 0, sizeof(oto_init));
 
-    // Here the sec level for the Otolith Service can be changed/increased.
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&oto_init.step_count_char_attr_md.cccd_write_perm);
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&oto_init.step_count_char_attr_md.read_perm);
-    BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&oto_init.step_count_char_attr_md.write_perm);
+  // Here the sec level for the Otolith Service can be changed/increased.
+  BLE_GAP_CONN_SEC_MODE_SET_OPEN(&oto_init.step_count_char_attr_md.cccd_write_perm);
+  BLE_GAP_CONN_SEC_MODE_SET_OPEN(&oto_init.step_count_char_attr_md.read_perm);
+  BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&oto_init.step_count_char_attr_md.write_perm);
 
-    oto_init.evt_handler          = NULL;
-    oto_init.initial_step_count   = 42;
+  oto_init.evt_handler          = NULL;
+  oto_init.initial_step_count   = 42;
 
-    err_code = ble_oto_init(&m_oto, &oto_init);
-    APP_ERROR_CHECK(err_code);
-    
-    // Initialize Alarm Service
-    memset(&as_init, 0, sizeof(as_init));
-    as_init.evt_handler = on_ble_as_update;
-    
-    err_code = ble_as_init(&m_as, &as_init);
-    APP_ERROR_CHECK(err_code);
+  err_code = ble_oto_init(&m_oto, &oto_init);
+  APP_ERROR_CHECK(err_code);
+
+  // Initialize Alarm Service
+  memset(&as_init, 0, sizeof(as_init));
+  as_init.evt_handler = on_ble_as_update;
+
+  err_code = ble_as_init(&m_as, &as_init);
+  APP_ERROR_CHECK(err_code);
 }
 
 
 /**@brief Initialize security parameters.
- */
+*/
 static void sec_params_init(void)
 {
-    m_sec_params.timeout      = SEC_PARAM_TIMEOUT;
-    m_sec_params.bond         = SEC_PARAM_BOND;
-    m_sec_params.mitm         = SEC_PARAM_MITM;
-    m_sec_params.io_caps      = SEC_PARAM_IO_CAPABILITIES;
-    m_sec_params.oob          = SEC_PARAM_OOB;  
-    m_sec_params.min_key_size = SEC_PARAM_MIN_KEY_SIZE;
-    m_sec_params.max_key_size = SEC_PARAM_MAX_KEY_SIZE;
+  m_sec_params.timeout      = SEC_PARAM_TIMEOUT;
+  m_sec_params.bond         = SEC_PARAM_BOND;
+  m_sec_params.mitm         = SEC_PARAM_MITM;
+  m_sec_params.io_caps      = SEC_PARAM_IO_CAPABILITIES;
+  m_sec_params.oob          = SEC_PARAM_OOB;  
+  m_sec_params.min_key_size = SEC_PARAM_MIN_KEY_SIZE;
+  m_sec_params.max_key_size = SEC_PARAM_MAX_KEY_SIZE;
 }
 
 
 /**@brief Initialize the Connection Parameters module.
- */
+*/
 static void conn_params_init(void)
 {
-    uint32_t               err_code;
-    ble_conn_params_init_t cp_init;
+  uint32_t               err_code;
+  ble_conn_params_init_t cp_init;
 
-    memset(&cp_init, 0, sizeof(cp_init));
+  memset(&cp_init, 0, sizeof(cp_init));
 
-    cp_init.p_conn_params                  = NULL;
-    cp_init.first_conn_params_update_delay = FIRST_CONN_PARAMS_UPDATE_DELAY;
-    cp_init.next_conn_params_update_delay  = NEXT_CONN_PARAMS_UPDATE_DELAY;
-    cp_init.max_conn_params_update_count   = MAX_CONN_PARAMS_UPDATE_COUNT;
-    cp_init.disconnect_on_fail             = true;
-    cp_init.evt_handler                    = NULL;
-    cp_init.error_handler                  = conn_params_error_handler;
+  cp_init.p_conn_params                  = NULL;
+  cp_init.first_conn_params_update_delay = FIRST_CONN_PARAMS_UPDATE_DELAY;
+  cp_init.next_conn_params_update_delay  = NEXT_CONN_PARAMS_UPDATE_DELAY;
+  cp_init.max_conn_params_update_count   = MAX_CONN_PARAMS_UPDATE_COUNT;
+  cp_init.disconnect_on_fail             = true;
+  cp_init.evt_handler                    = NULL;
+  cp_init.error_handler                  = conn_params_error_handler;
 
-    err_code = ble_conn_params_init(&cp_init);
-    APP_ERROR_CHECK(err_code);
+  err_code = ble_conn_params_init(&cp_init);
+  APP_ERROR_CHECK(err_code);
 }
 
 
 /**@brief Bond Manager initialization.
- */
+*/
 static void bond_manager_init(void)
 {
-    uint32_t            err_code;
-    ble_bondmngr_init_t bond_init_data;
-    bool                bonds_delete;
+  uint32_t            err_code;
+  ble_bondmngr_init_t bond_init_data;
+  bool                bonds_delete;
 
-    // Clear all bonded masters if the Bonds Delete button is pushed
-    err_code = app_button_is_pushed(BONDMNGR_DELETE_BUTTON_PIN_NO, &bonds_delete);
-    APP_ERROR_CHECK(err_code);
+  // Clear all bonded masters if the Bonds Delete button is pushed
+  err_code = app_button_is_pushed(BONDMNGR_DELETE_BUTTON_PIN_NO, &bonds_delete);
+  APP_ERROR_CHECK(err_code);
 
-    // Initialize the Bond Manager
-    bond_init_data.flash_page_num_bond     = FLASH_PAGE_BOND;
-    bond_init_data.flash_page_num_sys_attr = FLASH_PAGE_SYS_ATTR;
-    bond_init_data.evt_handler             = NULL;
-    bond_init_data.error_handler           = bond_manager_error_handler;
-    bond_init_data.bonds_delete            = bonds_delete;
+  // Initialize the Bond Manager
+  bond_init_data.flash_page_num_bond     = FLASH_PAGE_BOND;
+  bond_init_data.flash_page_num_sys_attr = FLASH_PAGE_SYS_ATTR;
+  bond_init_data.evt_handler             = NULL;
+  bond_init_data.error_handler           = bond_manager_error_handler;
+  bond_init_data.bonds_delete            = bonds_delete;
 
-    err_code = ble_bondmngr_init(&bond_init_data);
-    APP_ERROR_CHECK(err_code);
+  err_code = ble_bondmngr_init(&bond_init_data);
+  APP_ERROR_CHECK(err_code);
 }
 
 
 /**@brief Initialize Radio Notification event handler.
- */
+*/
 static void radio_notification_init(void)
 {
-    uint32_t err_code;
+  uint32_t err_code;
 
-    err_code = ble_radio_notification_init(NRF_APP_PRIORITY_HIGH,
-                                           NRF_RADIO_NOTIFICATION_DISTANCE_4560US,
-                                           ble_flash_on_radio_active_evt);
-    APP_ERROR_CHECK(err_code);
+  err_code = ble_radio_notification_init(NRF_APP_PRIORITY_HIGH,
+      NRF_RADIO_NOTIFICATION_DISTANCE_4560US,
+      ble_flash_on_radio_active_evt);
+  APP_ERROR_CHECK(err_code);
 }
 
 
@@ -406,58 +406,58 @@ static void radio_notification_init(void)
  */
 static void ble_stack_init(void)
 {
-    BLE_STACK_HANDLER_INIT(NRF_CLOCK_LFCLKSRC_XTAL_20_PPM,
-                           BLE_L2CAP_MTU_DEF,
-                           ble_evt_dispatch,
-                           false);
+  BLE_STACK_HANDLER_INIT(NRF_CLOCK_LFCLKSRC_XTAL_20_PPM,
+      BLE_L2CAP_MTU_DEF,
+      ble_evt_dispatch,
+      false);
 }
 
 
 /**@brief Initialize GPIOTE handler module.
- */
+*/
 static void gpiote_init(void)
 {
-    APP_GPIOTE_INIT(APP_GPIOTE_MAX_USERS);
+  APP_GPIOTE_INIT(APP_GPIOTE_MAX_USERS);
 }
 
 
 /**@brief Initialize button handler module.
- */
+*/
 static void buttons_init(void)
 {
-    // Configure EVAL_BOARD_BUTTON_0 and EVAL_BOARD_BUTTON_1 as wake up buttons and also configure
-    // for 'pull up' because the eval board does not have external pull up resistors connected to
-    // the buttons.
-    static app_button_cfg_t buttons[] =
-    {
-        {EVAL_BOARD_BUTTON_0, false, NRF_GPIO_PIN_PULLUP, button_event_handler},
-        {EVAL_BOARD_BUTTON_1, false, NRF_GPIO_PIN_PULLUP, button_event_handler}  // Note: This pin is also BONDMNGR_DELETE_BUTTON_PIN_NO
-    };
-    
-    APP_BUTTON_INIT(buttons, sizeof(buttons) / sizeof(buttons[0]), BUTTON_DETECTION_DELAY, false);
+  // Configure EVAL_BOARD_BUTTON_0 and EVAL_BOARD_BUTTON_1 as wake up buttons and also configure
+  // for 'pull up' because the eval board does not have external pull up resistors connected to
+  // the buttons.
+  static app_button_cfg_t buttons[] =
+  {
+    {EVAL_BOARD_BUTTON_0, false, NRF_GPIO_PIN_PULLUP, button_event_handler},
+    {EVAL_BOARD_BUTTON_1, false, NRF_GPIO_PIN_PULLUP, button_event_handler}  // Note: This pin is also BONDMNGR_DELETE_BUTTON_PIN_NO
+  };
+
+  APP_BUTTON_INIT(buttons, sizeof(buttons) / sizeof(buttons[0]), BUTTON_DETECTION_DELAY, false);
 }
 
 
 /*****************************************************************************
-* Static Start Functions
-*****************************************************************************/
+ * Static Start Functions
+ *****************************************************************************/
 
 /**@brief Start advertising.
- */
+*/
 static void advertising_start(void)
 {
-    uint32_t err_code;
+  uint32_t err_code;
 
-    err_code = sd_ble_gap_adv_start(&m_adv_params);
-    APP_ERROR_CHECK(err_code);
+  err_code = sd_ble_gap_adv_start(&m_adv_params);
+  APP_ERROR_CHECK(err_code);
 
-    led_start();
+  led_start();
 }
 
 
 /*****************************************************************************
-* Static Event Handling Functions
-*****************************************************************************/
+ * Static Event Handling Functions
+ *****************************************************************************/
 
 /**@brief Application's BLE Stack event handler.
  *
@@ -465,54 +465,54 @@ static void advertising_start(void)
  */
 static void on_ble_evt(ble_evt_t * p_ble_evt)
 {
-    uint32_t        err_code      = NRF_SUCCESS;
-    static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;
+  uint32_t        err_code      = NRF_SUCCESS;
+  static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID;
 
-    switch (p_ble_evt->header.evt_id)
-    {
-        case BLE_GAP_EVT_CONNECTED:
-            led_stop();
-				    led1_on();
-				    connected = true;
-            
-            m_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
+  switch (p_ble_evt->header.evt_id)
+  {
+    case BLE_GAP_EVT_CONNECTED:
+      led_stop();
+      led1_on();
+      connected = true;
 
-            // Start handling button presses
-            //err_code = app_button_enable();
-            break;
+      m_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
 
-        case BLE_GAP_EVT_DISCONNECTED:
-            // Since we are not in a connection and have not started advertising, store bonds
-            err_code = ble_bondmngr_bonded_masters_store();
-            APP_ERROR_CHECK(err_code);
-				
-				    led1_off();
-				    connected = false;
+      // Start handling button presses
+      //err_code = app_button_enable();
+      break;
 
-            // Go to system-off mode, should not return from this function, wakeup will trigger
-            // a reset.
-            //system_off_mode_enter();
-            break;
+    case BLE_GAP_EVT_DISCONNECTED:
+      // Since we are not in a connection and have not started advertising, store bonds
+      err_code = ble_bondmngr_bonded_masters_store();
+      APP_ERROR_CHECK(err_code);
 
-        case BLE_GAP_EVT_SEC_PARAMS_REQUEST:
-            err_code = sd_ble_gap_sec_params_reply(m_conn_handle, 
-                                                BLE_GAP_SEC_STATUS_SUCCESS, 
-                                                &m_sec_params);
-            break;
+      led1_off();
+      connected = false;
 
-        case BLE_GAP_EVT_TIMEOUT:
-            if (p_ble_evt->evt.gap_evt.params.timeout.src == BLE_GAP_TIMEOUT_SRC_ADVERTISEMENT)
-            {
-                led_stop();
-                //system_off_mode_enter();
-            }
-            break;
+      // Go to system-off mode, should not return from this function, wakeup will trigger
+      // a reset.
+      //system_off_mode_enter();
+      break;
 
-        default:
-            break;
-    }
+    case BLE_GAP_EVT_SEC_PARAMS_REQUEST:
+      err_code = sd_ble_gap_sec_params_reply(m_conn_handle, 
+          BLE_GAP_SEC_STATUS_SUCCESS, 
+          &m_sec_params);
+      break;
 
-    APP_ERROR_CHECK(err_code);
+    case BLE_GAP_EVT_TIMEOUT:
+      if (p_ble_evt->evt.gap_evt.params.timeout.src == BLE_GAP_TIMEOUT_SRC_ADVERTISEMENT)
+      {
+        led_stop();
+        //system_off_mode_enter();
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  APP_ERROR_CHECK(err_code);
 }
 
 
@@ -525,59 +525,61 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
  */
 static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
 {
-    ble_bondmngr_on_ble_evt(p_ble_evt);
-    ble_oto_on_ble_evt(&m_oto, p_ble_evt);
-    ble_as_on_ble_evt(&m_as, p_ble_evt);
-    ble_conn_params_on_ble_evt(p_ble_evt);
-    on_ble_evt(p_ble_evt);
+  ble_bondmngr_on_ble_evt(p_ble_evt);
+  ble_oto_on_ble_evt(&m_oto, p_ble_evt);
+  ble_as_on_ble_evt(&m_as, p_ble_evt);
+  ble_conn_params_on_ble_evt(p_ble_evt);
+  on_ble_evt(p_ble_evt);
 }
 
 /*****************************************************************************
-* Main Function
-*****************************************************************************/
+ * Main Function
+ *****************************************************************************/
 
 /**@brief Application main function.
- */
+*/
 int main(void)
 {
-    uint32_t err_code;
-	  connected = false;
-    mlog_init();
-	mlog_str("Started Main\r\n");
-	   volatile double* myDouble = malloc(sizeof(double)* 8); 
-		mlog_num((int) myDouble);
-    timers_init();
-    gpiote_init();
-    buttons_init();
-    step_counter_init();
-    motor_init();
-		led1_init();
-		adc_config();
-    dac_init();
-    //pulse_init();
-	mlog_str("Finished Config...\r\n");
-	
-    bond_manager_init();
-	ble_stack_init();
-	radio_notification_init();
+  uint32_t err_code;
+  connected = false;
+  mlog_init();
+  mlog_str("Started Main\r\n");
+  volatile double* myDouble = malloc(sizeof(double)* 8); 
+  mlog_num((int) myDouble);
+  timers_init();
+  gpiote_init();
+  buttons_init();
+  motor_init();
+  led1_init();
+  adc_config();
+  dac_init();
+  //pulse_init();
+  mlog_str("Finished Config...\r\n");
 
-    // Initialize Bluetooth Stack parameters
-    gap_params_init();
-    advertising_init();
-    services_init();
-    conn_params_init();
-    sec_params_init();
+  bond_manager_init();
+  ble_stack_init();
+  radio_notification_init();
 
-    // Actually start advertising
-		mlog_str("Finished Init...\r\n");
-		app_button_enable();
-    // Enter main loop
-    for (;;)
-    {
-        // Switch to a low power state until an event is available for the application
-        err_code = sd_app_event_wait();
-        APP_ERROR_CHECK(err_code);
-    }
+  // Initialize Bluetooth Stack parameters
+  gap_params_init();
+  advertising_init();
+  services_init();
+  conn_params_init();
+  sec_params_init();
+
+  // Actually start advertising
+  mlog_str("Finished Init...\r\n");
+  app_button_enable();
+
+  // initialize after bluetooth is enabled
+  step_counter_init(&m_oto);
+  // Enter main loop
+  for (;;)
+  {
+    // Switch to a low power state until an event is available for the application
+    err_code = sd_app_event_wait();
+    APP_ERROR_CHECK(err_code);
+  }
 }
 
 /**
