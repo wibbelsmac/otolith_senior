@@ -1,9 +1,9 @@
 #include "pulse.h"
-#include "kiss_fftr.h"
 #include "math.h"
 #include "util.h"
 #include "nordic_common.h"
 #include "ble_oto.h"
+
 #define SAMPLE_FREQ 120
 // #define SAMPLE_SIZE SAMPLE_FREQ * 4
 #define SAMPLE_SIZE 256
@@ -17,7 +17,7 @@ static heart_node *           head;
 // Timer attributes
 static app_timer_id_t        step_timer_id;
 static uint32_t              total_minutes_past;
-
+//static double ac_dc_ratio = 0;
 
 // otolith service struct
 static ble_oto_t *            otolith_service;
@@ -183,6 +183,20 @@ heart_data build_heart_data(uint16_t bpm, uint16_t so2_sat) {
 
 void pls_get_measurements(void) {
   uint16_t bpm = calculate_bpm();
-  uint16_t so2 = 97;  //calculate_sow();
+  uint16_t so2 = calculate_sa02_sat();
   pls_push_measurement(build_heart_data(bpm, so2), true);
+}
+uint16_t calculate_sa02_sat (){
+  double dc = get_magnitudef(sample_set_freq[0].r, sample_set_freq[0].i);
+  double ac = sum(sample_set_freq, 1, MAX_INDEX);
+  return (uint16_t) ((ac/dc) * 1000);
+}
+
+inline double sum (kiss_fft_cpx* arr, int start, int end) {
+  double temp = get_magnitudef(sample_set_freq[start].r, sample_set_freq[start].i);
+  for (int i = 0; i <= end; ++i)
+  {
+    temp = temp + get_magnitudef(sample_set_freq[i].r, sample_set_freq[i].i);
+  }
+  return temp;
 }

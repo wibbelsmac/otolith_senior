@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include "app_timer.h"
 #include "ble_oto.h"
+#include "kiss_fftr.h"
 
 typedef struct {
 	uint32_t start_time;
@@ -37,4 +38,7 @@ void pls_push_sync_node(void);
 void pls_initialize(void);
 void pulse_init(ble_oto_t * _otolith_service);
 heart_data build_heart_data(uint16_t bpm, uint16_t so2_stat);
+double sum (kiss_fft_cpx* arr, int start, int end);
+uint16_t calculate_sa02_sat (void);
+
 #endif
