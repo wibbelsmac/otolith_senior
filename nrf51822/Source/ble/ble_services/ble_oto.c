@@ -6,6 +6,7 @@
 #include "app_util.h"
 #include "main.h" // for debug logging
 #include "step_counter.h"
+#include "pulse.h"
 #include "util.h"
 
 /**@brief Connect event handler.
@@ -178,9 +179,9 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
 		while(!pop_measurement(&payload)) {
 			memcpy(buf, &payload, sizeof(step_data)); 
 			mlog_println("steps: ", payload.steps); 
-			mlog_println("starTime: ", payload.start_time);
-			mlog_println("StopTime: ", payload.end_time);
-			mlog_println("Status: ", payload.status >> 31);
+			mlog_println("start_time: ", payload.start_time);
+			mlog_println("end_time: ", payload.end_time);
+			mlog_println("status: ", payload.status);
 			mlog_str("\n");
 			memset(&hvx_params, 0, sizeof(hvx_params));
 			
@@ -200,3 +201,45 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
 
 	return err_code;
 }
+
+uint32_t ble_oto_send_heart_info(ble_oto_t * p_oto)
+{
+	uint32_t err_code = NRF_SUCCESS;
+	
+	// Send value if connected and notifying
+	if (p_oto->conn_handle != BLE_CONN_HANDLE_INVALID)
+	{
+		ble_gatts_hvx_params_t hvx_params;
+		uint16_t hvx_len;
+		hvx_len = sizeof(heart_data);
+		uint8_t buf[hvx_len];
+		heart_data payload;
+		pls_push_sync_node();
+
+		while(!pls_pop_measurement(&payload)) {
+			memcpy(buf, &payload, sizeof(heart_data)); 
+			mlog_println("bpm: ", payload.bpm); 
+			mlog_println("so2_sat: ", payload.so2_sat);
+			mlog_println("start_time: ", payload.start_time);
+			mlog_println("end_time: ", payload.end_time); 
+			mlog_println("status: ", payload.status);
+			mlog_str("\n");
+			memset(&hvx_params, 0, sizeof(hvx_params));
+			
+			hvx_params.handle   = p_oto->step_count_handles.value_handle;
+			hvx_params.type     = BLE_GATT_HVX_NOTIFICATION;
+			hvx_params.offset   = 0;
+			hvx_params.p_len    = &hvx_len;
+			hvx_params.p_data   = buf;
+			
+			err_code = sd_ble_gatts_hvx(p_oto->conn_handle, &hvx_params);
+		}
+	}
+	else
+	{
+		err_code = NRF_ERROR_INVALID_STATE;
+	}
+
+	return err_code;
+}
+

@@ -544,19 +544,9 @@ int main(void)
   connected = false;
   mlog_init();
   mlog_str("Started Main\r\n");
-  volatile double* myDouble = malloc(sizeof(double)* 8); 
-  mlog_num((int) myDouble);
   timers_init();
-  gpiote_init();
-  buttons_init();
-  motor_init();
-  led1_init();
-  adc_config();
-  dac_init();
-  //pulse_init();
-  mlog_str("Finished Config...\r\n");
-
-  bond_manager_init();
+	
+	  bond_manager_init();
   ble_stack_init();
   radio_notification_init();
 
@@ -566,13 +556,33 @@ int main(void)
   services_init();
   conn_params_init();
   sec_params_init();
+	
+  gpiote_init();
+  buttons_init();
+  motor_init();
+  led1_init();
+// initialize after bluetooth is enabled
+  step_counter_init(&m_oto);
+  pulse_init(&m_oto);
+  dac_init();
+
+
+
+
+
+
+
+
+  adc_config(); 
+  mlog_str("Finished Config...\r\n");
+
+
 
   // Actually start advertising
   mlog_str("Finished Init...\r\n");
   app_button_enable();
 
-  // initialize after bluetooth is enabled
-  step_counter_init(&m_oto);
+
   // Enter main loop
   for (;;)
   {

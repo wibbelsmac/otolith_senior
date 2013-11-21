@@ -8,12 +8,12 @@
 
 ; Description message
 
-Stack_Size      EQU     2048
+Stack_Size      EQU     512
                 AREA    STACK, NOINIT, READWRITE, ALIGN=3
 Stack_Mem       SPACE   Stack_Size
 __initial_sp
 
-Heap_Size       EQU     2048
+Heap_Size       EQU     3584
 
                 AREA    HEAP, NOINIT, READWRITE, ALIGN=3
 __heap_base

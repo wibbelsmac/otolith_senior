@@ -3,6 +3,7 @@
 
 #include "acc_driver.h"
 #include "app_util.h"
+#include "ble_oto.h"
 
 #define SAMPLE_SIZE 100.0
 #define SAMPLE_RATE 50.0
@@ -61,7 +62,7 @@ int max_axis_offset(int dx, int dy, int dz);
 void get_max_min(measurements *measure, acc_data_t *data, int size);
 int count_steps(measurements *measure, acc_data_t *acc_data_array, int size);
 int count_steps1(measurements *measure, acc_data_t *acc_data_array, int size);
-void push_measurement (step_data data);
+void push_measurement (step_data data, bool sync_steps);
 void store_stepCount(int steps);
 int pop_measurement (step_data * data);
 void push_sync_node(void);
@@ -70,7 +71,7 @@ int fill_data(acc_data_t* acc_array);
 
 uint32_t get_step_count(void);
 
-void step_counter_init(void);
+void step_counter_init(ble_oto_t * _otolith_service);
 
 /**@brief Inline function for encoding step_data.
  *

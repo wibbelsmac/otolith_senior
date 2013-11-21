@@ -32,7 +32,7 @@ static app_timer_id_t        step_timer_id;
 static uint32_t              total_minutes_past;
 
 // otolith service struct
-static ble_oto_t             otolith_service
+static ble_oto_t *            otolith_service;
 
 
 
@@ -311,7 +311,7 @@ void store_stepCount(int steps) {
     current_data.end_time = total_minutes_past;
     walking = 0;
     current_data.status = 0;
-    push_measurement(current_data);
+    push_measurement(current_data, true);
   } else { // continued taking steps
     current_data.steps += steps;
   }
@@ -333,11 +333,7 @@ int pop_measurement (step_data * data) {
   return 1;
 }
 
-void push_measurement (step_data data) {
-  push_measurement(data, true);
-}
-
-void push_measurement (step_data data, bool sync_steps) {
+void push_measurement(step_data data, bool sync_steps) {
   step_node * temp = malloc(sizeof(step_node));
   temp->data = data;
   temp->next = head;
@@ -400,8 +396,8 @@ static void init_step_timer() {
   app_timer_start(step_timer_id, APP_TIMER_TICKS(one_minute, prescaler), NULL);
 }
 
-void step_counter_init(ble_oto_t _otolith_service)
-
+void step_counter_init(ble_oto_t * _otolith_service)
+{
   // setup private data
   otolith_service = _otolith_service;
   initialize();

@@ -20,21 +20,19 @@ void ADC_IRQHandler(void) {
 	if(NRF_ADC->BUSY) {
     mlog_str("ADC Handler\r\n");
     return;
-  }
-	
+  	}
 	uint8_t result = NRF_ADC->RESULT;
 	if(read_adc == 3) {
-		add_moving_average_sample(&moving_avg, result);
+		add_moving_average_sample(&moving_avg, result);		
 		write_voltage(moving_avg.avg + v_plus);
 		//mlog_println("ADC3: ", result);
 		read_adc = 4;	
 	}
 	else if(read_adc == 4) {
 		read_adc = 3;
-		
-		//if(add_pulse_sample(result, moving_avg.avg)) {
-		// 	mlog_println("BPM: ", calculate_bpm());
-		//}		
+		if(add_pulse_sample(result, moving_avg.avg)) {
+		 	mlog_println("BPM: ", calculate_bpm());
+		}		
 		if(result < v_min) {
 			v_plus++;
 			mlog_println("VPLUS: ", v_plus);
@@ -43,8 +41,6 @@ void ADC_IRQHandler(void) {
 			v_plus--;
 			mlog_println("VPLUS: ", v_plus);
 		}
-		
-		//mlog_println("ADC4: ", result);
 	}
 	
 	set_adc_pin_select(read_adc);
