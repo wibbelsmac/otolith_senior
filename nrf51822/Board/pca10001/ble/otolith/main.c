@@ -4,7 +4,6 @@
  *
  */
 
-#include "adc.h"
 #include "app_button.h"
 #include "app_error.h"
 #include "app_gpiote.h"
@@ -21,7 +20,7 @@
 #include "ble_radio_notification.h"
 #include "ble_srv_common.h"
 #include "ble_stack_handler.h"
-#include "dac_driver.h"
+#include "clock.h"
 #include "led.h"
 #include "main.h"
 #include "motor.h"
@@ -545,19 +544,12 @@ int main(void)
   mlog_init();
   mlog_str("Started Main\r\n");
   timers_init();
-	
-
-	
+	clock_init();
   gpiote_init();
   buttons_init();
   motor_init();
   led1_init();
-// initialize after bluetooth is enabled
-  //pulse_init(&m_oto);
-  //dac_init();
-
-
-
+  
 	bond_manager_init();
   ble_stack_init();
   radio_notification_init();
@@ -571,8 +563,8 @@ int main(void)
 
 
 	step_counter_init(&m_oto);
-
-  //adc_config(); 
+  pulse_init(&m_oto);
+  
   mlog_str("Finished Config...\r\n");
 
 

@@ -3,7 +3,6 @@
 #ifndef PULSE_h
 #define PULSE_h
 #include <stdint.h>
-#include "app_timer.h"
 #include "ble_oto.h"
 #include "kiss_fftr.h"
 

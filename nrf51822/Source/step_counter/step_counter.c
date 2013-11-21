@@ -1,6 +1,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include "clock.h"
 #include "nrf.h"
 #include "nrf_gpio.h"
 #include "nrf_gpiote.h"
@@ -9,7 +10,6 @@
 #include "acc_driver.h"
 #include "step_counter.h"
 #include "user_alarm.h"
-#include "nordic_common.h"
 #include "util.h"
 
 
@@ -26,10 +26,6 @@ static int                   collected_data;
 
 static uint32_t              steps_since_last_send;
 static app_gpiote_user_id_t  step_counter_gpiote_user;
-
-// Timer attributes
-static app_timer_id_t        step_timer_id;
-static uint32_t              total_minutes_past;
 
 // otolith service struct
 static ble_oto_t *            otolith_service;
@@ -304,11 +300,11 @@ static void on_fifo_full_event(uint32_t event_pins_low_to_high,
 
 void store_stepCount(int steps) {
   if(steps != 0 && !walking) {  // started taking steps 
-    current_data.start_time = total_minutes_past;
+    current_data.start_time = get_total_minutes_past();
     walking = 1;
     current_data.steps = steps;
   } else if(steps == 0 && walking) {  // stopped taking steps
-    current_data.end_time = total_minutes_past;
+    current_data.end_time = get_total_minutes_past();
     walking = 0;
     current_data.status = 0;
     push_measurement(current_data, true);
@@ -348,8 +344,8 @@ void push_measurement(step_data data, bool sync_steps) {
 void push_sync_node () {
   step_data status;
   status.status = 1 << 31;
-  status.start_time = total_minutes_past;
-  status.end_time = total_minutes_past;
+  status.start_time = get_total_minutes_past();
+  status.end_time = get_total_minutes_past();
   status.steps = 0;
   push_measurement(status, false);
 }
@@ -374,28 +370,6 @@ static void initialize(void) {
   steps_since_last_send = 0;
 }
 
-static void on_timeout_handler(void * p_context) {
-  UNUSED_PARAMETER(p_context);
-  total_minutes_past++;
-
-  mlog_println("on_timeout_handler", total_minutes_past);
-}
-
-static void init_step_timer() {
-  uint32_t err_code, one_minute, prescaler;
-  total_minutes_past = 0;
-  one_minute = 60 * 1000;
-  prescaler = 0;
-
-  // Create a repeating alarm that expires every minute
-  err_code = app_timer_create(&step_timer_id,
-      APP_TIMER_MODE_REPEATED,
-      on_timeout_handler);
-  APP_ERROR_CHECK(err_code);
-
-  app_timer_start(step_timer_id, APP_TIMER_TICKS(one_minute, prescaler), NULL);
-}
-
 void step_counter_init(ble_oto_t * _otolith_service)
 {
   // setup private data
@@ -408,8 +382,6 @@ void step_counter_init(ble_oto_t * _otolith_service)
   app_gpiote_user_register(&step_counter_gpiote_user, mask, 0, on_fifo_full_event);
   app_gpiote_user_enable(step_counter_gpiote_user);
 
-  // setup timer
-  init_step_timer();
   acc_init();
 }
 

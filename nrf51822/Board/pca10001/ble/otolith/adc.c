@@ -30,9 +30,9 @@ void ADC_IRQHandler(void) {
 	}
 	else if(read_adc == 4) {
 		read_adc = 3;
-		if(add_pulse_sample(result, moving_avg.avg)) {
-		 	mlog_println("BPM: ", calculate_bpm());
-		}		
+		//if(add_pulse_sample(result, moving_avg.avg)) {
+		 	//pls_get_measurements();
+		//}		
 		if(result < v_min) {
 			v_plus++;
 			mlog_println("VPLUS: ", v_plus);
