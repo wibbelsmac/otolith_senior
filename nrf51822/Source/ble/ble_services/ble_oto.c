@@ -181,7 +181,7 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
 			mlog_println("steps: ", payload.steps); 
 			mlog_println("start_time: ", payload.start_time);
 			mlog_println("end_time: ", payload.end_time);
-			mlog_println("status: ", payload.status);
+			mlog_println("status: ", payload.status >> 30);
 			mlog_str("\n");
 			memset(&hvx_params, 0, sizeof(hvx_params));
 			
@@ -222,7 +222,7 @@ uint32_t ble_oto_send_heart_info(ble_oto_t * p_oto)
 			mlog_println("so2_sat: ", payload.so2_sat);
 			mlog_println("start_time: ", payload.start_time);
 			mlog_println("end_time: ", payload.end_time); 
-			mlog_println("status: ", payload.status);
+			mlog_println("status: ", payload.status >> 30);
 			mlog_str("\n");
 			memset(&hvx_params, 0, sizeof(hvx_params));
 			
