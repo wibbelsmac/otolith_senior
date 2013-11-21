@@ -162,9 +162,9 @@ static void button_event_handler(uint8_t pin_no)
     case EVAL_BOARD_BUTTON_0:
       mlog_str("button 0 pressed\r\n");
 
-//      if (connected) {
-//               ble_oto_send_step_count(&m_oto);
-//      }
+      if (connected) {
+               ble_oto_send_step_count(&m_oto);
+      }
 
       motor_off();
       led_stop();
@@ -546,7 +546,19 @@ int main(void)
   mlog_str("Started Main\r\n");
   timers_init();
 	
-	  bond_manager_init();
+
+	
+  gpiote_init();
+  buttons_init();
+  motor_init();
+  led1_init();
+// initialize after bluetooth is enabled
+  //pulse_init(&m_oto);
+  //dac_init();
+
+
+
+	bond_manager_init();
   ble_stack_init();
   radio_notification_init();
 
@@ -556,24 +568,11 @@ int main(void)
   services_init();
   conn_params_init();
   sec_params_init();
-	
-  gpiote_init();
-  buttons_init();
-  motor_init();
-  led1_init();
-// initialize after bluetooth is enabled
-  step_counter_init(&m_oto);
-  pulse_init(&m_oto);
-  dac_init();
 
 
+	step_counter_init(&m_oto);
 
-
-
-
-
-
-  adc_config(); 
+  //adc_config(); 
   mlog_str("Finished Config...\r\n");
 
 

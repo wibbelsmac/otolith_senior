@@ -341,7 +341,7 @@ void push_measurement(step_data data, bool sync_steps) {
   node_count++;
 
   if(sync_steps) {
-    ble_oto_send_step_count(otolith_service);
+  //  ble_oto_send_step_count(otolith_service);
   }
 }
 
