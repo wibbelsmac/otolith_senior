@@ -549,10 +549,20 @@ int main(void)
   buttons_init();
   motor_init();
   led1_init();
+  mlog_str("Started BLE\r\n");
+
+  step_counter_init(&m_oto);
+    mlog_str("FINISHED step_counter\r\n");
+  pulse_init(&m_oto);
   
+  mlog_str("Finished Config...\r\n");
+
+
 	bond_manager_init();
   ble_stack_init();
   radio_notification_init();
+
+
 
   // Initialize Bluetooth Stack parameters
   gap_params_init();
@@ -560,12 +570,9 @@ int main(void)
   services_init();
   conn_params_init();
   sec_params_init();
+	mlog_str("FINISHED BLE_INIT\r\n");
 
 
-	step_counter_init(&m_oto);
-  pulse_init(&m_oto);
-  
-  mlog_str("Finished Config...\r\n");
 
 
 

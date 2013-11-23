@@ -127,13 +127,17 @@ void pulse_init(ble_oto_t * _otolith_service) {
   otolith_service = _otolith_service;
   sample_set = malloc(sizeof(kiss_fft_scalar) * SAMPLE_SIZE);
   sample_set_freq =  malloc(sizeof(kiss_fft_cpx) * SAMPLE_SIZE_FREQ);
-
-  //if(sample_set_freq == NULL) {
-    //mlog_str("malloc returned NULL\r\n");
-  //}
+	mlog_str("Malloc\r\n");
+  if(sample_set_freq == NULL || sample_set == NULL) {
+    mlog_str("malloc returned NULL\r\n");
+  }
+	mlog_str("finished pulse_init Malloc\r\n");
   pls_initialize();
+	mlog_str("finished pls_initialize\r\n");
 	dac_init();
-	adc_config(); 
+	mlog_str("finished dac_init\r\n");
+	adc_config();
+	mlog_str("finished adc_config\r\n");
 }
 
 heart_data build_heart_data(uint16_t bpm, uint16_t so2_sat) {

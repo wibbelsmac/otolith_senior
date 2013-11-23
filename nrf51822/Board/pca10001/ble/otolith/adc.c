@@ -30,9 +30,9 @@ void ADC_IRQHandler(void) {
 	}
 	else if(read_adc == 4) {
 		read_adc = 3;
-		//if(add_pulse_sample(result, moving_avg.avg)) {
-		 	//pls_get_measurements();
-		//}		
+		if(add_pulse_sample(result, moving_avg.avg)) {
+		 	pls_get_measurements();
+		}		
 		if(result < v_min) {
 			v_plus++;
 			mlog_println("VPLUS: ", v_plus);
@@ -86,7 +86,7 @@ void adc_config(void) {
 		mlog_str("ADC Busy\r\n");
     NRF_ADC->TASKS_STOP = 1;
   }
-
+  mlog_str("ADC NOT Busy\r\n");
   NRF_ADC->CONFIG = (
     (ADC_CONFIG_PSEL_AnalogInput3 << ADC_CONFIG_PSEL_Pos)|
     (ADC_CONFIG_RES_8bit << ADC_CONFIG_RES_Pos)|
@@ -94,9 +94,12 @@ void adc_config(void) {
     (ADC_CONFIG_REFSEL_VBG << ADC_CONFIG_REFSEL_Pos)|
     (ADC_CONFIG_EXTREFSEL_None << ADC_CONFIG_EXTREFSEL_Pos)
   );
-
-  ppi_init();
+  mlog_str("ADC Configured\r\n");
   timer2_init();
+  mlog_str("finished timer2_init\r\n");
+  ppi_init();
+  mlog_str("finished ppi_init\r\n");
+
 	
   NRF_ADC->INTENSET = ADC_INTENSET_END_Msk;
   NRF_ADC->ENABLE = ADC_ENABLE_ENABLE_Enabled;
