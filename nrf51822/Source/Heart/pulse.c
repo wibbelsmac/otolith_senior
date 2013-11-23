@@ -13,6 +13,8 @@
 #define GAIN 32
 #define MAX_INDEX (200 * (SAMPLE_SIZE_FREQ - 1))/3600 + 1
 
+
+static size_t mem_needed =  1556;
 static      int   node_count;
 static heart_node *           head;                      
 
@@ -20,8 +22,9 @@ static heart_node *           head;
 static ble_oto_t *            otolith_service;
 
 
-kiss_fft_scalar * sample_set;
-kiss_fft_cpx * sample_set_freq;
+kiss_fft_scalar * sample_set = NULL;
+kiss_fft_cfg kiss_config = NULL;
+kiss_fft_cpx * sample_set_freq = NULL;
 uint16_t sample_set_index = 0;
 
 uint8_t add_pulse_sample(uint8_t ac, uint8_t v_ref) {
@@ -37,9 +40,10 @@ uint8_t add_pulse_sample(uint8_t ac, uint8_t v_ref) {
 }
 
 uint16_t calculate_bpm() {
-  kiss_fftr_cfg cfg = kiss_fftr_alloc(SAMPLE_SIZE, 0, NULL, NULL);
+	size_t mem_length = mem_needed;
+  kiss_fftr_cfg cfg = kiss_fftr_alloc(SAMPLE_SIZE, 0, kiss_config, &mem_length);
 	kiss_fftr(cfg, sample_set, sample_set_freq);
-  free(cfg);
+  //free(cfg);
   return get_max_freq();
 }
 
@@ -49,8 +53,8 @@ uint16_t get_weighted_bpm(uint16_t index) {
   float z = get_magnitudef(sample_set_freq[index + 1].r, sample_set_freq[index + 1].i);
   float avg = (x*(index - 1) + y*(index) + z*(index + 1)) / (x + y + z);
   mlog_num(avg);
-  uint16_t bpm = ((avg - 2.0f) * 60.0f * (SAMPLE_FREQ / 2.00f)) / (SAMPLE_SIZE_FREQ-1.0f);
-  
+  uint16_t bpm = ((avg - 2.0f) * 60.0f * SAMPLE_FREQ) / ((2.00f) * (SAMPLE_SIZE_FREQ-1.0f));
+
   return bpm;
 }
 
@@ -97,14 +101,19 @@ int pls_pop_measurement (heart_data * data) {
 }
 
 void pls_push_measurement(heart_data data, bool sync_heart_info) {
-  heart_node * temp = malloc(sizeof(heart_node));
+  uint16_t mem_needed =  sizeof(heart_node);
+  heart_node * temp = malloc(mem_needed);
+  if(temp == NULL) {
+    mlog_println("ERROR heart_node malloc returned NULL node_count: ", pls_get_measurement_count());
+		return;
+  }
   temp->data = data;
   temp->next = head;
   head = temp;
   node_count++;
 
   if(sync_heart_info) {
-    //ble_oto_send_heart_info(otolith_service);
+    ble_oto_send_heart_info(otolith_service);
   }
 }
 
@@ -127,6 +136,7 @@ void pulse_init(ble_oto_t * _otolith_service) {
   otolith_service = _otolith_service;
   sample_set = malloc(sizeof(kiss_fft_scalar) * SAMPLE_SIZE);
   sample_set_freq =  malloc(sizeof(kiss_fft_cpx) * SAMPLE_SIZE_FREQ);
+  kiss_config = malloc(mem_needed);
 	mlog_str("Malloc\r\n");
   if(sample_set_freq == NULL || sample_set == NULL) {
     mlog_str("malloc returned NULL\r\n");
@@ -165,7 +175,7 @@ uint16_t calculate_sa02_sat (){
 
 inline double sum (kiss_fft_cpx* arr, int start, int end) {
   double temp = get_magnitudef(sample_set_freq[start].r, sample_set_freq[start].i);
-  for (int i = 0; i <= end; ++i)
+  for (int i = start; i <= end; ++i)
   {
     temp = temp + get_magnitudef(sample_set_freq[i].r, sample_set_freq[i].i);
   }

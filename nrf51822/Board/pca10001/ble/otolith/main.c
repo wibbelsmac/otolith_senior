@@ -162,7 +162,7 @@ static void button_event_handler(uint8_t pin_no)
       mlog_str("button 0 pressed\r\n");
 
       if (connected) {
-               ble_oto_send_step_count(&m_oto);
+               //ble_oto_send_step_count(&m_oto);
       }
 
       motor_off();

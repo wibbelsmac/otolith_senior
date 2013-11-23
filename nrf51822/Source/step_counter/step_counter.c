@@ -330,14 +330,19 @@ int pop_measurement (step_data * data) {
 }
 
 void push_measurement(step_data data, bool sync_steps) {
-  step_node * temp = malloc(sizeof(step_node));
+  uint16_t mem_needed =  sizeof(step_node);
+  step_node * temp = malloc(mem_needed);
+  if(temp == NULL) {
+    mlog_println("ERROR step_node malloc returned NULL node_count: ", get_measurement_count());
+    return;
+  }
   temp->data = data;
   temp->next = head;
   head = temp;
   node_count++;
 
   if(sync_steps) {
-  //  ble_oto_send_step_count(otolith_service);
+   // ble_oto_send_step_count(otolith_service);
   }
 }
 
