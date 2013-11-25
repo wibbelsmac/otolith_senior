@@ -43,7 +43,6 @@ uint16_t calculate_bpm() {
 	size_t mem_length = mem_needed;
   kiss_fftr_cfg cfg = kiss_fftr_alloc(SAMPLE_SIZE, 0, kiss_config, &mem_length);
 	kiss_fftr(cfg, sample_set, sample_set_freq);
-  //free(cfg);
   return get_max_freq();
 }
 

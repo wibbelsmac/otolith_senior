@@ -169,13 +169,15 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
 	// Send value if connected and notifying
 	if (p_oto->conn_handle != BLE_CONN_HANDLE_INVALID)
 	{
+		mlog_println("p_oto->conn_handle", (int)p_oto->conn_handle);
 		ble_gatts_hvx_params_t hvx_params;
 		uint16_t hvx_len;
 		hvx_len = sizeof(step_data);
 		uint8_t buf[hvx_len];
 		step_data payload;
 		push_sync_node();
-
+		
+		mlog_str("syncing steps...\r\n");
 		while(!pop_measurement(&payload)) {
 			memcpy(buf, &payload, sizeof(step_data)); 
 			mlog_println("steps: ", payload.steps); 
@@ -186,12 +188,17 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
 			memset(&hvx_params, 0, sizeof(hvx_params));
 			
 			hvx_params.handle   = p_oto->step_count_handles.value_handle;
+			mlog_println("hvx_params.handl: ", (uint32_t)(p_oto->step_count_handles.value_handle));
 			hvx_params.type     = BLE_GATT_HVX_NOTIFICATION;
 			hvx_params.offset   = 0;
 			hvx_params.p_len    = &hvx_len;
 			hvx_params.p_data   = buf;
-			
+			mlog_str("hvx\r\n");
+			mlog_println("p_oto: ", (int)p_oto);
+			mlog_println("p_oto: ", p_oto->conn_handle);
+
 			err_code = sd_ble_gatts_hvx(p_oto->conn_handle, &hvx_params);
+			mlog_println("Sync error: ", err_code);
 		}
 	}
 	else
@@ -215,15 +222,16 @@ uint32_t ble_oto_send_heart_info(ble_oto_t * p_oto)
 		uint8_t buf[hvx_len];
 		heart_data payload;
 		pls_push_sync_node();
-
+		
 		while(!pls_pop_measurement(&payload)) {
-			memcpy(buf, &payload, sizeof(heart_data)); 
-			mlog_println("bpm: ", payload.bpm); 
-			mlog_println("so2_sat: ", payload.so2_sat);
-			mlog_println("start_time: ", payload.start_time);
-			mlog_println("end_time: ", payload.end_time); 
-			mlog_println("status: ", payload.status >> 30);
-			mlog_str("\n");
+			memcpy(buf, &payload, sizeof(heart_data));
+			mlog_str("syncing heart...\r\n");			
+	//		mlog_println("bpm: ", payload.bpm); 
+	//		mlog_println("so2_sat: ", payload.so2_sat);
+	//		mlog_println("start_time: ", payload.start_time);
+	//		mlog_println("end_time: ", payload.end_time); 
+	//		mlog_println("status: ", payload.status >> 30);
+	//		mlog_str("\n");
 			memset(&hvx_params, 0, sizeof(hvx_params));
 			
 			hvx_params.handle   = p_oto->step_count_handles.value_handle;

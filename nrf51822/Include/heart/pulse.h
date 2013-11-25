@@ -7,11 +7,11 @@
 #include "kiss_fftr.h"
 
 typedef struct {
+	uint32_t status;
 	uint32_t start_time;
 	uint32_t end_time;
 	uint16_t bpm;
 	uint16_t so2_sat;
-  uint32_t status;
 } heart_data;
 
 struct _heart_node {

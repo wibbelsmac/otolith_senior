@@ -25,12 +25,13 @@ void ADC_IRQHandler(void) {
 	if(read_adc == 3) {
 		add_moving_average_sample(&moving_avg, result);		
 		write_voltage(moving_avg.avg + v_plus);
-		//mlog_println("ADC3: ", result);
+
 		read_adc = 4;	
 	}
 	else if(read_adc == 4) {
 		read_adc = 3;
 		if(add_pulse_sample(result, moving_avg.avg)) {
+			mlog_str("ADC READ\r\n");
 		 	pls_get_measurements();
 		}		
 		if(result < v_min) {

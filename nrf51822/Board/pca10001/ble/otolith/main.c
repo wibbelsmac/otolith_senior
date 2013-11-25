@@ -35,6 +35,7 @@
 #include "util.h"
 #include <stdint.h>
 #include <string.h>
+#include "sync_timer.h"
 
 
 #define BONDMNGR_DELETE_BUTTON_PIN_NO        EVAL_BOARD_BUTTON_1                      /**< Button used for deleting all bonded masters during startup. */
@@ -45,7 +46,7 @@
 #define APP_ADV_TIMEOUT_IN_SECONDS           180                                       /**< The advertising timeout in units of seconds. */
 
 #define APP_TIMER_PRESCALER                  0                                         /**< Value of the RTC1 PRESCALER register. */
-#define APP_TIMER_MAX_TIMERS                 4                                         /**< Maximum number of simultaneously created timers. */
+#define APP_TIMER_MAX_TIMERS                 5                                         /**< Maximum number of simultaneously created timers. */
 #define APP_TIMER_OP_QUEUE_SIZE              5                                         /**< Size of timer operation queues. */
 
 #define APP_GPIOTE_MAX_USERS                 2                                         /**< Maximum number of users of the GPIOTE handler. */
@@ -85,7 +86,7 @@ static ble_as_t                              m_as;
 static bool                                  connected;
 
 static void ble_evt_dispatch(ble_evt_t * p_ble_evt);
-
+static app_timer_id_t            sync_timer_id;
 
 
 /*****************************************************************************
@@ -150,6 +151,54 @@ static void bond_manager_error_handler(uint32_t nrf_error)
 static void advertising_start(void);
 
 
+void sync_steps(void) {
+  if (connected) {
+    /*
+typedef struct ble_oto_s
+{
+    ble_oto_evt_handler_t         evt_handler;                    /**< Event handler to be called for handling events in the Otolith Service. 
+    uint16_t                      service_handle;                 /**< Handle of Otolith Service (as provided by the BLE stack). 
+    ble_gatts_char_handles_t      step_count_handles;             /**< Handles related to the Step Count characteristic. 
+    uint16_t                      conn_handle;                    /**< Handle of the current connection (as provided by the BLE stack, is BLE_CONN_HANDLE_INVALID if not in a connection). 
+    bool                          is_notification_supported;      /**< TRUE if notification of Step Count is supported. 
+} ble_oto_t;
+    */
+   mlog_println("ble_oto_evt_handler_t: ", (uint32_t) m_oto.evt_handler);
+     mlog_println("service_handle: ", (uint32_t) m_oto.service_handle);
+       mlog_println("step_count_handles: ", (uint32_t)&(m_oto.step_count_handles));
+         mlog_println("conn_handle: ", (uint32_t) m_oto.conn_handle);
+           mlog_println("is_notification_supported: ", (uint32_t) m_oto.is_notification_supported);
+    ble_oto_send_step_count(&m_oto);
+  }
+}
+
+
+// static void sync_timeout_handler(void * p_context)
+// {
+//   mlog_str("sync_timout_handler\r\n");
+//   if(get_measurement_count() > 5) {
+//     sync_steps();
+//   }
+// }
+
+// uint32_t sync_timer_init(user_alarm_evt_handler_t evt_handler)
+// {
+    
+//     // Create a repeating alarm that expires every minute
+//     uint32_t err = app_timer_create(&sync_timer_id,
+//                           APP_TIMER_MODE_REPEATED,
+//                           sync_timeout_handler);
+//     mlog_println("App_timer_error: ", err);
+//     // Stop current timer (although it may not even be running)
+//     app_timer_stop(sync_timer_id);
+     
+//     // Start timer
+//     app_timer_start(sync_timer_id, 1000*150, NULL);
+
+// }
+
+
+
 /**@brief Button event handler.
  *
  * @param[in]   pin_no   The pin number of the button pressed.
@@ -161,10 +210,10 @@ static void button_event_handler(uint8_t pin_no)
     case EVAL_BOARD_BUTTON_0:
       mlog_str("button 0 pressed\r\n");
 
-      if (connected) {
-               //ble_oto_send_step_count(&m_oto);
-      }
-
+      // if (connected) {
+      //          ble_oto_send_step_count(&m_oto);
+      // }
+      sync_steps();
       motor_off();
       led_stop();
       break;
@@ -201,6 +250,11 @@ void on_user_alarm_expire()
   led_start();
 }
 
+
+void sync_timer_expire()
+{
+  mlog_str("IN: sync_timer_Expire\n");
+}
 
 /*****************************************************************************
  * Static Initialization Functions
@@ -544,6 +598,7 @@ int main(void)
   mlog_init();
   mlog_str("Started Main\r\n");
   timers_init();
+
 	clock_init();
   gpiote_init();
   buttons_init();
@@ -553,7 +608,8 @@ int main(void)
 
   step_counter_init(&m_oto);
     mlog_str("FINISHED step_counter\r\n");
-  pulse_init(&m_oto);
+  //pulse_init(&m_oto);
+  mlog_println("m_oto: ", (m_oto.conn_handle));
   
   mlog_str("Finished Config...\r\n");
 
@@ -562,7 +618,7 @@ int main(void)
   ble_stack_init();
   radio_notification_init();
 
-
+		sync_timer_init(NULL);
 
   // Initialize Bluetooth Stack parameters
   gap_params_init();
@@ -571,7 +627,7 @@ int main(void)
   conn_params_init();
   sec_params_init();
 	mlog_str("FINISHED BLE_INIT\r\n");
-
+  mlog_println("m_oto: ", m_oto.conn_handle);
 
 
 
@@ -580,13 +636,21 @@ int main(void)
   mlog_str("Finished Init...\r\n");
   app_button_enable();
 
-
   // Enter main loop
+  bool sent_message = false;
   for (;;)
   {
     // Switch to a low power state until an event is available for the application
     err_code = sd_app_event_wait();
+		if(err_code) {
+			mlog_println("ERR: ", err_code);
+		}
     APP_ERROR_CHECK(err_code);
+    //if(!sent_message && connected) {
+     // mlog_str("Sending Steps from main");
+     // sync_steps();
+     // sent_message = true;
+    //}
   }
 }
 

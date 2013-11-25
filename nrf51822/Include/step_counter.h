@@ -38,10 +38,10 @@ typedef struct {
 //     ex: 0x 8000 0000
 
 typedef struct {
+  uint32_t status;
 	uint32_t start_time;
 	uint32_t end_time;
 	uint32_t steps;
-  uint32_t status;
 } step_data;
 
 struct _step_node {

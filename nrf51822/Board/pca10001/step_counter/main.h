@@ -32,6 +32,9 @@
 #define RTS_PIN_NUMBER 8
 #define HWFC           true
 
+
+static void sync_timeout_handler(void * p_context);
+
 #endif // MAIN_H__
 
 /** @} */

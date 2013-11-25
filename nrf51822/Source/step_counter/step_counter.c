@@ -11,6 +11,7 @@
 #include "step_counter.h"
 #include "user_alarm.h"
 #include "util.h"
+#include "main.h"
 
 
 
@@ -320,6 +321,7 @@ int get_measurement_count() {
 int pop_measurement (step_data * data) {
   if(head != NULL) {
     step_node *temp = head->next;
+    mlog_println("head->next: ", (int)head->next);
     *data = head->data;
     free(head);
     head = temp;
@@ -329,7 +331,7 @@ int pop_measurement (step_data * data) {
   return 1;
 }
 
-void push_measurement(step_data data, bool sync_steps) {
+void push_measurement(step_data data, bool do_sync_steps) {
   uint16_t mem_needed =  sizeof(step_node);
   step_node * temp = malloc(mem_needed);
   if(temp == NULL) {
@@ -341,9 +343,11 @@ void push_measurement(step_data data, bool sync_steps) {
   head = temp;
   node_count++;
 
-  if(sync_steps) {
-   // ble_oto_send_step_count(otolith_service);
-  }
+  if(do_sync_steps) {
+	 //sync_steps();
+  } else 
+    return;
+
 }
 
 void push_sync_node () {
