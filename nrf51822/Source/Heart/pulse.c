@@ -7,11 +7,13 @@
 #include "nordic_common.h"
 #include "ble_oto.h"
 
-#define SAMPLE_FREQ 120
+//#define SAMPLE_FREQ 120
+#define SAMPLE_FREQ 60
 #define SAMPLE_SIZE 256
 #define SAMPLE_SIZE_FREQ SAMPLE_SIZE/2 + 1
 #define GAIN 32
-#define MAX_INDEX (200 * (SAMPLE_SIZE_FREQ - 1))/3600 + 1
+#define MIN_INDEX (35 * (SAMPLE_SIZE_FREQ - 1))/((SAMPLE_FREQ * 60)/2) + 1
+#define MAX_INDEX (200 * (SAMPLE_SIZE_FREQ - 1))/((SAMPLE_FREQ * 60)/2) + 1
 
 
 static size_t mem_needed =  1556;
@@ -25,7 +27,7 @@ static ble_oto_t *            otolith_service;
 kiss_fft_scalar * sample_set = NULL;
 kiss_fft_cfg kiss_config = NULL;
 kiss_fft_cpx * sample_set_freq = NULL;
-uint16_t sample_set_index = 0;
+static uint16_t sample_set_index = 0;
 
 uint8_t add_pulse_sample(uint8_t ac, uint8_t v_ref) {
   if(sample_set_index < SAMPLE_SIZE) {    
@@ -111,23 +113,21 @@ void pls_push_measurement(heart_data data, bool sync_heart_info) {
   head = temp;
   node_count++;
 
-  if(sync_heart_info) {
-    ble_oto_send_heart_info(otolith_service);
-  }
+  //if(sync_heart_info) {
+    //ble_oto_send_heart_info(otolith_service);
+  //}
 }
 
-void pls_push_sync_node (void) {
-  heart_data status;
-  status.status = 1 << 31;
-  status.start_time = get_total_minutes_past();
-  status.end_time = get_total_minutes_past();
-  status.bpm = 0;
-  status.so2_sat = 0;
-  pls_push_measurement(status, false);
+void pls_build_sync_node (heart_data * status) {
+  status->status = 1 << 31;
+  status->start_time = get_total_minutes_past();
+  status->end_time = get_total_minutes_past();
+  status->bpm = 0;
+  status->so2_sat = 0;
 }
 
 static void pls_initialize(void) {
-  head = malloc(sizeof(heart_node));
+  head = NULL;
   node_count = 0;
 }
 
@@ -151,7 +151,7 @@ void pulse_init(ble_oto_t * _otolith_service) {
 
 heart_data build_heart_data(uint16_t bpm, uint16_t so2_sat) {
   heart_data hd_struct;
-  hd_struct.status = 1;
+  hd_struct.status = 1<<30;
   hd_struct.start_time = get_total_minutes_past();
   hd_struct.end_time = get_total_minutes_past();
   hd_struct.bpm = bpm;
@@ -168,7 +168,7 @@ inline void pls_get_measurements(void) {
 }
 uint16_t calculate_sa02_sat (){
   double dc = get_magnitudef(sample_set_freq[0].r, sample_set_freq[0].i);
-  double ac = sum(sample_set_freq, 1, MAX_INDEX);
+  double ac = sum(sample_set_freq, MIN_INDEX, MAX_INDEX);
   return (uint16_t) ((ac/dc) * 1000);
 }
 
@@ -179,4 +179,8 @@ inline double sum (kiss_fft_cpx* arr, int start, int end) {
     temp = temp + get_magnitudef(sample_set_freq[i].r, sample_set_freq[i].i);
   }
   return temp;
+}
+
+void reset_measurement_count(void) {
+  sample_set_index = 0;
 }

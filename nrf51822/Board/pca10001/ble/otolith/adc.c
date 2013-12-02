@@ -32,7 +32,9 @@ void ADC_IRQHandler(void) {
 		read_adc = 3;
 		if(add_pulse_sample(result, moving_avg.avg)) {
 			mlog_str("ADC READ\r\n");
+			time_busy();
 		 	pls_get_measurements();
+		 	not_time_busy();
 		}		
 		if(result < v_min) {
 			v_plus++;
@@ -140,4 +142,11 @@ static void timer2_init(void)
     // to wake up the CPU on Timer interrupts.
 }
 
+void time_busy() {
+	NRF_TIMER2->TASKS_STOP = 1;
+}
 
+void not_time_busy() {
+	reset_measurement_count();
+	NRF_TIMER2->TASKS_START = 1;
+}

@@ -350,13 +350,11 @@ void push_measurement(step_data data, bool do_sync_steps) {
 
 }
 
-void push_sync_node () {
-  step_data status;
-  status.status = 1 << 31;
-  status.start_time = get_total_minutes_past();
-  status.end_time = get_total_minutes_past();
-  status.steps = 0;
-  push_measurement(status, false);
+void build_sync_node(step_data * data) {
+  data->status = 1 << 31;
+  data->start_time = get_total_minutes_past();
+  data->end_time = get_total_minutes_past();
+  data->steps = 0;
 }
 
 uint32_t get_step_count()
@@ -369,7 +367,7 @@ uint32_t get_step_count()
 static void initialize(void) {
   data.interval = 10;
   data.temp_steps = 0;
-  head = malloc(sizeof(step_node));
+  head = NULL;
   node_count = 0;
   walking = 0;
   current_data.start_time = 0;

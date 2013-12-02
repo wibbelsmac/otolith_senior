@@ -3,8 +3,8 @@
 
 #include "app_util.h"
 
-//#define ADC_CAPTURE_COMPARE_0_VALUE 0x1BC //60Hz
-#define ADC_CAPTURE_COMPARE_0_VALUE 0xDE // 120Hz
+#define ADC_CAPTURE_COMPARE_0_VALUE 0x1BC //60Hz
+//#define ADC_CAPTURE_COMPARE_0_VALUE 0xDE // 120Hz
 #define ADC_TIMER_PRESCALER 0xF
 #define PPI_CHAN1_TO_CONT_READ 1
 #define ADC_IRQ_PRI APP_IRQ_PRIORITY_HIGH
@@ -13,4 +13,6 @@ void adc_config(void);
 static void ppi_init(void);
 static void timer2_init(void);
 void set_adc_pin_select(uint8_t adc_in);
+void time_busy();
+void not_time_busy();
 #endif

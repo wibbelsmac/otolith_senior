@@ -86,7 +86,7 @@ static ble_as_t                              m_as;
 static bool                                  connected;
 
 static void ble_evt_dispatch(ble_evt_t * p_ble_evt);
-static app_timer_id_t            sync_timer_id;
+// static app_timer_id_t            sync_timer_id;
 
 
 /*****************************************************************************
@@ -169,6 +169,17 @@ typedef struct ble_oto_s
          mlog_println("conn_handle: ", (uint32_t) m_oto.conn_handle);
            mlog_println("is_notification_supported: ", (uint32_t) m_oto.is_notification_supported);
     ble_oto_send_step_count(&m_oto);
+  } else {
+      mlog_str("NOT Connected for Step Sync");
+  }
+} 
+
+
+void sync_hearts(void) {
+  if (connected) {
+    ble_oto_send_heart_info(&m_oto);
+  } else {
+    mlog_str("NOT Connected for Pulse Sync");
   }
 }
 
@@ -607,8 +618,8 @@ int main(void)
   mlog_str("Started BLE\r\n");
 
   step_counter_init(&m_oto);
-    mlog_str("FINISHED step_counter\r\n");
-  //pulse_init(&m_oto);
+  mlog_str("FINISHED step_counter\r\n");
+  pulse_init(&m_oto);
   mlog_println("m_oto: ", (m_oto.conn_handle));
   
   mlog_str("Finished Config...\r\n");
@@ -646,11 +657,6 @@ int main(void)
 			mlog_println("ERR: ", err_code);
 		}
     APP_ERROR_CHECK(err_code);
-    //if(!sent_message && connected) {
-     // mlog_str("Sending Steps from main");
-     // sync_steps();
-     // sent_message = true;
-    //}
   }
 }
 
