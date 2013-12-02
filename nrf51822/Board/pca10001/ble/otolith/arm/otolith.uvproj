@@ -357,7 +357,7 @@
               <MiscControls>--c99</MiscControls>
               <Define>NRF51,DEBUG_NRF_USER</Define>
               <Undefine></Undefine>
-              <IncludePath>..;..\..\..\..\..\Include;..\..\..\..\..\Include\app_common;..\..\..\..\..\Include\ble;..\..\..\..\..\Include\ble\ble_services;..\..\..\..\..\Include\ble\softdevice;..\..\..\..\..\Include\util;..\..\..\..\..\Include\heart;..\..\..\..\..\Include\kiss_fft</IncludePath>
+              <IncludePath>..;..\..\..\..\..\Include;..\..\..\..\..\Include\app_common;..\..\..\..\..\Include\ble;..\..\..\..\..\Include\ble\ble_services;..\..\..\..\..\Include\ble\softdevice;..\..\..\..\..\Include\util;..\..\..\..\..\Include\heart;..\..\..\..\..\Include\mwte_fft</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -388,7 +388,7 @@
             <ScatterFile>..\scatter.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc></Misc>
+            <Misc>--callgraph --info=stack</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -462,6 +462,11 @@
               <FileName>clock.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\Source\util\clock.c</FilePath>
+            </File>
+            <File>
+              <FileName>sync_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\sync_timer.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -569,19 +574,14 @@
               <FilePath>..\..\..\..\..\Source\step_counter\step_counter.c</FilePath>
             </File>
             <File>
-              <FileName>kiss_fft.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\Source\kiss_fft\kiss_fft.c</FilePath>
-            </File>
-            <File>
-              <FileName>kiss_fftr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\Source\kiss_fft\kiss_fftr.c</FilePath>
-            </File>
-            <File>
               <FileName>pulse.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\Source\Heart\pulse.c</FilePath>
+            </File>
+            <File>
+              <FileName>mwte_ffti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Source\mwte_fft\mwte_ffti.c</FilePath>
             </File>
           </Files>
         </Group>

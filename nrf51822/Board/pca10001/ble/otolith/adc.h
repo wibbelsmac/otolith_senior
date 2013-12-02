@@ -13,6 +13,6 @@ void adc_config(void);
 static void ppi_init(void);
 static void timer2_init(void);
 void set_adc_pin_select(uint8_t adc_in);
-void time_busy();
-void not_time_busy();
+void time_busy(void);
+void not_time_busy(void);
 #endif
