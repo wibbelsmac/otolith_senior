@@ -66,7 +66,7 @@ void push_measurement (step_data data, bool sync_steps);
 void store_stepCount(int steps);
 int pop_measurement (step_data * data);
 void build_sync_node(step_data * data);
-
+int get_measurement_count(void);
 int fill_data(acc_data_t* acc_array);
 
 uint32_t get_step_count(void);

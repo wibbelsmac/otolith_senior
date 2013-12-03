@@ -4,9 +4,10 @@
 
 #include <limits.h>
 #include <math.h>
+//#include <fplib.h>
 
 #define PI 3.14159265359
-typedef double d_type;
+typedef __fp16 d_type;
 
 
 typedef struct  {
@@ -43,7 +44,7 @@ static inline void mwte_fft_mul(num_cpx* res, num_cpx a, num_cpx b);
 // res *= a
 static inline void mwte_fft_mul_eq(num_cpx* res, num_cpx a);
 // res = a * s
-static inline void mwte_fft_mul_scalar(num_cpx* res, d_type s);
+static inline void mwte_fft_mul_scalar(num_cpx* res, d_type* s);
 // reverses bits up to given bit_length, bit_length must be power of two
 int mwte_fft_reverse_bits(unsigned int bits, unsigned int bit_length);
 // res = a - b
@@ -56,7 +57,7 @@ void mwte_fft_swap_indices(num_cpx* data, int i, int j);
 // W_N0 = e^(-2.0 * pi / N0)
 // k = index
 // data is set to the complex number representation of W_N0^index
-static inline void mwte_fft_w_index(num_cpx* data, d_type min_res, int index);
+static inline void mwte_fft_w_index(num_cpx* data, d_type* min_res, int index);
 // performs forward fft in-place
 void mwte_fft_in_place (fft_state* state);
 static inline void mwte_sub_fft_in_place(fft_state* state, int N0);

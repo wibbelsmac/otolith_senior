@@ -153,24 +153,9 @@ static void advertising_start(void);
 
 void sync_steps(void) {
   if (connected) {
-    /*
-typedef struct ble_oto_s
-{
-    ble_oto_evt_handler_t         evt_handler;                    /**< Event handler to be called for handling events in the Otolith Service. 
-    uint16_t                      service_handle;                 /**< Handle of Otolith Service (as provided by the BLE stack). 
-    ble_gatts_char_handles_t      step_count_handles;             /**< Handles related to the Step Count characteristic. 
-    uint16_t                      conn_handle;                    /**< Handle of the current connection (as provided by the BLE stack, is BLE_CONN_HANDLE_INVALID if not in a connection). 
-    bool                          is_notification_supported;      /**< TRUE if notification of Step Count is supported. 
-} ble_oto_t;
-    */
-   mlog_println("ble_oto_evt_handler_t: ", (uint32_t) m_oto.evt_handler);
-     mlog_println("service_handle: ", (uint32_t) m_oto.service_handle);
-       mlog_println("step_count_handles: ", (uint32_t)&(m_oto.step_count_handles));
-         mlog_println("conn_handle: ", (uint32_t) m_oto.conn_handle);
-           mlog_println("is_notification_supported: ", (uint32_t) m_oto.is_notification_supported);
     ble_oto_send_step_count(&m_oto);
   } else {
-      mlog_str("NOT Connected for Step Sync");
+      mlog_str("Not Connected for Step Sync\n");
   }
 } 
 
@@ -179,7 +164,7 @@ void sync_hearts(void) {
   if (connected) {
     ble_oto_send_heart_info(&m_oto);
   } else {
-    mlog_str("NOT Connected for Pulse Sync");
+    mlog_str("NOT Connected for Pulse Sync\n");
   }
 }
 

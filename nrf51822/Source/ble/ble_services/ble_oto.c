@@ -169,7 +169,6 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
 	// Send value if connected and notifying
 	if (p_oto->conn_handle != BLE_CONN_HANDLE_INVALID)
 	{
-		mlog_println("p_oto->conn_handle", (int)p_oto->conn_handle);
 		ble_gatts_hvx_params_t hvx_params;
 		uint16_t hvx_len;
 		hvx_len = sizeof(step_data);
@@ -198,7 +197,6 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
 			mlog_println("p_oto: ", p_oto->conn_handle);
 
 			err_code = sd_ble_gatts_hvx(p_oto->conn_handle, &hvx_params);
-			mlog_println("Sync error: ", err_code);
 		} while(!pop_measurement(&payload));
 	}
 	else

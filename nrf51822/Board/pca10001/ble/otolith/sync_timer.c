@@ -21,14 +21,14 @@ static void sync_timeout_handler(void * p_context)
   if(get_measurement_count() > 5) {
     sync_steps();
   } else {
-    mlog_println("Step Nodes", get_measurement_count());
+    mlog_println("Step Nodes ", get_measurement_count());
   }
 	 if(pls_get_measurement_count() > 5) {
     time_busy();
     sync_hearts();
     not_time_busy();
   } else {
-    mlog_println("Heart Nodes", pls_get_measurement_count());
+    mlog_println("Heart Nodes ", pls_get_measurement_count());
   }
 }
 

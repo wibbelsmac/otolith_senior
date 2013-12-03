@@ -314,7 +314,7 @@ void store_stepCount(int steps) {
   }
 }
 
-int get_measurement_count() {
+int get_measurement_count(void) {
   return node_count;
 }
 

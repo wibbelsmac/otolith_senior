@@ -18,7 +18,6 @@ void ADC_IRQHandler(void) {
 	NVIC_ClearPendingIRQ(ADC_IRQn);
 	
 	if(NRF_ADC->BUSY) {
-    mlog_str("ADC Handler\r\n");
     return;
   	}
 	uint8_t result = NRF_ADC->RESULT;
@@ -31,7 +30,6 @@ void ADC_IRQHandler(void) {
 	else if(read_adc == 4) {
 		read_adc = 3;
 		if(add_pulse_sample(result, moving_avg.avg)) {
-			mlog_str("ADC READ\r\n");
 			time_busy();
 		 	pls_get_measurements();
 		 	not_time_busy();
@@ -89,7 +87,7 @@ void adc_config(void) {
 		mlog_str("ADC Busy\r\n");
     NRF_ADC->TASKS_STOP = 1;
   }
-  mlog_str("ADC NOT Busy\r\n");
+
   NRF_ADC->CONFIG = (
     (ADC_CONFIG_PSEL_AnalogInput3 << ADC_CONFIG_PSEL_Pos)|
     (ADC_CONFIG_RES_8bit << ADC_CONFIG_RES_Pos)|

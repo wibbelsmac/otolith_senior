@@ -8,8 +8,8 @@
 #include "ble_oto.h"
 #include <stdlib.h>
 
-#define SAMPLE_FREQ 120
-//#define SAMPLE_FREQ 60
+//#define SAMPLE_FREQ 120
+#define SAMPLE_FREQ 60
 #define SAMPLE_SIZE 512
 #define SAMPLE_SIZE_FREQ SAMPLE_SIZE/2 + 1
 #define GAIN 32
@@ -29,7 +29,8 @@ static uint16_t sample_set_index = 0;
 
 uint8_t add_pulse_sample(uint8_t ac, uint8_t v_ref) {
   if(sample_set_index < SAMPLE_SIZE) {    
-    state.data[sample_set_index].real = (d_type) v_ref * GAIN + ac;
+    state.data[sample_set_index].real = (d_type) (v_ref * GAIN + ac);
+		state.data[sample_set_index].imag = 0;
 		sample_set_index++;
     return 0;
   }

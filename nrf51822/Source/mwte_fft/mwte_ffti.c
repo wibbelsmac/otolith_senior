@@ -2,9 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void print_cpx (num_cpx * num) {
-  printf("r: %f im: %f\n", num->real, num->imag);
-}
 void inline mwte_fft_add(num_cpx* res, num_cpx a, num_cpx b) {
   res->real = a.real + b.real;
 	res->imag = a.imag + b.imag;
@@ -69,9 +66,9 @@ void inline mwte_fft_mul_eq(num_cpx* res, num_cpx a) {
 	mwte_fft_mul(res, *res, a);
 }
 
-void inline mwte_fft_mul_scalar(num_cpx* res, d_type s) {
-  res->real = res->real * s;
-  res->imag = res->imag * s;
+void inline mwte_fft_mul_scalar(num_cpx* res, d_type* s) {
+  res->real = res->real * (*s);
+  res->imag = res->imag * (*s);
 }
 
 int inline mwte_fft_reverse_bits(unsigned int bits, unsigned int bit_length) {
@@ -116,9 +113,9 @@ void inline mwte_fft_swap_indices(num_cpx* data, int i, int j) {
   data[j] = tmp;
 }
 
-void inline mwte_fft_w_index(num_cpx* data, d_type min_res, int index){
-  data->real = cos(-1.0 * min_res * (d_type)index);
-  data->imag = sin(-1.0 * min_res * (d_type)index);
+void inline mwte_fft_w_index(num_cpx* data, d_type* min_res, int index){
+  data->real = cos(-1.0 * (*min_res) * (d_type)index);
+  data->imag = sin(-1.0 * (*min_res) * (d_type)index);
 }
 
 void mwte_fft_in_place (fft_state* state) {
@@ -141,7 +138,7 @@ static inline void mwte_sub_fft_in_place(fft_state* state, int N0) {
   d_type freq_res = (2.0*PI)/((d_type)N0);
   offset = N0/2;  // offset between index inputs to buttefly gate
   for(index = 0; index < offset; index++) {  // steps between indexes outside of groups to reduce Wn Computations
-    mwte_fft_w_index(&Wn, freq_res, index);
+    mwte_fft_w_index(&Wn, &freq_res, index);
     // iterate through each Sub FFT Group and calc butterfly for index and index+offset for group
     for(group = 0; group < total_groups; group++) { 
       bfly_index0 = group * N0 + index;
