@@ -28,7 +28,7 @@ num_cpx * sample_set = NULL;
 static uint16_t sample_set_index = 0;
 
 uint8_t add_pulse_sample(uint8_t ac, uint8_t v_ref) {
-  if(sample_set_index < SAMPLE_SIZE) {    
+  if(sample_set_index < SAMPLE_SIZE) {
     state.data[sample_set_index].real = (d_type) (v_ref * GAIN + ac);
 		state.data[sample_set_index].imag = 0;
 		sample_set_index++;
@@ -127,6 +127,17 @@ static void pls_initialize(void) {
   node_count = 0;
 }
 
+static void print_csv() {
+  mlog_str("\r\n");
+  for(i = 0; i < SAMPLE_SIZE; i++) {
+    mlog_num(state.data[i].real);
+    mlog_str(",");
+    mlog_num(state.data[i].imag);
+    mlog_str("\r\n");
+  }
+  mlog_str("\r\n");
+}
+
 void pulse_init(ble_oto_t * _otolith_service) {
   otolith_service = _otolith_service;
 	mwte_fft_fft_state_init(&state);
@@ -155,10 +166,12 @@ heart_data build_heart_data(uint16_t bpm, uint16_t so2_sat) {
 }
 
 inline void pls_get_measurements(void) {
+print_csv();
   uint16_t bpm = calculate_bpm();
   mlog_println("BPM: ", bpm);
   uint16_t so2 = calculate_sa02_sat();
   mlog_println("so2: ", so2);
+print_csv();
   pls_push_measurement(build_heart_data(bpm, so2), true);
 }
 uint16_t calculate_sa02_sat (){
