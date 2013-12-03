@@ -3,6 +3,7 @@
 #include "nrf.h"
 #include "nrf_gpio.h"
 #include "nrf51_bitfields.h"
+#include "motor.h"
 #include "util.h"
 #include "dac_driver.h"
 #include "moving_avg.h"
@@ -13,8 +14,18 @@ static uint8_t v_plus = 8;
 static uint8_t v_max = 226;
 static uint8_t v_min = 30;
 static uint8_t read_adc = 3; 
+static bool on = 0;
 
 void ADC_IRQHandler(void) {
+  if(on) {
+    on = 0;
+    motor_off();
+  }
+  else {
+    on = 1;
+    motor_on();
+  }
+
 	NVIC_ClearPendingIRQ(ADC_IRQn);
 	
 	if(NRF_ADC->BUSY) {

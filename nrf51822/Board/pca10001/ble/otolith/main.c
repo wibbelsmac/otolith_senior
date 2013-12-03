@@ -210,7 +210,7 @@ static void button_event_handler(uint8_t pin_no)
       //          ble_oto_send_step_count(&m_oto);
       // }
       sync_steps();
-      motor_off();
+      //motor_off();
       led_stop();
       break;
 
@@ -242,7 +242,7 @@ void on_ble_as_update(uint16_t updated_alarm_time)
  */
 void on_user_alarm_expire()
 {
-  motor_on();
+  //motor_on();
   led_start();
 }
 
