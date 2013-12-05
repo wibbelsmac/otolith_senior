@@ -4,7 +4,7 @@
 #define PULSE_h
 #include <stdint.h>
 #include "ble_oto.h"
-#include "kiss_fftr.h"
+#include "mwte_ffti.h"
 
 typedef struct {
 	uint32_t status;
@@ -33,10 +33,10 @@ void pls_get_measurements(void);
 int pls_pop_measurement (heart_data * data);
 void pls_push_measurement(heart_data data, bool sync_heart_info);
 int pls_get_measurement_count(void);
-void pls_push_sync_node(void);
+void pls_build_sync_node(heart_data * data);
 void pulse_init(ble_oto_t * _otolith_service);
 heart_data build_heart_data(uint16_t bpm, uint16_t so2_stat);
-double sum (kiss_fft_cpx* arr, int start, int end);
+double sum (num_cpx* arr, int start, int end);
 uint16_t calculate_sa02_sat (void);
-
+void reset_measurement_count(void);
 #endif

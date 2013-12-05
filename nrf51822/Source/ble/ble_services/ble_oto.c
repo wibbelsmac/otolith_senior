@@ -130,7 +130,7 @@ static uint32_t oto_char_add(ble_oto_t * p_oto, const ble_oto_init_t * p_oto_ini
 	attr_char_value.p_attr_md    = &attr_md;
 	attr_char_value.init_len     = sizeof(uint32_t);
 	attr_char_value.init_offs    = 0;
-	attr_char_value.max_len      = sizeof(uint32_t) * 4;
+	attr_char_value.max_len      = sizeof(uint32_t) * 5;
 	attr_char_value.p_value      = &initial_step_count;
 	
 	return sd_ble_gatts_characteristic_add(p_oto->service_handle, 
@@ -169,16 +169,15 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
 	// Send value if connected and notifying
 	if (p_oto->conn_handle != BLE_CONN_HANDLE_INVALID)
 	{
-		mlog_println("p_oto->conn_handle", (int)p_oto->conn_handle);
 		ble_gatts_hvx_params_t hvx_params;
 		uint16_t hvx_len;
 		hvx_len = sizeof(step_data);
 		uint8_t buf[hvx_len];
 		step_data payload;
-		push_sync_node();
+		build_sync_node(&payload);
 		
 		mlog_str("syncing steps...\r\n");
-		while(!pop_measurement(&payload)) {
+		do {
 			memcpy(buf, &payload, sizeof(step_data)); 
 			mlog_println("steps: ", payload.steps); 
 			mlog_println("start_time: ", payload.start_time);
@@ -198,8 +197,7 @@ uint32_t ble_oto_send_step_count(ble_oto_t * p_oto)
 			mlog_println("p_oto: ", p_oto->conn_handle);
 
 			err_code = sd_ble_gatts_hvx(p_oto->conn_handle, &hvx_params);
-			mlog_println("Sync error: ", err_code);
-		}
+		} while(!pop_measurement(&payload));
 	}
 	else
 	{
@@ -221,17 +219,17 @@ uint32_t ble_oto_send_heart_info(ble_oto_t * p_oto)
 		hvx_len = sizeof(heart_data);
 		uint8_t buf[hvx_len];
 		heart_data payload;
-		pls_push_sync_node();
+		pls_build_sync_node(&payload);
 		
-		while(!pls_pop_measurement(&payload)) {
+		do {
 			memcpy(buf, &payload, sizeof(heart_data));
-			mlog_str("syncing heart...\r\n");			
-	//		mlog_println("bpm: ", payload.bpm); 
-	//		mlog_println("so2_sat: ", payload.so2_sat);
-	//		mlog_println("start_time: ", payload.start_time);
-	//		mlog_println("end_time: ", payload.end_time); 
-	//		mlog_println("status: ", payload.status >> 30);
-	//		mlog_str("\n");
+			// mlog_str("syncing heart...\r\n");			
+			mlog_println("Sent bpm: ", payload.bpm); 
+			// mlog_println("so2_sat: ", payload.so2_sat);
+			// mlog_println("start_time: ", payload.start_time);
+			// mlog_println("end_time: ", payload.end_time); 
+			// mlog_println("status: ", payload.status >> 30);
+			// mlog_str("\n");
 			memset(&hvx_params, 0, sizeof(hvx_params));
 			
 			hvx_params.handle   = p_oto->step_count_handles.value_handle;
@@ -241,7 +239,7 @@ uint32_t ble_oto_send_heart_info(ble_oto_t * p_oto)
 			hvx_params.p_data   = buf;
 			
 			err_code = sd_ble_gatts_hvx(p_oto->conn_handle, &hvx_params);
-		}
+		} while(!pls_pop_measurement(&payload));
 	}
 	else
 	{

@@ -3,6 +3,7 @@
 #include "nrf.h"
 #include "nrf_gpio.h"
 #include "nrf51_bitfields.h"
+#include "motor.h"
 #include "util.h"
 #include "dac_driver.h"
 #include "moving_avg.h"
@@ -13,12 +14,21 @@ static uint8_t v_plus = 8;
 static uint8_t v_max = 226;
 static uint8_t v_min = 30;
 static uint8_t read_adc = 3; 
+static bool on = 0;
 
 void ADC_IRQHandler(void) {
+  if(on) {
+    on = 0;
+    motor_off();
+  }
+  else {
+    on = 1;
+    motor_on();
+  }
+
 	NVIC_ClearPendingIRQ(ADC_IRQn);
 	
 	if(NRF_ADC->BUSY) {
-    mlog_str("ADC Handler\r\n");
     return;
   	}
 	uint8_t result = NRF_ADC->RESULT;
@@ -31,8 +41,9 @@ void ADC_IRQHandler(void) {
 	else if(read_adc == 4) {
 		read_adc = 3;
 		if(add_pulse_sample(result, moving_avg.avg)) {
-			mlog_str("ADC READ\r\n");
+			time_busy();
 		 	pls_get_measurements();
+		 	not_time_busy();
 		}		
 		if(result < v_min) {
 			v_plus++;
@@ -87,7 +98,7 @@ void adc_config(void) {
 		mlog_str("ADC Busy\r\n");
     NRF_ADC->TASKS_STOP = 1;
   }
-  mlog_str("ADC NOT Busy\r\n");
+
   NRF_ADC->CONFIG = (
     (ADC_CONFIG_PSEL_AnalogInput3 << ADC_CONFIG_PSEL_Pos)|
     (ADC_CONFIG_RES_8bit << ADC_CONFIG_RES_Pos)|
@@ -140,4 +151,11 @@ static void timer2_init(void)
     // to wake up the CPU on Timer interrupts.
 }
 
+void time_busy(void) {
+	NRF_TIMER2->TASKS_STOP = 1;
+}
 
+void not_time_busy(void) {
+	reset_measurement_count();
+	NRF_TIMER2->TASKS_START = 1;
+}

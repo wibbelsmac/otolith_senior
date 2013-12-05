@@ -1,6 +1,6 @@
 Dependencies for Project 'otolith', Target 'nRF51822_S110': (DO NOT MODIFY !)
 F (.\..\..\..\..\..\Source\templates\arm\arm_startup_nrf51.s)(0x5292DFA2)(--cpu Cortex-M0 --li -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include--list .\_build\arm_startup_nrf51.lst --xref -o .\_build\arm_startup_nrf51.o --depend .\_build\arm_startup_nrf51.d)
-F (.\..\..\..\..\..\Source\templates\system_nrf51.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\system_nrf51.o --omf_browse .\_build\system_nrf51.crf --depend .\_build\system_nrf51.d)
+F (.\..\..\..\..\..\Source\templates\system_nrf51.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\system_nrf51.o --omf_browse .\_build\system_nrf51.crf --depend .\_build\system_nrf51.d)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\compiler_abstraction.h)(0x52886106)
@@ -11,7 +11,7 @@ I (C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include\core_cmFunc.h)(0x512CF152)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\system_nrf51.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51_bitfields.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51_deprecated.h)(0x52886106)
-F (.\..\main.c)(0x5293030D)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\main.o --omf_browse .\_build\main.crf --depend .\_build\main.d)
+F (.\..\main.c)(0x529D1C95)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\main.o --omf_browse .\_build\main.crf --depend .\_build\main.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_button.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
@@ -59,23 +59,23 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\b
 I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\nrf_sdm.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\nrf_error_sdm.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\clock.h)(0x528D9AE4)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\clock.h)(0x529D1C71)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\led.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\main.h)(0x5291597E)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\motor.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nordic_common.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf_gpiote.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\heart\pulse.h)(0x52913047)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\kiss_fftr.h)(0x528AD44B)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\kiss_fft.h)(0x528AD45E)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\heart\pulse.h)(0x529D178A)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\mwte_fft\mwte_ffti.h)(0x529D1ECE)
+I (C:\Keil\ARM\ARMCC\include\limits.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\math.h)(0x51C87C24)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\step_counter.h)(0x5291302A)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\step_counter.h)(0x529415D6)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\acc_driver.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\user_alarm.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\user_alarm.h)(0x5293FCA9)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\sync_timer.h)(0x5293028C)
-F (..\led.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\led.o --omf_browse .\_build\led.crf --depend .\_build\led.d)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\sync_timer.h)(0x5293D341)
+F (..\led.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\led.o --omf_browse .\_build\led.crf --depend .\_build\led.d)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nordic_common.h)(0x52886106)
@@ -99,8 +99,8 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\n
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf_gpiote.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\led.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_util.h)(0x52886106)
-F (..\user_alarm.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\user_alarm.o --omf_browse .\_build\user_alarm.crf --depend .\_build\user_alarm.d)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\user_alarm.h)(0x52886106)
+F (..\user_alarm.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\user_alarm.o --omf_browse .\_build\user_alarm.crf --depend .\_build\user_alarm.d)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\user_alarm.h)(0x5293FCA9)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_timer.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
@@ -118,7 +118,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\a
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nordic_common.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
-F (..\motor.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\motor.o --omf_browse .\_build\motor.crf --depend .\_build\motor.d)
+F (..\motor.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\motor.o --omf_browse .\_build\motor.crf --depend .\_build\motor.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\motor.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf_gpio.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51.h)(0x52886106)
@@ -128,7 +128,7 @@ I (C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include\core_cmInstr.h)(0x51BB2854)
 I (C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include\core_cmFunc.h)(0x512CF152)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\system_nrf51.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51_bitfields.h)(0x52886106)
-F (..\rtc.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\rtc.o --omf_browse .\_build\rtc.crf --depend .\_build\rtc.d)
+F (..\rtc.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\rtc.o --omf_browse .\_build\rtc.crf --depend .\_build\rtc.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\compiler_abstraction.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51.h)(0x52886106)
@@ -140,8 +140,8 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\s
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51_bitfields.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51_deprecated.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\rtc.h)(0x52886106)
-F (..\adc.c)(0x52913F3B)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\adc.o --omf_browse .\_build\adc.crf --depend .\_build\adc.d)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\adc.h)(0x528D37EB)
+F (..\adc.c)(0x529D1D97)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\adc.o --omf_browse .\_build\adc.crf --depend .\_build\adc.d)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\adc.h)(0x529D1D5C)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_util.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\compiler_abstraction.h)(0x52886106)
@@ -162,7 +162,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\s
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\dac_driver.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\moving_avg.h)(0x528D373C)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\heart\pulse.h)(0x52913047)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\heart\pulse.h)(0x529D178A)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_oto.h)(0x528D53FD)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_ranges.h)(0x52886106)
@@ -175,28 +175,27 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\b
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_gattc.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_gatts.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_srv_common.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\kiss_fftr.h)(0x528AD44B)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\kiss_fft.h)(0x528AD45E)
-I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\mwte_fft\mwte_ffti.h)(0x529D1ECE)
+I (C:\Keil\ARM\ARMCC\include\limits.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\math.h)(0x51C87C24)
-F (..\..\..\..\..\Source\dac\dac_driver.c)(0x528AC52C)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\dac_driver.o --omf_browse .\_build\dac_driver.crf --depend .\_build\dac_driver.d)
+F (..\..\..\..\..\Source\dac\dac_driver.c)(0x528AC52C)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\dac_driver.o --omf_browse .\_build\dac_driver.crf --depend .\_build\dac_driver.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\spi_master.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\dac_driver.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
-F (..\..\..\..\..\Source\util\moving_avg.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\moving_avg.o --omf_browse .\_build\moving_avg.crf --depend .\_build\moving_avg.d)
+F (..\..\..\..\..\Source\util\moving_avg.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\moving_avg.o --omf_browse .\_build\moving_avg.crf --depend .\_build\moving_avg.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\moving_avg.h)(0x528D373C)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
-F (..\..\..\..\..\Source\util\util.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\util.o --omf_browse .\_build\util.crf --depend .\_build\util.d)
+F (..\..\..\..\..\Source\util\util.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\util.o --omf_browse .\_build\util.crf --depend .\_build\util.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
-F (..\..\..\..\..\Source\util\clock.c)(0x528D9B96)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\clock.o --omf_browse .\_build\clock.crf --depend .\_build\clock.d)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\clock.h)(0x528D9AE4)
+F (..\..\..\..\..\Source\util\clock.c)(0x528D9B96)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\clock.o --omf_browse .\_build\clock.crf --depend .\_build\clock.d)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\clock.h)(0x529D1C71)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\compiler_abstraction.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51.h)(0x52886106)
@@ -217,8 +216,47 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\a
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_scheduler.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
-F (..\sync_timer.c)(0x5293027A)()
-F (..\..\..\..\..\Source\ble\ble_services\ble_oto.c)(0x5292E765)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_oto.o --omf_browse .\_build\ble_oto.crf --depend .\_build\ble_oto.d)
+F (..\sync_timer.c)(0x52942092)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\sync_timer.o --omf_browse .\_build\sync_timer.crf --depend .\_build\sync_timer.d)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\user_alarm.h)(0x5293FCA9)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_timer.h)(0x52886106)
+I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C87C24)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_error.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\nrf_error.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_util.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\compiler_abstraction.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51.h)(0x52886106)
+I (C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include\core_cm0.h)(0x512CF152)
+I (C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include\core_cmInstr.h)(0x51BB2854)
+I (C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include\core_cmFunc.h)(0x512CF152)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\system_nrf51.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_scheduler.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nordic_common.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\sync_timer.h)(0x5293D341)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\main.h)(0x5291597E)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\step_counter.h)(0x529415D6)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\acc_driver.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_oto.h)(0x528D53FD)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_ranges.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_types.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_gap.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\nrf_svc.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_l2cap.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_err.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_gatt.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_gattc.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_gatts.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_srv_common.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\heart\pulse.h)(0x529D178A)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\mwte_fft\mwte_ffti.h)(0x529D1ECE)
+I (C:\Keil\ARM\ARMCC\include\limits.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\math.h)(0x51C87C24)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\adc.h)(0x529D1D5C)
+F (..\..\..\..\..\Source\ble\ble_services\ble_oto.c)(0x52942787)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_oto.o --omf_browse .\_build\ble_oto.crf --depend .\_build\ble_oto.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_oto.h)(0x528D53FD)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
@@ -245,16 +283,15 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\a
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nordic_common.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\main.h)(0x5291597E)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\step_counter.h)(0x5291302A)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\step_counter.h)(0x529415D6)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\acc_driver.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\heart\pulse.h)(0x52913047)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\kiss_fftr.h)(0x528AD44B)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\kiss_fft.h)(0x528AD45E)
-I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\heart\pulse.h)(0x529D178A)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\mwte_fft\mwte_ffti.h)(0x529D1ECE)
+I (C:\Keil\ARM\ARMCC\include\limits.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\math.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
-F (..\..\..\..\..\Source\ble\ble_services\ble_as.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_as.o --omf_browse .\_build\ble_as.crf --depend .\_build\ble_as.d)
+F (..\..\..\..\..\Source\ble\ble_services\ble_as.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_as.o --omf_browse .\_build\ble_as.crf --depend .\_build\ble_as.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_as.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble.h)(0x52886106)
@@ -281,7 +318,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\s
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_error.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
-F (..\..\..\..\..\Source\ble\ble_conn_params.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_conn_params.o --omf_browse .\_build\ble_conn_params.crf --depend .\_build\ble_conn_params.d)
+F (..\..\..\..\..\Source\ble\ble_conn_params.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_conn_params.o --omf_browse .\_build\ble_conn_params.crf --depend .\_build\ble_conn_params.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_conn_params.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble.h)(0x52886106)
@@ -311,7 +348,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\b
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_timer.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_scheduler.h)(0x52886106)
-F (..\..\..\..\..\Source\ble\ble_advdata.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_advdata.o --omf_browse .\_build\ble_advdata.crf --depend .\_build\ble_advdata.d)
+F (..\..\..\..\..\Source\ble\ble_advdata.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_advdata.o --omf_browse .\_build\ble_advdata.crf --depend .\_build\ble_advdata.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_advdata.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
@@ -337,7 +374,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\s
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_error.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nordic_common.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_srv_common.h)(0x52886106)
-F (..\..\..\..\..\Source\ble\ble_services\ble_srv_common.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_srv_common.o --omf_browse .\_build\ble_srv_common.crf --depend .\_build\ble_srv_common.d)
+F (..\..\..\..\..\Source\ble\ble_services\ble_srv_common.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_srv_common.o --omf_browse .\_build\ble_srv_common.crf --depend .\_build\ble_srv_common.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_srv_common.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
@@ -356,7 +393,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\b
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\nrf_svc.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nordic_common.h)(0x52886106)
-F (..\..\..\..\..\Source\app_common\app_timer.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\app_timer.o --omf_browse .\_build\app_timer.crf --depend .\_build\app_timer.d)
+F (..\..\..\..\..\Source\app_common\app_timer.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\app_timer.o --omf_browse .\_build\app_timer.crf --depend .\_build\app_timer.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_timer.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
@@ -379,7 +416,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\n
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51_deprecated.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\nrf_error_soc.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf_delay.h)(0x52886106)
-F (..\..\..\..\..\Source\ble\ble_stack_handler.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_stack_handler.o --omf_browse .\_build\ble_stack_handler.crf --depend .\_build\ble_stack_handler.d)
+F (..\..\..\..\..\Source\ble\ble_stack_handler.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_stack_handler.o --omf_browse .\_build\ble_stack_handler.crf --depend .\_build\ble_stack_handler.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_stack_handler.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble.h)(0x52886106)
@@ -413,7 +450,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\a
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_util.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nordic_common.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf_assert.h)(0x52886106)
-F (..\..\..\..\..\Source\ble\ble_bondmngr.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_bondmngr.o --omf_browse .\_build\ble_bondmngr.crf --depend .\_build\ble_bondmngr.d)
+F (..\..\..\..\..\Source\ble\ble_bondmngr.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_bondmngr.o --omf_browse .\_build\ble_bondmngr.crf --depend .\_build\ble_bondmngr.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_bondmngr.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble.h)(0x52886106)
@@ -446,7 +483,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\n
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51_deprecated.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_flash.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\ble_bondmngr_cfg.h)(0x52886106)
-F (..\..\..\..\..\Source\ble\ble_flash.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_flash.o --omf_browse .\_build\ble_flash.crf --depend .\_build\ble_flash.d)
+F (..\..\..\..\..\Source\ble\ble_flash.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_flash.o --omf_browse .\_build\ble_flash.crf --depend .\_build\ble_flash.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_flash.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
@@ -468,7 +505,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\b
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nordic_common.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_util.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_error.h)(0x52886106)
-F (..\..\..\..\..\Source\app_common\app_button.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\app_button.o --omf_browse .\_build\app_button.crf --depend .\_build\app_button.d)
+F (..\..\..\..\..\Source\app_common\app_button.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\app_button.o --omf_browse .\_build\app_button.crf --depend .\_build\app_button.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_button.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
@@ -491,7 +528,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\a
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_gpiote.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_timer.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C87C24)
-F (..\..\..\..\..\Source\ble\ble_radio_notification.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_radio_notification.o --omf_browse .\_build\ble_radio_notification.crf --depend .\_build\ble_radio_notification.d)
+F (..\..\..\..\..\Source\ble\ble_radio_notification.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_radio_notification.o --omf_browse .\_build\ble_radio_notification.crf --depend .\_build\ble_radio_notification.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_radio_notification.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
@@ -509,7 +546,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\n
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\nrf_error_soc.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\nrf_error.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
-F (..\..\..\..\..\Source\app_common\app_gpiote.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\app_gpiote.o --omf_browse .\_build\app_gpiote.crf --depend .\_build\app_gpiote.d)
+F (..\..\..\..\..\Source\app_common\app_gpiote.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\app_gpiote.o --omf_browse .\_build\app_gpiote.crf --depend .\_build\app_gpiote.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_gpiote.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
@@ -528,7 +565,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\a
 I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf_gpio.h)(0x52886106)
-F (..\..\..\..\..\Source\ble\ble_error_log.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_error_log.o --omf_browse .\_build\ble_error_log.crf --depend .\_build\ble_error_log.d)
+F (..\..\..\..\..\Source\ble\ble_error_log.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_error_log.o --omf_browse .\_build\ble_error_log.crf --depend .\_build\ble_error_log.d)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
@@ -546,7 +583,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\b
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf_gpio.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51_bitfields.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_flash.h)(0x52886106)
-F (..\..\..\..\..\Source\ble\ble_debug_assert_handler.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_debug_assert_handler.o --omf_browse .\_build\ble_debug_assert_handler.crf --depend .\_build\ble_debug_assert_handler.d)
+F (..\..\..\..\..\Source\ble\ble_debug_assert_handler.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\ble_debug_assert_handler.o --omf_browse .\_build\ble_debug_assert_handler.crf --depend .\_build\ble_debug_assert_handler.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_debug_assert_handler.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
@@ -559,7 +596,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\b
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_nrf6310_pins.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nordic_common.h)(0x52886106)
-F (..\..\..\..\..\Source\simple_uart\simple_uart.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\simple_uart.o --omf_browse .\_build\simple_uart.crf --depend .\_build\simple_uart.d)
+F (..\..\..\..\..\Source\simple_uart\simple_uart.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\simple_uart.o --omf_browse .\_build\simple_uart.crf --depend .\_build\simple_uart.d)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\compiler_abstraction.h)(0x52886106)
@@ -574,12 +611,12 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\s
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf_delay.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf_gpio.h)(0x52886106)
-F (..\..\..\..\..\Source\util\util.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\util.o --omf_browse .\_build\util.crf --depend .\_build\util.d)
+F (..\..\..\..\..\Source\util\util.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\util.o --omf_browse .\_build\util.crf --depend .\_build\util.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
-F (..\..\..\..\..\Source\spi_master\spi_master.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\spi_master.o --omf_browse .\_build\spi_master.crf --depend .\_build\spi_master.d)
+F (..\..\..\..\..\Source\spi_master\spi_master.c)(0x52886107)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\spi_master.o --omf_browse .\_build\spi_master.crf --depend .\_build\spi_master.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\spi_master.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
@@ -596,7 +633,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\n
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf_gpio.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\common.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\spi_master_config.h)(0x52886106)
-F (..\..\..\..\..\Source\acc\acc_driver.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\acc_driver.o --omf_browse .\_build\acc_driver.crf --depend .\_build\acc_driver.d)
+F (..\..\..\..\..\Source\acc\acc_driver.c)(0x52886106)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\acc_driver.o --omf_browse .\_build\acc_driver.crf --depend .\_build\acc_driver.d)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\spi_master.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
@@ -613,10 +650,10 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\n
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf_gpio.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\common.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\acc_driver.h)(0x52886106)
-F (..\..\..\..\..\Source\step_counter\step_counter.c)(0x5292FEFC)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\step_counter.o --omf_browse .\_build\step_counter.crf --depend .\_build\step_counter.d)
+F (..\..\..\..\..\Source\step_counter\step_counter.c)(0x52942C60)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16_format=ieee-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\step_counter.o --omf_browse .\_build\step_counter.crf --depend .\_build\step_counter.d)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\clock.h)(0x528D9AE4)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\clock.h)(0x529D1C71)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\compiler_abstraction.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51.h)(0x52886106)
@@ -635,7 +672,7 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\b
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_util.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\acc_driver.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\step_counter.h)(0x5291302A)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\step_counter.h)(0x529415D6)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_oto.h)(0x528D53FD)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_ranges.h)(0x52886106)
@@ -648,34 +685,14 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\b
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_gattc.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_gatts.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_srv_common.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\user_alarm.h)(0x52886106)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\user_alarm.h)(0x5293FCA9)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_timer.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_scheduler.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\main.h)(0x5291597E)
-F (..\..\..\..\..\Source\kiss_fft\kiss_fft.c)(0x5290F717)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\kiss_fft.o --omf_browse .\_build\kiss_fft.crf --depend .\_build\kiss_fft.d)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\_kiss_fft_guts.h)(0x528AD419)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\kiss_fft.h)(0x528AD45E)
-I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
-I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
-I (C:\Keil\ARM\ARMCC\include\math.h)(0x51C87C24)
-I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
-I (C:\Keil\ARM\ARMCC\include\limits.h)(0x51C87C24)
-F (..\..\..\..\..\Source\kiss_fft\kiss_fftr.c)(0x528ADC3A)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\kiss_fftr.o --omf_browse .\_build\kiss_fftr.crf --depend .\_build\kiss_fftr.d)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\kiss_fftr.h)(0x528AD44B)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\kiss_fft.h)(0x528AD45E)
-I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
-I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
-I (C:\Keil\ARM\ARMCC\include\math.h)(0x51C87C24)
-I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\_kiss_fft_guts.h)(0x528AD419)
-I (C:\Keil\ARM\ARMCC\include\limits.h)(0x51C87C24)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
-I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
-F (..\..\..\..\..\Source\Heart\pulse.c)(0x5292DFB0)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\kiss_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\pulse.o --omf_browse .\_build\pulse.crf --depend .\_build\pulse.d)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\adc.h)(0x528D37EB)
+F (..\..\..\..\..\Source\Heart\pulse.c)(0x529D1C63)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\pulse.o --omf_browse .\_build\pulse.crf --depend .\_build\pulse.d)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Board\pca10001\ble\otolith\adc.h)(0x529D1D5C)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_util.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\compiler_abstraction.h)(0x52886106)
@@ -687,12 +704,12 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\s
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\app_common\app_error.h)(0x52886106)
 I (C:\Keil\ARM\ARMCC\include\stdbool.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\nrf_error.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\clock.h)(0x528D9AE4)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\clock.h)(0x529D1C71)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51_bitfields.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nrf51_deprecated.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\dac_driver.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\heart\pulse.h)(0x52913047)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\heart\pulse.h)(0x529D178A)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_oto.h)(0x528D53FD)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_ranges.h)(0x52886106)
@@ -705,11 +722,16 @@ I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\b
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_gattc.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\softdevice\ble_gatts.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\ble\ble_services\ble_srv_common.h)(0x52886106)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\kiss_fftr.h)(0x528AD44B)
-I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\kiss_fft\kiss_fft.h)(0x528AD45E)
-I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\mwte_fft\mwte_ffti.h)(0x529D1ECE)
+I (C:\Keil\ARM\ARMCC\include\limits.h)(0x51C87C24)
 I (C:\Keil\ARM\ARMCC\include\math.h)(0x51C87C24)
-I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C87C24)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\util\util.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\simple_uart.h)(0x52886106)
 I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\nordic_common.h)(0x52886106)
+I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)
+F (..\..\..\..\..\Source\mwte_fft\mwte_ffti.c)(0x529D1153)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\PACK\ARM\CMSIS\3.20.3\CMSIS\Include-I C:\Keil\ARM\Device\Nordic\nRF51822\Include-DNRF51 -DDEBUG_NRF_USER -o .\_build\mwte_ffti.o --omf_browse .\_build\mwte_ffti.crf --depend .\_build\mwte_ffti.d)
+I (C:\Users\Mackenzie Wibbels\Documents\GitHub\otolith_senior\nrf51822\Include\mwte_fft\mwte_ffti.h)(0x529D1ECE)
+I (C:\Keil\ARM\ARMCC\include\limits.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\math.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C87C24)
+I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C87C24)

@@ -11,7 +11,7 @@ static bool is_first_write;
  */
 static void on_write(ble_as_t * p_as, ble_evt_t * p_ble_evt)
 {
-  mlog_str("on_write\r\n");
+  mlog_str("ble on_write\r\n");
 	
 	  // This annoyingly gets called during initialization 
     if (is_first_write)

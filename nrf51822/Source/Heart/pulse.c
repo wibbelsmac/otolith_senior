@@ -6,30 +6,31 @@
 #include "util.h"
 #include "nordic_common.h"
 #include "ble_oto.h"
+#include <stdlib.h>
 
-#define SAMPLE_FREQ 120
-#define SAMPLE_SIZE 256
+//#define SAMPLE_FREQ 120
+#define SAMPLE_FREQ 60
+#define SAMPLE_SIZE 512
 #define SAMPLE_SIZE_FREQ SAMPLE_SIZE/2 + 1
 #define GAIN 32
-#define MAX_INDEX (200 * (SAMPLE_SIZE_FREQ - 1))/3600 + 1
+#define MIN_INDEX (35 * (SAMPLE_SIZE_FREQ - 1))/((SAMPLE_FREQ * 60)/2) + 1
+#define MAX_INDEX (200 * (SAMPLE_SIZE_FREQ - 1))/((SAMPLE_FREQ * 60)/2) + 1
 
 
-static size_t mem_needed =  1556;
 static      int   node_count;
 static heart_node *           head;                      
-
+static fft_state state;
 // otolith service struct
 static ble_oto_t *            otolith_service;
 
 
-kiss_fft_scalar * sample_set = NULL;
-kiss_fft_cfg kiss_config = NULL;
-kiss_fft_cpx * sample_set_freq = NULL;
-uint16_t sample_set_index = 0;
+num_cpx * sample_set = NULL;
+static uint16_t sample_set_index = 0;
 
 uint8_t add_pulse_sample(uint8_t ac, uint8_t v_ref) {
-  if(sample_set_index < SAMPLE_SIZE) {    
-    sample_set[sample_set_index] = v_ref * GAIN + ac;
+  if(sample_set_index < SAMPLE_SIZE) {
+    state.data[sample_set_index].real = (d_type) (v_ref * GAIN + ac);
+		state.data[sample_set_index].imag = 0;
 		sample_set_index++;
     return 0;
   }
@@ -40,16 +41,14 @@ uint8_t add_pulse_sample(uint8_t ac, uint8_t v_ref) {
 }
 
 uint16_t calculate_bpm() {
-	size_t mem_length = mem_needed;
-  kiss_fftr_cfg cfg = kiss_fftr_alloc(SAMPLE_SIZE, 0, kiss_config, &mem_length);
-	kiss_fftr(cfg, sample_set, sample_set_freq);
+	mwte_fft_in_place(&state);
   return get_max_freq();
 }
 
 uint16_t get_weighted_bpm(uint16_t index) {
-  float x = get_magnitudef(sample_set_freq[index - 1].r ,sample_set_freq[index - 1].i);
-  float y = get_magnitudef(sample_set_freq[index].r, sample_set_freq[index].i);
-  float z = get_magnitudef(sample_set_freq[index + 1].r, sample_set_freq[index + 1].i);
+  float x = get_magnitudef(state.data[index - 1].real ,state.data[index - 1].imag);
+  float y = get_magnitudef(state.data[index].real, state.data[index].imag);
+  float z = get_magnitudef(state.data[index + 1].real, state.data[index + 1].imag);
   float avg = (x*(index - 1) + y*(index) + z*(index + 1)) / (x + y + z);
   mlog_num(avg);
   uint16_t bpm = ((avg - 2.0f) * 60.0f * SAMPLE_FREQ) / ((2.00f) * (SAMPLE_SIZE_FREQ-1.0f));
@@ -64,7 +63,7 @@ uint16_t get_max_freq() {
   float tmp;
 
   for(i = 2; i <= MAX_INDEX; i++) {
-	  tmp = get_magnitudef(sample_set_freq[i].r, sample_set_freq[i].i);
+	  tmp = get_magnitudef(state.data[i].real, state.data[i].imag);
     if(max_amp < tmp) {
       max_amp = tmp;
       max_index = i;
@@ -100,8 +99,7 @@ int pls_pop_measurement (heart_data * data) {
 }
 
 void pls_push_measurement(heart_data data, bool sync_heart_info) {
-  uint16_t mem_needed =  sizeof(heart_node);
-  heart_node * temp = malloc(mem_needed);
+  heart_node * temp = (heart_node*) malloc(sizeof(heart_node));
   if(temp == NULL) {
     mlog_println("ERROR heart_node malloc returned NULL node_count: ", pls_get_measurement_count());
 		return;
@@ -111,33 +109,41 @@ void pls_push_measurement(heart_data data, bool sync_heart_info) {
   head = temp;
   node_count++;
 
-  if(sync_heart_info) {
-    ble_oto_send_heart_info(otolith_service);
-  }
+  //if(sync_heart_info) {
+    //ble_oto_send_heart_info(otolith_service);
+  //}
 }
 
-void pls_push_sync_node (void) {
-  heart_data status;
-  status.status = 1 << 31;
-  status.start_time = get_total_minutes_past();
-  status.end_time = get_total_minutes_past();
-  status.bpm = 0;
-  status.so2_sat = 0;
-  pls_push_measurement(status, false);
+void pls_build_sync_node (heart_data * status) {
+  status->status = 1 << 31;
+  status->start_time = get_total_minutes_past();
+  status->end_time = get_total_minutes_past();
+  status->bpm = 0;
+  status->so2_sat = 0;
 }
 
 static void pls_initialize(void) {
-  head = malloc(sizeof(heart_node));
+  head = NULL;
   node_count = 0;
+}
+
+static void print_csv() {
+  mlog_str("\r\n");
+  for(i = 0; i < SAMPLE_SIZE; i++) {
+    mlog_num(state.data[i].real);
+    mlog_str(",");
+    mlog_num(state.data[i].imag);
+    mlog_str("\r\n");
+  }
+  mlog_str("\r\n");
 }
 
 void pulse_init(ble_oto_t * _otolith_service) {
   otolith_service = _otolith_service;
-  sample_set = malloc(sizeof(kiss_fft_scalar) * SAMPLE_SIZE);
-  sample_set_freq =  malloc(sizeof(kiss_fft_cpx) * SAMPLE_SIZE_FREQ);
-  kiss_config = malloc(mem_needed);
+	mwte_fft_fft_state_init(&state);
+	mwte_fft_alloc(SAMPLE_SIZE, &state);
 	mlog_str("Malloc\r\n");
-  if(sample_set_freq == NULL || sample_set == NULL) {
+  if(state.data) {
     mlog_str("malloc returned NULL\r\n");
   }
 	mlog_str("finished pulse_init Malloc\r\n");
@@ -151,7 +157,7 @@ void pulse_init(ble_oto_t * _otolith_service) {
 
 heart_data build_heart_data(uint16_t bpm, uint16_t so2_sat) {
   heart_data hd_struct;
-  hd_struct.status = 1;
+  hd_struct.status = 1<<30;
   hd_struct.start_time = get_total_minutes_past();
   hd_struct.end_time = get_total_minutes_past();
   hd_struct.bpm = bpm;
@@ -160,23 +166,29 @@ heart_data build_heart_data(uint16_t bpm, uint16_t so2_sat) {
 }
 
 inline void pls_get_measurements(void) {
+print_csv();
   uint16_t bpm = calculate_bpm();
   mlog_println("BPM: ", bpm);
   uint16_t so2 = calculate_sa02_sat();
   mlog_println("so2: ", so2);
+print_csv();
   pls_push_measurement(build_heart_data(bpm, so2), true);
 }
 uint16_t calculate_sa02_sat (){
-  double dc = get_magnitudef(sample_set_freq[0].r, sample_set_freq[0].i);
-  double ac = sum(sample_set_freq, 1, MAX_INDEX);
+  double dc = get_magnitudef(state.data[0].real, state.data[0].imag);
+  double ac = sum(state.data, MIN_INDEX, MAX_INDEX);
   return (uint16_t) ((ac/dc) * 1000);
 }
 
-inline double sum (kiss_fft_cpx* arr, int start, int end) {
-  double temp = get_magnitudef(sample_set_freq[start].r, sample_set_freq[start].i);
+inline double sum (num_cpx* arr, int start, int end) {
+  double temp = get_magnitudef(arr[start].real, arr[start].imag);
   for (int i = start; i <= end; ++i)
   {
-    temp = temp + get_magnitudef(sample_set_freq[i].r, sample_set_freq[i].i);
+    temp = temp + get_magnitudef(arr[i].real, arr[i].imag);
   }
   return temp;
+}
+
+void reset_measurement_count(void) {
+  sample_set_index = 0;
 }
