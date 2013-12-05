@@ -3,11 +3,11 @@
 #include "nrf.h"
 #include "nrf_gpio.h"
 #include "nrf51_bitfields.h"
-#include "motor.h"
 #include "util.h"
 #include "dac_driver.h"
 #include "moving_avg.h"
 #include "pulse.h"
+#include "pulse_analys.h"
 
 static samples_struct moving_avg;
 static uint8_t v_plus = 8;
@@ -17,14 +17,6 @@ static uint8_t read_adc = 3;
 static bool on = 0;
 
 void ADC_IRQHandler(void) {
-  if(on) {
-    on = 0;
-    motor_off();
-  }
-  else {
-    on = 1;
-    motor_on();
-  }
 
 	NVIC_ClearPendingIRQ(ADC_IRQn);
 	
@@ -33,13 +25,15 @@ void ADC_IRQHandler(void) {
   	}
 	uint8_t result = NRF_ADC->RESULT;
 	if(read_adc == 3) {
-		add_moving_average_sample(&moving_avg, result);		
+		add_moving_average_sample(&moving_avg, result);
 		write_voltage(moving_avg.avg + v_plus);
-
 		read_adc = 4;	
 	}
 	else if(read_adc == 4) {
 		read_adc = 3;
+		so2_d_type dc = moving_avg.avg * GAIN;
+		so2_d_type ac = result;
+		s02_add_sample(&dc, &ac, 0);
 		if(add_pulse_sample(result, moving_avg.avg)) {
 			time_busy();
 		 	pls_get_measurements();

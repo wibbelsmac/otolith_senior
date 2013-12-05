@@ -1,6 +1,7 @@
 #include "pulse_analys.h"
-#include <stdlib.h>
+#include "util.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 static so2_struct* s02_arr;
 static int s02_arr_len;
@@ -11,6 +12,9 @@ static int s02_arr_index;
 
 void s02_init(int num_beats, int sample_freq, int beat_sample_len, int min_btwn_beat) {
 	s02_arr =  (so2_struct*)malloc(sizeof(so2_struct) * num_beats);
+	if(s02_arr == NULL) {
+		mlog_str("ERROR s02_malloc returned NULL");
+	}
 	s02_arr_len = num_beats;
 	sample_since_last_pulse = min_btwn_beat * 3 / 4; // dont want to pick up beat halfway off window
 	num_so2_maxes = 0;
@@ -25,21 +29,21 @@ void s02_reset(void) {
 
 }
 // returns true if num_so2_maxes > s02_arr_len
-int s02_add_sample (so2_d_type dc, so2_d_type ac, int samp_index) {
+int s02_add_sample (so2_d_type* dc, so2_d_type* ac, int samp_index) {  
 	int index = s02_arr_index % s02_arr_len;
 	int last_index = (s02_arr_index-1) % s02_arr_len;
 	sample_since_last_pulse++;
 	if((sample_since_last_pulse >= min_btwn) && (num_so2_maxes < s02_arr_len)) {  // greater than max distance between samples
-		s02_arr[index].ac = ac;
-		s02_arr[index].dc = dc;
+		s02_arr[index].ac = *ac;
+		s02_arr[index].dc = *dc;
 		s02_arr[index].index = samp_index;
 		num_so2_maxes++;
 		s02_arr_index++;
 		sample_since_last_pulse = 0;
 	} else if((sample_since_last_pulse < min_btwn) && (num_so2_maxes != 0) && // less than max distance, but ac:dc greater than last 
-			 ac_dc_ratio_struct(&(s02_arr[last_index])) < ac_dc_ratio(&dc,&ac)) {
-		s02_arr[last_index].ac = ac;
-		s02_arr[last_index].dc = dc;
+			 ac_dc_ratio_struct(&(s02_arr[last_index])) < ac_dc_ratio(dc,ac)) {
+		s02_arr[last_index].ac = *ac;
+		s02_arr[last_index].dc = *dc;
 		s02_arr[index].index = samp_index;
 		sample_since_last_pulse = 0;
 	}
@@ -49,14 +53,15 @@ int s02_add_sample (so2_d_type dc, so2_d_type ac, int samp_index) {
 }
 
 float get_avg_s02_AC_DC_ratio (void) {
-	float ac_sum = 0;
+	double ac_sum = 0;
+	double dc_sum = 0;
 	int i;
 	for(i = 0; i < num_so2_maxes; i++) {
-		printf("Average of index%d is: %f\n", i, ac_dc_ratio_struct(&(s02_arr[i])));
-		ac_sum += ac_dc_ratio_struct(&(s02_arr[i]));
+		ac_sum += s02_arr[i].ac;
+		dc_sum += s02_arr[i].dc;
 	}
 	if(num_so2_maxes > 0)
-		return ac_sum / num_so2_maxes;
+		return (1000.0f - ((ac_sum * 1000.0f) / dc_sum));
 	else
 		return 0.0f;
 }

@@ -6,15 +6,14 @@
 #include "util.h"
 #include "nordic_common.h"
 #include "ble_oto.h"
+#include "pulse_analys.h"
 #include <stdlib.h>
 
-//#define SAMPLE_FREQ 120
-#define SAMPLE_FREQ 60
-#define SAMPLE_SIZE 512
-#define SAMPLE_SIZE_FREQ SAMPLE_SIZE/2 + 1
-#define GAIN 32
-#define MIN_INDEX (35 * (SAMPLE_SIZE_FREQ - 1))/((SAMPLE_FREQ * 60)/2) + 1
-#define MAX_INDEX (200 * (SAMPLE_SIZE_FREQ - 1))/((SAMPLE_FREQ * 60)/2) + 1
+
+#define MIN_INDEX 3//(40 * (SAMPLE_SIZE_FREQ - 1))/((SAMPLE_FREQ * 60)/2) + 1
+#define MAX_INDEX 14//(200 * (SAMPLE_SIZE_FREQ - 1))/((SAMPLE_FREQ * 60)/2) + 1
+
+
 
 
 static      int   node_count;
@@ -22,7 +21,7 @@ static heart_node *           head;
 static fft_state state;
 // otolith service struct
 static ble_oto_t *            otolith_service;
-
+static int pulse_index;
 
 num_cpx * sample_set = NULL;
 static uint16_t sample_set_index = 0;
@@ -46,31 +45,57 @@ uint16_t calculate_bpm() {
 }
 
 uint16_t get_weighted_bpm(uint16_t index) {
-  float x = get_magnitudef(state.data[index - 1].real ,state.data[index - 1].imag);
-  float y = get_magnitudef(state.data[index].real, state.data[index].imag);
+	float w, p, x;
+  if(index <= 3) {
+    w = 0.0f;
+    p = 0.0f;
+  } else {
+    w = get_magnitudef(state.data[index - 2].real ,state.data[index - 2].imag);
+   // p = get_magnitudef(state.data[index + 2].real ,state.data[index + 2].imag);
+  }
+	if(index <= 3 ){ // prevents dc polution of BPM calculation
+    x = 0;
+	} else {
+		
+    x = get_magnitudef(state.data[index - 1].real ,state.data[index - 1].imag);
+  }
+	float y = get_magnitudef(state.data[index].real, state.data[index].imag);
   float z = get_magnitudef(state.data[index + 1].real, state.data[index + 1].imag);
-  float avg = (x*(index - 1) + y*(index) + z*(index + 1)) / (x + y + z);
+  p = get_magnitudef(state.data[index + 2].real, state.data[index + 2].imag);
+  float avg = (w*(index - 2 )+ x*(index - 1) + y*(index) + z*(index + 1) + p*(index + 2)) / (w + x + y + z + p);
   mlog_num(avg);
-  uint16_t bpm = ((avg - 2.0f) * 60.0f * SAMPLE_FREQ) / ((2.00f) * (SAMPLE_SIZE_FREQ-1.0f));
 
+//  uint16_t bpm = ((avg) * 60.0f * SAMPLE_FREQ) / ((2.00f) * (SAMPLE_SIZE_FREQ-1.0f));
+//	float avg, index_avg;
+//	int i;
+//	int max = (index + index - MIN_INDEX > max) ? MAX_INDEX : (index + index - MIN_INDEX);
+//	for(i = MIN_INDEX; i <= max; i++) {
+//		float temp = get_magnitudef(state.data[i].real, state.data[i].imag);
+//		avg +=temp;
+//		index_avg += i * temp;
+//	}
+	
+//	avg = index_avg / avg;
+	uint16_t bpm = ((avg) * 60.0f * SAMPLE_FREQ) / ((2.00f) * (SAMPLE_SIZE_FREQ-1.0f));
   return bpm;
 }
 
 uint16_t get_max_freq() {
-  uint16_t max_index = 2;
+  uint16_t max_freq_index = MIN_INDEX;
   float max_amp = 0;
   uint16_t i;
   float tmp;
 
-  for(i = 2; i <= MAX_INDEX; i++) {
+  for(i = MIN_INDEX; i <= MAX_INDEX; i++) {
 	  tmp = get_magnitudef(state.data[i].real, state.data[i].imag);
     if(max_amp < tmp) {
       max_amp = tmp;
-      max_index = i;
+      max_freq_index = i;
     }
   }
-  mlog_println("Max index:", max_index);
-  return get_weighted_bpm(max_index);
+  pulse_index = max_freq_index;
+  mlog_println("Max index:", max_freq_index);
+  return get_weighted_bpm(max_freq_index);
   
 }
 
@@ -129,10 +154,22 @@ static void pls_initialize(void) {
 
 static void print_csv() {
   mlog_str("\r\n");
+	int i;
   for(i = 0; i < SAMPLE_SIZE; i++) {
-    mlog_num(state.data[i].real);
+    mlog_num((uint16_t)state.data[i].real);
     mlog_str(",");
-    mlog_num(state.data[i].imag);
+    mlog_num((uint16_t)state.data[i].imag);
+    mlog_str("\r\n");
+  }
+  mlog_str("\r\n");
+}
+
+static void print_cpx_mag_csv() {
+  mlog_str("\r\n");
+  int i;
+  for(i = 0; i < SAMPLE_SIZE; i++) {
+    float value = calc_mag(&(state.data[i]));
+    mlog_num((uint16_t)value);
     mlog_str("\r\n");
   }
   mlog_str("\r\n");
@@ -142,6 +179,7 @@ void pulse_init(ble_oto_t * _otolith_service) {
   otolith_service = _otolith_service;
 	mwte_fft_fft_state_init(&state);
 	mwte_fft_alloc(SAMPLE_SIZE, &state);
+  s02_init(NUM_BEATS, SAMPLE_FREQ, BEAT_SAMPLE_LEN, MIN_BTWN_BEAT);
 	mlog_str("Malloc\r\n");
   if(state.data) {
     mlog_str("malloc returned NULL\r\n");
@@ -166,17 +204,18 @@ heart_data build_heart_data(uint16_t bpm, uint16_t so2_sat) {
 }
 
 inline void pls_get_measurements(void) {
-print_csv();
+//print_csv();
   uint16_t bpm = calculate_bpm();
   mlog_println("BPM: ", bpm);
-  uint16_t so2 = calculate_sa02_sat();
+  uint16_t so2 = get_avg_s02_AC_DC_ratio();
   mlog_println("so2: ", so2);
-print_csv();
+//print_cpx_mag_csv();
   pls_push_measurement(build_heart_data(bpm, so2), true);
+  s02_reset();
 }
 uint16_t calculate_sa02_sat (){
   double dc = get_magnitudef(state.data[0].real, state.data[0].imag);
-  double ac = sum(state.data, MIN_INDEX, MAX_INDEX);
+  double ac = get_magnitudef(state.data[pulse_index].real, state.data[pulse_index].imag);//sum(state.data, MIN_INDEX, MAX_INDEX);
   return (uint16_t) ((ac/dc) * 1000);
 }
 

@@ -154,3 +154,6 @@ static inline void mwte_btfly2 (num_cpx * num_cpx0, num_cpx* num_cpx1, num_cpx *
     mwte_fft_add_to(num_cpx0, *num_cpx1);
     mwte_fft_sub(num_cpx1,a, *num_cpx1);
 }
+float calc_mag(num_cpx* num) {
+  return sqrt(pow(num->real, 2.0) + pow(num->imag, 2.0));
+}

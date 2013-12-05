@@ -61,6 +61,6 @@ static inline void mwte_fft_w_index(num_cpx* data, d_type* min_res, int index);
 // performs forward fft in-place
 void mwte_fft_in_place (fft_state* state);
 static inline void mwte_sub_fft_in_place(fft_state* state, int N0);
-//static inline void mwte_btfly2 (num_cpx * num_cpx0, num_cpx* num_cpx1, num_cpx * Wn);
 static inline void mwte_btfly2 (num_cpx * num_cpx0, num_cpx* num_cpx1, num_cpx * Wn);
+float calc_mag(num_cpx* num);
 #endif

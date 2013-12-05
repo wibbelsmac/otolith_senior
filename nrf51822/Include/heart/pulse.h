@@ -6,6 +6,17 @@
 #include "ble_oto.h"
 #include "mwte_ffti.h"
 
+#define SAMPLE_FREQ 120
+//#define SAMPLE_FREQ 60
+#define SAMPLE_SIZE 512
+#define SAMPLE_SIZE_FREQ SAMPLE_SIZE/2 + 1
+#define GAIN 32
+
+#define NUM_BEATS  12
+#define BEAT_SAMPLE_LEN  (60 * SAMPLE_SIZE_FREQ) / 40 // max length of heartbeat
+#define MIN_BTWN_BEAT  (220 * 60) / (SAMPLE_SIZE_FREQ * 2) // min seperation between heart beats
+
+
 typedef struct {
 	uint32_t status;
 	uint32_t start_time;
@@ -39,4 +50,5 @@ heart_data build_heart_data(uint16_t bpm, uint16_t so2_stat);
 double sum (num_cpx* arr, int start, int end);
 uint16_t calculate_sa02_sat (void);
 void reset_measurement_count(void);
+static void print_cpx_mag_csv();
 #endif
