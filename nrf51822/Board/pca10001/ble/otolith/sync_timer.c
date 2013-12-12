@@ -18,12 +18,12 @@ static uint16_t                  m_remaining_minutes;
 static void sync_timeout_handler(void * p_context)
 {
   mlog_str("sync_timout_handler\r\n");
-  if(get_measurement_count() > 5) {
+  if(get_measurement_count() > 1) {
     sync_steps();
   } else {
     mlog_println("Step Nodes ", get_measurement_count());
   }
-	 if(pls_get_measurement_count() > 5) {
+	 if(pls_get_measurement_count() > 1) {
     time_busy();
     sync_hearts();
     not_time_busy();
