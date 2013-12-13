@@ -108,21 +108,25 @@ float inline ac_dc_ratio(so2_d_type* dc, so2_d_type* ac) {
 }
 
 
-#define THRESHHOLD  (7 / 8) 
+#define THRESHOLD  (7.0 / 8.0)
 
-static int diff1 = -1;
-static int diff2 = -1;
-static int temp_diff = -1;
+// state variables
+static bool found_diff0 = 0;
+static bool found_diff1 = 0;
 
+static int diff0 = 0;
+static int diff1 = 0;
+static int temp_diff = 0;
+
+static int lmin0 = -1;
+static int lmax0 = -1;
 static int lmin1 = -1;
 static int lmax1 = -1;
-static int lmin2 = -1;
-static int lmax2 = -1;
 
+static so2_d_type min0;
+static so2_d_type max0;
 static so2_d_type min1;
 static so2_d_type max1;
-static so2_d_type min2;
-static so2_d_type max2;
 
 typedef __fp16 so2_d_type;
 typedef struct  {
@@ -130,61 +134,172 @@ so2_d_type lmin0;
 so2_d_type lmax0;
 so2_d_type lmin1;
 so2_d_type lmax1;
-int index;  
+int index;
 } beat_struct;
 
-void set_min_and_max(so2_d_type* ac, int samp_index) {
- if(lmin1 < 0 ||  (*ac) < min1 ) {   // if lmin not set or new value greater, set it
-    min1 = *ac;
-    lmin1 = samp_index;
-  } else if (lmin1 > 0 && lmax1 < 0 ||  (*ac) > max1) { // if min1 set && lmax1 not set or new value grater set it
-    max1 = *ac;
-    lmax1 = samp_index;
-  } else if(lmin1 > 0 && lmax1 > 0) { // if First diff already found
-     if(lmin2 < 0 ||  (*ac) < min2 ) {   // if lmin2 not set or new value greater, set it
-        min2 = *ac;
-        lmin2 = samp_index;
-      } else if (lmin2 > 0 && lmax2 < 0 ||  (*ac) > max2) { // if min2 set && lmax2 not set or new value grater set it
-        max2 = *ac;
-        lmax2 = samp_index;
-      }
+// TODO:
+// Set max and min values
+// Set MAX_THRESHOLD, and MIN_THRESHOLD
+
+bool is_index_set(int* index) {
+  return ((*index) >= 0);
+}
+
+bool is_diff_found(int* diff) {
+  return temp_diff < (THRESHOLD * (*diff));
+}
+
+// if min_index is not set or new value less than current_min, return true
+bool should_set_min(int* min_index, so2_d_type* current_min, so2_d_type* ac) {
+  return ((!is_index_set(min_index)) || (*ac) < (*current_min));
+}
+
+// if min_index is set && max_index is not set or new value greater, return true
+bool should_set_max(int* max_index, int* min_index, so2_d_type* current_max, so2_d_type* ac) {
+  return (is_index_set(min_index) && (!is_index_set(max_index)) || (*ac) > (*current_max));
+}
+
+
+void set_min_and_max(int* max_index, int* min_index, int* current_max, int* current_min, so2_d_type* ac, int samp_index) {
+  if(should_set_min(min_index, current_min, ac)) {
+    // Set min
+    *current_min = *ac;
+    *min_index = samp_index;
+
+    // reset max
+    *current_max = 0;
+    *max_index = -1;
+  }
+  else if(should_set_max(max_index, min_index, current_max, ac)) {
+    // Set max
+    *current_max = *ac;
+    *max_index = samp_index;
   }
 }
+
+void check_min_and_max(so2_d_type* ac, int samp_index) {
+  if(!found_diff0) {
+    set_min_and_max(&lmax0, &lmin0, &max0, &min0, ac, samp_index);
+  }
+  else {
+    set_min_and_max(&lmax1, &lmin1, &max1, &min1, ac, samp_index);
+  }
+}
+
+void set_temp_diff(so2_d_type* ac) {
+  if (found_diff0) {
+    // if first peak set and second peak set
+    temp_diff = *ac - min1; // update temp diff with min 1
+  }
+  else {
+    // if diff1 is not set update with min 0
+    temp_diff = *ac - min0; // update temp diff with min 0
+  }
+}
+
+// if diff is greater update appropriate diff1 or diff2 
+// always update temp diff if min is set
 void set_diff(so2_d_type* ac) {
-  if(lmin2 < 0 && lmin1 > 0) {  // if 2nd peak not set and first peak set
-      temp_diff = *ac - min1; // update temp diff with min 1
-  } else if (lmin2 > 0 && lmin1 > 0) { // if first peak set and second peak set
-    temp_diff = *ac - min2; // update temp diff with min 2
+  set_temp_diff(ac);
+
+  if((!found_diff0) && temp_diff > diff0) {
+    // diff0 is not set and temp diff higher, set it
+    diff0 = temp_diff;
   }
-  if((diff1 < 0 || temp_diff > diff1)) { // diff 0 not set or temp diff higher set it
+  else if (found_diff0 && temp_diff > diff1) {
+    // diff0 is set and temp diff higher, set it
     diff1 = temp_diff;
-  } else if ((diff1 > 0 && (diff2 < 0 || temp_diff > diff2))) { // if diff 0 set and diff2 not set or lower reset it
-    diff2 = temp_diff;
   }
 }
-// not exactely sure what to do here
+
+void set_diff_state() {
+  if(!found_diff0) {
+    found_diff0 = is_diff_found(&diff0) && compare_peaks();
+  }
+  else {
+    found_diff1 = is_diff_found(&diff1) && compare_peaks();
+  }
+}
+
+bool compare_peak_threshold(int* big_diff, int* little_diff) {
+  // need to compare the peaks with a threshold + and - the original peak
+  int min_threshold_diff = MIN_THRESHOLD * big_diff;
+  int max_threshold_diff = MAX_THRESHOLD * big_diff;
+
+  if(little_diff >= min_threshold_diff && little_diff <= max_threshold_diff) {
+    return true;
+  }
+
+  return false;
+}
+
+void shift_diff1() {
+  diff0 = diff1;
+  min0 = min1;
+  max0 = max1;
+  lmin0 = lmin1;
+  lmax0 = lmax1;
+
+  diff1 = 0;
+  min1 = 0;
+  max1 = 0;
+  lmin1 = -1;
+  lmax1 = -1;
+}
+
+bool compare_peaks() {
+  if(diff0 > diff1) {
+    return compare_peak_threshold(&diff0, &diff1);
+  }
+
+  if(!compare_peak_threshold(&diff1, &diff0)) {
+    // diff0 is too small, set diff1 to diff0
+    shift_peak();
+    return false;
+  }
+
+  return true;
+}
+
 bool compare_diff() {
-  if(lmin1 > 0 && lmin2 > 0 && temp_diff < THRESHHOLD * diff2) {
-    /* WE HAVE FOUND TWO PEAKS */
+  set_diff_state();
+
+  if(found_diff0 && found_diff1) {
+    //    we found two peaks
+    //    if the peaks are of the same magnitude then
+    //      store the values
+    //      reset state
     mlog_str("Found Two Peaks");
     return true;
   }
+
   return false;
 }
-void reset_lmin_lmax () {
+void reset_state () {
   lmin1 = -1;
   lmax1 = -1;
   lmin2 = -1;
   lmax2 = -1;
+
+  found_diff0 = 0;
+  found_diff1 = 0;
+
+  diff0 = -1;
+  diff1 = -1;
+
+  min0 = 0;
+  min1 = 0;
+  max0 = 0;
+  max1 = 0;
 }
 
 void diff_add_sample(so2_d_type* dc, so2_d_type* ac, int samp_index) {
-  set_min_and_max(ac, samp_index);
-  set_diff(ac); // if diff is greater update appropriate diff1 or diff2 always update temp diff is min is set
-  if(compare_diff()) {  // if temp diff 
-    /* do whatever we are going to do wiht the two peaks */
+  check_min_and_max(ac, samp_index);
+  set_diff(ac);
+
+  if(compare_diff()) {
+    /* do whatever we are going to do with the two peaks */
     reset_lmin_lmax();
   }
 }
-
 
