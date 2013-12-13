@@ -17,21 +17,21 @@
 #define MIN_BTWN_BEAT  ((int)(((float)SAMPLE_FREQ) / (220.0f / 60.0f)))  // min seperation between heart beats
 
 
-typedef struct {
-	uint32_t status;
-	uint32_t start_time;
-	uint32_t end_time;
-	uint16_t bpm;
-	uint16_t so2_sat;
-} heart_data;
+//typedef struct {
+//	uint32_t status;
+//	uint32_t start_time;
+//	uint32_t end_time;
+//	uint16_t bpm;
+//	uint16_t so2_sat;
+//} heart_data;
+//
+//struct _heart_node {
+//  heart_data data;
+//  struct _heart_node * next;
+//}; 
 
-struct _heart_node {
-  heart_data data;
-  struct _heart_node * next;
-}; 
 
-
-typedef struct _heart_node heart_node;
+//typedef struct _heart_node heart_node;
 
 
 uint8_t add_pulse_sample(uint8_t ac, uint8_t v_ref);

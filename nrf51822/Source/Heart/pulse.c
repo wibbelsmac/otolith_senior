@@ -147,7 +147,7 @@ void pls_build_sync_node (heart_data * status) {
   status->so2_sat = 0;
 }
 
-static void pls_initialize(void) {
+static void diff_initialize(void) {
   head = NULL;
   node_count = 0;
 }
@@ -175,18 +175,10 @@ static void print_cpx_mag_csv() {
   mlog_str("\r\n");
 }
 
-void pulse_init(ble_oto_t * _otolith_service) {
+void diff_pulse_init(ble_oto_t * _otolith_service) {
   otolith_service = _otolith_service;
-	mwte_fft_fft_state_init(&state);
-	mwte_fft_alloc(SAMPLE_SIZE, &state);
-  s02_init(NUM_BEATS, SAMPLE_FREQ, BEAT_SAMPLE_LEN, MIN_BTWN_BEAT);
-	mlog_str("Malloc\r\n");
-  if(state.data) {
-    mlog_str("malloc returned NULL\r\n");
-  }
-	mlog_str("finished pulse_init Malloc\r\n");
-  pls_initialize();
-	mlog_str("finished pls_initialize\r\n");
+  diff_initialize();
+	mlog_str("finished diff_initialize\r\n");
 	dac_init();
 	mlog_str("finished dac_init\r\n");
 	adc_config();
