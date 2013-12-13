@@ -1,5 +1,5 @@
 #include "moving_avg.h"
-
+#include <stdlib.h>
 static int sample_size;
 
 void moving_avg_init(samples_struct* s, int size) {
@@ -12,6 +12,7 @@ void moving_avg_init(samples_struct* s, int size) {
 
 void samples_init(uint16_t *_samples) {
 	_samples = (uint16_t*) malloc(sizeof(uint16_t) * sample_size);
+	//mlog_println("samples: ", _samples);
   memset(_samples, 0, sizeof(uint16_t) * sample_size);
 }
 

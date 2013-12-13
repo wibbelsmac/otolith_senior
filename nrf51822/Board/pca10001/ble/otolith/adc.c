@@ -25,14 +25,14 @@ void ADC_IRQHandler(void) {
 	if(read_adc == 3) {
 		add_moving_average_sample(&moving_avg, result);
 		write_voltage(moving_avg.avg + v_plus);
-		read_adc = 4;	
+		read_adc = 4;
 	}
 	else if(read_adc == 4) {
 		read_adc = 3;
 		so2_d_type dc = moving_avg.avg * GAIN;
 		so2_d_type ac = result;
 		diff_add_sample(&dc, &ac);
-		
+
     if(result < v_min) {
 			v_plus++;
 		}

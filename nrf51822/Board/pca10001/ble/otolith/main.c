@@ -159,7 +159,6 @@ void sync_steps(void) {
   }
 } 
 
-
 void sync_hearts(void) {
   if (connected) {
     ble_oto_send_heart_info(&m_oto);

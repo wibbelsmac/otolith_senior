@@ -43,5 +43,7 @@ uint32_t sync_timer_init(user_alarm_evt_handler_t evt_handler)
      
     // Start timer
     app_timer_start(sync_timer_id, 1000*150, NULL);
+	
+		return 0;
 
 }

@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <string.h>
 
+#define SS 256
+
 typedef struct {
   uint32_t avg;
   uint32_t sum;

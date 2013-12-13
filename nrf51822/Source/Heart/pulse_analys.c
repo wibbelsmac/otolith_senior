@@ -1,4 +1,7 @@
 #include "pulse_analys.h"
+
+#include "adc.h"
+#include "dac_driver.h"
 #include "clock.h"
 #include "util.h"
 #include <stdio.h>
