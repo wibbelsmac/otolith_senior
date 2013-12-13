@@ -30,7 +30,7 @@ float get_avg_s02_AC_DC_ratio (void);
 static inline float s02_abs(float num);
 static inline float ac_dc_ratio_struct(so2_struct* s02_sample);
 static inline float ac_dc_ratio(so2_d_type* dc, so2_d_type* ac);
-
+void diff_add_sample(so2_d_type* dc, so2_d_type* ac);
 
 int compare_peaks(void);
 #endif
