@@ -29,7 +29,7 @@
 #include "nrf51_bitfields.h"
 #include "nrf_gpio.h"
 #include "nrf_gpiote.h"
-#include "pulse.h"
+#include "pulse_analys.h"
 #include "step_counter.h"
 #include "user_alarm.h"
 #include "util.h"
@@ -595,7 +595,7 @@ int main(void)
 
   step_counter_init(&m_oto);
   mlog_str("FINISHED step_counter\r\n");
-  pulse_init(&m_oto);
+  diff_pulse_init(&m_oto);
   mlog_println("m_oto: ", (m_oto.conn_handle));
   
   mlog_str("Finished Config...\r\n");

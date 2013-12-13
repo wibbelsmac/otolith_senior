@@ -185,7 +185,7 @@ void diff_pulse_init(ble_oto_t * _otolith_service) {
 	mlog_str("finished adc_config\r\n");
 }
 
-heart_data build_heart_data(uint16_t bpm, uint16_t so2_sat) {
+heart_data build_heart_data(float bpm, uint16_t so2_sat) {
   heart_data hd_struct;
   hd_struct.status = 1<<30;
   hd_struct.start_time = get_total_minutes_past();

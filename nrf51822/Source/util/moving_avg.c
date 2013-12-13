@@ -1,9 +1,12 @@
 #include "moving_avg.h"
 
-void moving_avg_init(samples_struct* s) {
+static int sample_size;
+
+void moving_avg_init(samples_struct* s, int size) {
   s->avg = 0;
   s->sum = 0;
   s->oldest_sample = 0;
+	sample_size = size;
   samples_init(s->samples);
 }
 
@@ -16,9 +19,9 @@ void add_moving_average_sample(samples_struct* s, uint16_t value) {
   uint16_t old_value = s->samples[s->oldest_sample];
   s->samples[s->oldest_sample] = value;
   s->sum = (s->sum - old_value) + value;
-  s->avg = s->sum / SAMPLE_SIZE;
+  s->avg = s->sum / sample_size;
 
-  if(s->oldest_sample < SAMPLE_SIZE - 1) {
+  if(s->oldest_sample < sample_size - 1) {
     s->oldest_sample++;
   }
   else {

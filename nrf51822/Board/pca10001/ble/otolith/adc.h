@@ -9,10 +9,12 @@
 #define PPI_CHAN1_TO_CONT_READ 1
 #define ADC_IRQ_PRI APP_IRQ_PRIORITY_HIGH
 #define ADC_IN_PIN_NUMBER (1)
+#define GAIN 32
+#define MOVING_AVG_SAMPLE_SIZE 256
+
 void adc_config(void);
 static void ppi_init(void);
 static void timer2_init(void);
 void set_adc_pin_select(uint8_t adc_in);
-void time_busy(void);
-void not_time_busy(void);
+
 #endif

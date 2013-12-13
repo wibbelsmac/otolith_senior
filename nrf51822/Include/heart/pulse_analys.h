@@ -1,6 +1,10 @@
 #ifndef PULSE_ANALYS_H
 #define PuLSE_ANALYS_H
 
+#include "ble_oto.h"
+#include <stdlib.h>
+
+typedef float so2_d_type;
 typedef struct {
 	uint32_t status;
 	uint32_t start_time;

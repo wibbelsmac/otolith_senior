@@ -107,7 +107,7 @@ void adc_config(void) {
 	
 	NRF_TIMER2->TASKS_START = 1;
 
-  moving_avg_init(&moving_avg);
+  moving_avg_init(&moving_avg, MOVING_AVG_SAMPLE_SIZE);
 }
 
 static void ppi_init(void) {
@@ -137,11 +137,3 @@ static void timer2_init(void)
     // to wake up the CPU on Timer interrupts.
 }
 
-void time_busy(void) {
-	NRF_TIMER2->TASKS_STOP = 1;
-}
-
-void not_time_busy(void) {
-	reset_measurement_count();
-	NRF_TIMER2->TASKS_START = 1;
-}

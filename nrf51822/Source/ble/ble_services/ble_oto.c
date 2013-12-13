@@ -6,7 +6,7 @@
 #include "app_util.h"
 #include "main.h" // for debug logging
 #include "step_counter.h"
-#include "pulse.h"
+#include "pulse_analys.h"
 #include "util.h"
 
 /**@brief Connect event handler.
@@ -219,7 +219,7 @@ uint32_t ble_oto_send_heart_info(ble_oto_t * p_oto)
 		hvx_len = sizeof(heart_data);
 		uint8_t buf[hvx_len];
 		heart_data payload;
-		pls_build_sync_node(&payload);
+		diff_build_sync_node(&payload);
 		
 		do {
 			memcpy(buf, &payload, sizeof(heart_data));
@@ -239,7 +239,7 @@ uint32_t ble_oto_send_heart_info(ble_oto_t * p_oto)
 			hvx_params.p_data   = buf;
 			
 			err_code = sd_ble_gatts_hvx(p_oto->conn_handle, &hvx_params);
-		} while(!pls_pop_measurement(&payload));
+		} while(!diff_pop_measurement(&payload));
 	}
 	else
 	{

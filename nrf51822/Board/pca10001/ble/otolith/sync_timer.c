@@ -5,7 +5,7 @@
 #include "util.h"
 #include "main.h"
 #include "step_counter.h"
-#include "pulse.h"
+#include "pulse_analys.h"
 #include "adc.h"
 
 #define MINUTE_IN_TICKS          APP_TIMER_TICKS(60*1000, 0)
@@ -23,12 +23,10 @@ static void sync_timeout_handler(void * p_context)
   } else {
     mlog_println("Step Nodes ", get_measurement_count());
   }
-	 if(pls_get_measurement_count() > 1) {
-    time_busy();
+	 if(diff_get_measurement_count() > 1) {
     sync_hearts();
-    not_time_busy();
   } else {
-    mlog_println("Heart Nodes ", pls_get_measurement_count());
+    mlog_println("Heart Nodes ", diff_get_measurement_count());
   }
 }
 
