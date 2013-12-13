@@ -16,6 +16,10 @@ static int num_so2_maxes;
 static int min_btwn;
 static int so2_arr_index;
 
+
+#define MIN_THRESHOLD (1.0f / 10.0f)
+#define MAX_THRESHOLD (1.0f / 10.0f)
+
 void s02_init(int num_beats, int sample_freq, int beat_sample_len, int min_btwn_beat);
 void s02_reset(void);
 // returns true if num_so2_maxes < so2_arr_len
@@ -26,4 +30,7 @@ float get_avg_s02_AC_DC_ratio (void);
 static inline float s02_abs(float num);
 static inline float ac_dc_ratio_struct(so2_struct* s02_sample);
 static inline float ac_dc_ratio(so2_d_type* dc, so2_d_type* ac);
+
+
+int compare_peaks(void);
 #endif

@@ -108,8 +108,9 @@ float inline ac_dc_ratio(so2_d_type* dc, so2_d_type* ac) {
 }
 
 
-#define THRESHOLD  (7.0 / 8.0)
-
+#define THRESHOLD  (7.0f / 8.0)
+#define MIN_THRESHOLD (1.0f / 10.0f)
+#define MAX_THRESHOLD (1.0f / 10.0f)
 // state variables
 static bool found_diff0 = 0;
 static bool found_diff1 = 0;
@@ -160,7 +161,7 @@ bool should_set_max(int* max_index, int* min_index, so2_d_type* current_max, so2
 }
 
 
-void set_min_and_max(int* max_index, int* min_index, int* current_max, int* current_min, so2_d_type* ac, int samp_index) {
+void set_min_and_max(int* max_index, int* min_index, so2_d_type* current_max, so2_d_type* current_min, so2_d_type* ac, int samp_index) {
   if(should_set_min(min_index, current_min, ac)) {
     // Set min
     *current_min = *ac;
@@ -223,10 +224,10 @@ void set_diff_state() {
 
 bool compare_peak_threshold(int* big_diff, int* little_diff) {
   // need to compare the peaks with a threshold + and - the original peak
-  int min_threshold_diff = MIN_THRESHOLD * big_diff;
-  int max_threshold_diff = MAX_THRESHOLD * big_diff;
+  so2_d_type min_threshold_diff = MIN_THRESHOLD * (*big_diff);
+  so2_d_type max_threshold_diff = MAX_THRESHOLD * (*big_diff);
 
-  if(little_diff >= min_threshold_diff && little_diff <= max_threshold_diff) {
+  if((*little_diff) >= min_threshold_diff && (*little_diff) <= max_threshold_diff) {
     return true;
   }
 
@@ -247,14 +248,14 @@ void shift_diff1() {
   lmax1 = -1;
 }
 
-bool compare_peaks() {
+int compare_peaks() {
   if(diff0 > diff1) {
     return compare_peak_threshold(&diff0, &diff1);
   }
 
   if(!compare_peak_threshold(&diff1, &diff0)) {
     // diff0 is too small, set diff1 to diff0
-    shift_peak();
+    shift_diff1();
     return false;
   }
 
@@ -276,10 +277,10 @@ bool compare_diff() {
   return false;
 }
 void reset_state () {
+  lmin0 = -1;
+  lmax0 = -1;
   lmin1 = -1;
   lmax1 = -1;
-  lmin2 = -1;
-  lmax2 = -1;
 
   found_diff0 = 0;
   found_diff1 = 0;
@@ -299,7 +300,7 @@ void diff_add_sample(so2_d_type* dc, so2_d_type* ac, int samp_index) {
 
   if(compare_diff()) {
     /* do whatever we are going to do with the two peaks */
-    reset_lmin_lmax();
+    reset_state();
   }
 }
 
