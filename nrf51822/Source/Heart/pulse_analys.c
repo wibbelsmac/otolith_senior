@@ -133,6 +133,9 @@ static so2_d_type min1;
 static so2_d_type max1;
 
 static int sample_index = 0;
+// linked list
+static heart_node* head;
+static ble_oto_t*  otolith_service;
 
 typedef __fp16 so2_d_type;
 typedef struct  {
@@ -142,10 +145,6 @@ so2_d_type lmin1;
 so2_d_type lmax1;
 int index;
 } beat_struct;
-
-// TODO:
-// Set max and min values
-// Set MAX_THRESHOLD, and MIN_THRESHOLD
 
 bool is_index_set(int* index) {
   return ((*index) >= 0);
@@ -326,6 +325,53 @@ void reset_state () {
   max1 = 0;
 }
 
+
+uint16_t get_bpm() {
+  return 1;
+}
+
+int diff_pop_measurement (heart_data * data) {
+  if(head != NULL) {
+    heart_node *temp = head->next;
+    *data = head->data;
+    free(head);
+    head = temp;
+    node_count--;
+    return 0;
+  }
+  return 1;
+}
+
+void diff_push_measurement(heart_data data, bool sync_heart_info) {
+  heart_node * temp = (heart_node*) malloc(sizeof(heart_node));
+  if(temp == NULL) {
+    mlog_println("ERROR heart_node malloc returned NULL node_count: ", pls_get_measurement_count());
+		return;
+  }
+  temp->data = data;
+  temp->next = head;
+  head = temp;
+  node_count++;
+
+  //if(sync_heart_info) {
+    //ble_oto_send_heart_info(otolith_service);
+  //}
+}
+
+void diff_build_sync_node (heart_data * status) {
+  status->status = 1 << 31;
+  status->start_time = get_total_minutes_past();
+  status->end_time = get_total_minutes_past();
+  status->bpm = 0;
+  status->so2_sat = 0;
+}
+
+static void diff_initialize(void) {
+  head = NULL;
+  node_count = 0;
+}
+
+
 void diff_add_sample(so2_d_type* dc, so2_d_type* ac) {
   check_min_and_max(ac, sample_index);
   set_diff(ac);
@@ -333,6 +379,20 @@ void diff_add_sample(so2_d_type* dc, so2_d_type* ac) {
     /* do whatever we are going to do with the two peaks */
     shift_diff1();
   }
+
   sample_index++;
+}
+
+
+void pulse_init(ble_oto_t * _otolith_service) {
+  otolith_service = _otolith_service;
+  s02_init(NUM_BEATS, SAMPLE_FREQ, BEAT_SAMPLE_LEN, MIN_BTWN_BEAT);
+
+  diff_initialize();
+	mlog_str("finished diff_initialize\r\n");
+	dac_init();
+	mlog_str("finished dac_init\r\n");
+	adc_config();
+	mlog_str("finished adc_config\r\n");
 }
 

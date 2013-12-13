@@ -8,7 +8,8 @@ void moving_avg_init(samples_struct* s) {
 }
 
 void samples_init(uint16_t *_samples) {
-  memset(_samples, 0, sizeof(_samples[0]) * SAMPLE_SIZE);
+	_samples = (uint16_t*) malloc(sizeof(uint16_t) * sample_size);
+  memset(_samples, 0, sizeof(uint16_t) * sample_size);
 }
 
 void add_moving_average_sample(samples_struct* s, uint16_t value) {

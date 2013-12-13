@@ -17,7 +17,7 @@
 
 
 static      int   node_count;
-static heart_node *           head;                      
+static heart_node *           head;
 static fft_state state;
 // otolith service struct
 static ble_oto_t *            otolith_service;
