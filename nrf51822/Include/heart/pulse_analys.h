@@ -20,7 +20,7 @@ struct _heart_node {
 
 typedef struct _heart_node heart_node;
 
-heart_data build_heart_data(float bpm, uint16_t so2_sat);
+heart_data build_heart_data(uint16_t bpm, uint16_t so2_sat);
 void check_min_and_max(so2_d_type* ac, int samp_index);
 bool compare_diff(void);
 int compare_peaks(void);
@@ -43,5 +43,5 @@ void set_temp_diff(so2_d_type* ac);
 void shift_diff1(void);
 bool should_set_max(int* max_index, int* min_index, so2_d_type* current_max, so2_d_type* ac);
 bool should_set_min(int* min_index, so2_d_type* current_min, so2_d_type* ac);
-
+float get_bpm (void) ;
 #endif

@@ -4,6 +4,7 @@
 #include "dac_driver.h"
 #include "clock.h"
 #include "util.h"
+#include "moving_avg.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -12,7 +13,7 @@
 #define MAX_THRESHOLD 1.25f
 #define MAX_ADC_READ 0 //9000
 #define DIFF_MIN_AMPL_DIFF 20 // 78mV 3.3V @ 8bit res 
-
+#define NUM_DIFF_SAMPLES 10
 // state variables
 static bool found_diff0 = 0;
 static bool found_diff1 = 0;
@@ -36,9 +37,10 @@ static int node_count;
 // linked list
 static heart_node* head;
 static ble_oto_t*  otolith_service;
+static samples_struct s02_moving_avg;
+static samples_struct diff_moving_avg;
 
-
-heart_data build_heart_data(float bpm, uint16_t so2_sat) {
+heart_data build_heart_data(uint16_t bpm, uint16_t so2_sat) {
   heart_data hd_struct;
   hd_struct.status = 1<<30;
   hd_struct.start_time = get_total_minutes_past();
@@ -113,12 +115,23 @@ bool compare_peak_threshold(so2_d_type* big_diff, so2_d_type* little_diff) {
 void diff_add_sample(so2_d_type* dc, so2_d_type* ac) {
   check_min_and_max(ac, sample_index);
   set_diff(ac);
+  // mlog_str("IN diff_add_sample\r\n");
+  //mlog_println("State: ", found_diff1<<1 | found_diff0<<1);
   if(compare_diff()) {
     /* do whatever we are going to do with the two peaks */
-    diff_push_node();
-    shift_diff1();
+    float temp_bpm = get_bpm();
+    if(temp_bpm > 35 && temp_bpm < 200) {
+      add_moving_average_sample(&diff_moving_avg, temp_bpm);
+      add_moving_average_sample(&s02_moving_avg, (uint16_t)(1000.0f - (((*ac) * 1000.0f) / (*dc))));
+      if(diff_get_measurement_count() < 50) {
+        diff_push_node();
+      }
+      mlog_println("BPM_AVG: ", diff_moving_avg.avg);
+      mlog_println("s02_AVG: ", s02_moving_avg.avg);
+    }
+    shift_diff1();  
   }
-
+  
   sample_index++;
 }
 
@@ -137,6 +150,8 @@ int diff_get_measurement_count(void) {
 static void diff_initialize(void) {
   head = NULL;
   node_count = 0;
+moving_avg_init(&s02_moving_avg, NUM_DIFF_SAMPLES); 
+ moving_avg_init(&diff_moving_avg, NUM_DIFF_SAMPLES); 
 }
 
 void diff_pulse_init(ble_oto_t * _otolith_service) {
@@ -151,7 +166,7 @@ void diff_pulse_init(ble_oto_t * _otolith_service) {
 
 void diff_push_node() {
   float bpm =  60.0f * 120.0f /  (float)(lmax1 - lmax0);
-  heart_data heart = build_heart_data(bpm, 0);
+  heart_data heart = build_heart_data(diff_moving_avg.avg, s02_moving_avg.avg);
   diff_push_measurement(heart);
 }
 
@@ -177,6 +192,10 @@ void diff_push_measurement(heart_data data) {
   temp->next = head;
   head = temp;
   node_count++;
+}
+
+float get_bpm (void) {
+  return  60.0f * 120.0f /  (float)(lmax1 - lmax0);
 }
 
 bool is_diff_found(so2_d_type* diff) {

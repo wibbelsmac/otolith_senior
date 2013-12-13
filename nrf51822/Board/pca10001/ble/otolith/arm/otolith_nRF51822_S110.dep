@@ -65,7 +65,7 @@ I (..\main.h)(0x52A640BF)
 I (..\motor.h)(0x52754A1B)
 I (..\..\..\..\..\Include\nordic_common.h)(0x52754A1B)
 I (..\..\..\..\..\Include\nrf_gpiote.h)(0x52754A1B)
-I (..\..\..\..\..\Include\heart\pulse_analys.h)(0x52AAEC70)
+I (..\..\..\..\..\Include\heart\pulse_analys.h)(0x52AB0CA4)
 I (..\..\..\..\..\Include\step_counter.h)(0x52A640BF)
 I (..\..\..\..\..\Include\acc_driver.h)(0x52754A1B)
 I (..\user_alarm.h)(0x52754A1B)
@@ -157,9 +157,9 @@ I (..\..\..\..\..\Include\nrf_gpio.h)(0x52754A1B)
 I (..\..\..\..\..\Include\util\util.h)(0x52784897)
 I (..\..\..\..\..\Include\simple_uart.h)(0x52754A1B)
 I (..\..\..\..\..\Include\dac_driver.h)(0x52784C79)
-I (..\..\..\..\..\Include\util\moving_avg.h)(0x52AAF927)
+I (..\..\..\..\..\Include\util\moving_avg.h)(0x52AB1642)
 I (C:\Keil\ARM\ARMCC\bin\..\include\string.h)(0x50FA2630)
-I (..\..\..\..\..\Include\heart\pulse_analys.h)(0x52AAEC70)
+I (..\..\..\..\..\Include\heart\pulse_analys.h)(0x52AB0CA4)
 I (..\..\..\..\..\Include\ble\ble_services\ble_oto.h)(0x528D5A87)
 I (..\..\..\..\..\Include\ble\softdevice\ble.h)(0x52754A1B)
 I (..\..\..\..\..\Include\ble\softdevice\ble_ranges.h)(0x52754A1B)
@@ -180,10 +180,13 @@ I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
 I (..\..\..\..\..\Include\dac_driver.h)(0x52784C79)
 I (..\..\..\..\..\Include\util\util.h)(0x52784897)
 I (..\..\..\..\..\Include\simple_uart.h)(0x52754A1B)
-F (..\..\..\..\..\Source\util\moving_avg.c)(0x52AAFA31)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16-format=ieee -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\moving_avg.o" --omf_browse ".\_build\moving_avg.crf" --depend ".\_build\moving_avg.d")
-I (..\..\..\..\..\Include\util\moving_avg.h)(0x52AAF927)
+F (..\..\..\..\..\Source\util\moving_avg.c)(0x52AB1796)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16-format=ieee -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\moving_avg.o" --omf_browse ".\_build\moving_avg.crf" --depend ".\_build\moving_avg.d")
+I (..\..\..\..\..\Include\util\moving_avg.h)(0x52AB1642)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
 I (C:\Keil\ARM\ARMCC\bin\..\include\string.h)(0x50FA2630)
+I (..\..\..\..\..\Include\util\util.h)(0x52784897)
+I (..\..\..\..\..\Include\simple_uart.h)(0x52754A1B)
+I (C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h)(0x50FA2630)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdlib.h)(0x50FA2630)
 F (..\..\..\..\..\Source\util\util.c)(0x52754A1C)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16-format=ieee -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\util.o" --omf_browse ".\_build\util.crf" --depend ".\_build\util.d")
 I (..\..\..\..\..\Include\util\util.h)(0x52784897)
@@ -247,7 +250,7 @@ I (..\..\..\..\..\Include\ble\softdevice\ble_gatt.h)(0x52754A1B)
 I (..\..\..\..\..\Include\ble\softdevice\ble_gattc.h)(0x52754A1B)
 I (..\..\..\..\..\Include\ble\softdevice\ble_gatts.h)(0x52754A1B)
 I (..\..\..\..\..\Include\ble\ble_services\ble_srv_common.h)(0x52754A1B)
-I (..\..\..\..\..\Include\heart\pulse_analys.h)(0x52AAEC70)
+I (..\..\..\..\..\Include\heart\pulse_analys.h)(0x52AB0CA4)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdlib.h)(0x50FA2630)
 I (..\adc.h)(0x52AAF24D)
 F (..\..\..\..\..\Source\ble\ble_services\ble_oto.c)(0x52AAF2CF)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16-format=ieee -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\ble_oto.o" --omf_browse ".\_build\ble_oto.crf" --depend ".\_build\ble_oto.d")
@@ -279,7 +282,7 @@ I (..\..\..\..\..\Include\nordic_common.h)(0x52754A1B)
 I (..\main.h)(0x52A640BF)
 I (..\..\..\..\..\Include\step_counter.h)(0x52A640BF)
 I (..\..\..\..\..\Include\acc_driver.h)(0x52754A1B)
-I (..\..\..\..\..\Include\heart\pulse_analys.h)(0x52AAEC70)
+I (..\..\..\..\..\Include\heart\pulse_analys.h)(0x52AB0CA4)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdlib.h)(0x50FA2630)
 I (..\..\..\..\..\Include\util\util.h)(0x52784897)
 I (..\..\..\..\..\Include\simple_uart.h)(0x52754A1B)
@@ -642,7 +645,7 @@ I (..\..\..\..\..\Include\nrf51_deprecated.h)(0x52754A1B)
 I (..\..\..\..\..\Include\nrf_gpio.h)(0x52754A1B)
 I (..\..\..\..\..\Include\common.h)(0x52754A1B)
 I (..\..\..\..\..\Include\acc_driver.h)(0x52754A1B)
-F (..\..\..\..\..\Source\step_counter\step_counter.c)(0x52A640BF)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16-format=ieee -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\step_counter.o" --omf_browse ".\_build\step_counter.crf" --depend ".\_build\step_counter.d")
+F (..\..\..\..\..\Source\step_counter\step_counter.c)(0x52AB170A)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16-format=ieee -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\step_counter.o" --omf_browse ".\_build\step_counter.crf" --depend ".\_build\step_counter.d")
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdlib.h)(0x50FA2630)
 I (..\..\..\..\..\Include\util\clock.h)(0x52A640BF)
@@ -683,8 +686,8 @@ I (C:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x50FA2630)
 I (..\..\..\..\..\Include\app_common\app_scheduler.h)(0x52754A1B)
 I (..\..\..\..\..\Include\util\util.h)(0x52784897)
 I (..\main.h)(0x52A640BF)
-F (..\..\..\..\..\Source\Heart\pulse_analys.c)(0x52AAF696)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16-format=ieee -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\pulse_analys.o" --omf_browse ".\_build\pulse_analys.crf" --depend ".\_build\pulse_analys.d")
-I (..\..\..\..\..\Include\heart\pulse_analys.h)(0x52AAEC70)
+F (..\..\..\..\..\Source\Heart\pulse_analys.c)(0x52AB16CC)(-c --cpu Cortex-M0 --li -g -O3 -Otime --apcs=interwork --enum_is_int -I.. -I..\..\..\..\..\Include -I..\..\..\..\..\Include\app_common -I..\..\..\..\..\Include\ble -I..\..\..\..\..\Include\ble\ble_services -I..\..\..\..\..\Include\ble\softdevice -I..\..\..\..\..\Include\util -I..\..\..\..\..\Include\heart -I..\..\..\..\..\Include\mwte_fft --c99 --fp16-format=ieee -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Device\Nordic\nRF51822\Include -DNRF51 -DDEBUG_NRF_USER -o ".\_build\pulse_analys.o" --omf_browse ".\_build\pulse_analys.crf" --depend ".\_build\pulse_analys.d")
+I (..\..\..\..\..\Include\heart\pulse_analys.h)(0x52AB0CA4)
 I (..\..\..\..\..\Include\ble\ble_services\ble_oto.h)(0x528D5A87)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x50FA2630)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdbool.h)(0x50FA2630)
@@ -717,4 +720,6 @@ I (..\..\..\..\..\Include\nrf51_bitfields.h)(0x52754A1B)
 I (..\..\..\..\..\Include\nrf51_deprecated.h)(0x52754A1B)
 I (..\..\..\..\..\Include\util\util.h)(0x52784897)
 I (..\..\..\..\..\Include\simple_uart.h)(0x52754A1B)
+I (..\..\..\..\..\Include\util\moving_avg.h)(0x52AB1642)
+I (C:\Keil\ARM\ARMCC\bin\..\include\string.h)(0x50FA2630)
 I (C:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x50FA2630)

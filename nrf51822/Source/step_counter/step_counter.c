@@ -308,7 +308,9 @@ void store_stepCount(int steps) {
     current_data.end_time = get_total_minutes_past();
     walking = 0;
     current_data.status = 0;
-    push_measurement(current_data, true);
+    if(get_measurement_count() < 50) {
+      push_measurement(current_data, true);
+    }
   } else { // continued taking steps
     current_data.steps += steps;
   }
