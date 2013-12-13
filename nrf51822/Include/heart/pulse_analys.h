@@ -21,6 +21,7 @@ void s02_reset(void);
 // returns true if num_so2_maxes < so2_arr_len
 int s02_add_sample (so2_d_type* dc, so2_d_type* ac, int samp_index); 
 float get_s02_AC_DC_ratio (void);
+float get_bpm_estimate (void);
 float get_avg_s02_AC_DC_ratio (void);
 static inline float s02_abs(float num);
 static inline float ac_dc_ratio_struct(so2_struct* s02_sample);

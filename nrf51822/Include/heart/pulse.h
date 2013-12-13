@@ -14,7 +14,7 @@
 
 #define NUM_BEATS  12
 #define BEAT_SAMPLE_LEN  (60 * SAMPLE_SIZE_FREQ) / 40 // max length of heartbeat
-#define MIN_BTWN_BEAT  (220 * 60) / (SAMPLE_SIZE_FREQ * 2) // min seperation between heart beats
+#define MIN_BTWN_BEAT  ((int)(((float)SAMPLE_FREQ) / (220.0f / 60.0f)))  // min seperation between heart beats
 
 
 typedef struct {

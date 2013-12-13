@@ -168,15 +168,6 @@ void sync_hearts(void) {
   }
 }
 
-
-// static void sync_timeout_handler(void * p_context)
-// {
-//   mlog_str("sync_timout_handler\r\n");
-//   if(get_measurement_count() > 5) {
-//     sync_steps();
-//   }
-// }
-
 // uint32_t sync_timer_init(user_alarm_evt_handler_t evt_handler)
 // {
     
@@ -614,7 +605,7 @@ int main(void)
   ble_stack_init();
   radio_notification_init();
 
-		sync_timer_init(NULL);
+	sync_timer_init(NULL);
 
   // Initialize Bluetooth Stack parameters
   gap_params_init();

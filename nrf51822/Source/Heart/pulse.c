@@ -209,6 +209,7 @@ inline void pls_get_measurements(void) {
   mlog_println("BPM: ", bpm);
   uint16_t so2 = get_avg_s02_AC_DC_ratio();
   mlog_println("so2: ", so2);
+  mlog_println("BPM so2_estimate: ", (int)get_bpm_estimate());
 //print_cpx_mag_csv();
   pls_push_measurement(build_heart_data(bpm, so2), true);
   s02_reset();

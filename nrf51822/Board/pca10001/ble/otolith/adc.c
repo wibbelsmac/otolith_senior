@@ -15,7 +15,7 @@ static uint8_t v_max = 226;
 static uint8_t v_min = 30;
 static uint8_t read_adc = 3; 
 static bool on = 0;
-
+static int count;
 void ADC_IRQHandler(void) {
 
 	NVIC_ClearPendingIRQ(ADC_IRQn);
@@ -33,19 +33,21 @@ void ADC_IRQHandler(void) {
 		read_adc = 3;
 		so2_d_type dc = moving_avg.avg * GAIN;
 		so2_d_type ac = result;
-		s02_add_sample(&dc, &ac, 0);
+		s02_add_sample(&dc, &ac, count);
+		count++;
 		if(add_pulse_sample(result, moving_avg.avg)) {
+			count = 0;
 			time_busy();
 		 	pls_get_measurements();
 		 	not_time_busy();
 		}		
 		if(result < v_min) {
 			v_plus++;
-			mlog_println("VPLUS: ", v_plus);
+		//	mlog_println("VPLUS: ", v_plus);
 		}
 		else if(result > v_max) {
 			v_plus--;
-			mlog_println("VPLUS: ", v_plus);
+		//	mlog_println("VPLUS: ", v_plus);
 		}
 	}
 	
@@ -86,6 +88,7 @@ void set_adc_pin_select(uint8_t adc_in) {
 }
 
 void adc_config(void) {
+	count = 0;
 	NVIC_DisableIRQ(ADC_IRQn);
   // ADC must be off to configure
   if(NRF_ADC->BUSY) {
